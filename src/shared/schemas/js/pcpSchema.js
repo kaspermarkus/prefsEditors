@@ -32,6 +32,22 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.mergePolicy", {
+        mergePolicy: {
+            auxiliarySchema: {
+                groups: {
+                    visualAlternatives: {
+                        panels: {
+                            always: fluid.prefs.compositePanel.arrayMergePolicy
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
     // visualAlternatives group:
 
     fluid.defaults("gpii.pcp.auxiliarySchema.visualAlternativesGroup", {

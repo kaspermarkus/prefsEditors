@@ -9,7 +9,7 @@
     });
 
     gpii.pcp.renderPCP = function (whatToRender) {
-        var compulsory = ["gpii.pcp.progressiveEnhancement", "gpii.pcp.auxiliarySchema.common"];
+        var compulsory = ["gpii.pcp.auxiliarySchema.mergePolicy", "gpii.pcp.progressiveEnhancement", "gpii.pcp.auxiliarySchema.common"];
 
         var components = fluid.transform(whatToRender, function (adjuster) {
             return "gpii.pcp.auxiliarySchema." + adjuster;
