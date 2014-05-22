@@ -93,6 +93,8 @@
     <script type="text/javascript" src="../../src/pcp/js/visualAlternativesCollectivePanel.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/volumeCollectivePanel.js"></script>
 
+    <script type="text/javascript" src="../../src/shared/adjusters/js/starter.js"></script>
+
     <!-- The demo script -->
     <script type="text/javascript" src="demo.js"></script>
 
@@ -104,15 +106,8 @@
     </div>
 
     <script>
-        fluid.prefs.create("#gpiic-pcp", {
-            build: {
-                gradeNames: ["gpii.pcp.progressiveEnhancement", "gpii.pcp.auxiliarySchema.common"],
-                primarySchema: gpii.primarySchema
-            },
-            prefsEditor: {
-                gradeNames: ["demo.pcp"]
-            }
-        });
+        pcp = starter();
+        pcp.renderAdjusters(["visualAlternativesGroup", "speakText"]);
     </script>
 
 </body>
