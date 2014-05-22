@@ -95,17 +95,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "message": "%prefix/message.json"
                 }
             }
-        },
-        mergePolicy: {
-            auxiliarySchema: {
-                groups: {
-                    visualAlternatives: {
-                        panels: {
-                            always: fluid.prefs.compositePanel.arrayMergePolicy
-                        }
-                    }
-                }
-            }
         }
     });
 
