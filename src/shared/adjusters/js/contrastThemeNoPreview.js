@@ -26,6 +26,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "model.value": "default"
             }
         },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "value": {
+                "listener": "{that}.events.onAdjusterChange.fire"
+            }
+        },
         selectors: {
             colourTheme: ".gpiic-contrast-colourTheme",
             singleSelectionLabels: ".flc-prefsEditor-theme-label"

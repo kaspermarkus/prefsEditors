@@ -26,6 +26,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "model.value": "default"
             }
         },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "*": {
+                "listener": "{that}.events.onAdjusterChange.fire"
+            }
+        },
         protoTree: {
             headingLabel: {messagekey: "magnifierLabel"},
             valueCheckbox: "${value}"
