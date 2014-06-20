@@ -30,12 +30,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onLogout: null,
                 onApply: null,
                 onRequestPageTransition: null,
-                onSettingChanged: null
+                onSettingChanged: null,
+                onAdjusterChange: null
             },
             model: {
                 userLoggedIn: false
             },
             listeners: {
+                "onAdjusterChange.update": {
+                    "listener": "{socket}.applySettings"
+                },
                 "onReady.setATTRsaveButton": {
                     "this": "{that}.dom.saveButton",
                     "method": "attr",
