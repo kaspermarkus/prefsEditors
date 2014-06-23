@@ -49,12 +49,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "onDomBind.setOnText": {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
-                "args": ["data-checkboxStateOn", "{that}.stringBundle.onText"]
+                "args": ["data-checkboxStateOn", "{that}.msgLookup.onText"]
             },
             "onDomBind.setOffText": {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
-                "args": ["data-checkboxStateOff", "{that}.stringBundle.offText"]
+                "args": ["data-checkboxStateOff", "{that}.msgLookup.offText"]
             }
         },
         invokers: {
@@ -91,7 +91,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     gpii.adjuster.onOffSwitch.init = function (that, onOffModelKey) {
         that.applier.modelChanged.addListener(onOffModelKey, function (newModel) {
             var onOffSwitch = that.locate("onOffSwitch");
-            onOffSwitch.attr("aria-pressed", newModel[onOffModelKey]);
+            onOffSwitch.attr("aria-checked", newModel[onOffModelKey]);
         });
     };
 
@@ -99,9 +99,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         that.container.attr("role", "application");
 
         var onOffSwitch = that.locate("onOffSwitch");
-        onOffSwitch.attr("role", "button");
+        onOffSwitch.attr("role", "checkbox");
         onOffSwitch.attr("aria-labelledby", gpii.ariaUtility.getLabelId(that.locate("headingLabel")));
-        onOffSwitch.attr("aria-pressed", that.model[that.options.onOffModelKey]);
+        onOffSwitch.attr("aria-checked", that.model[that.options.onOffModelKey]);
     };
 
 })(jQuery, fluid);

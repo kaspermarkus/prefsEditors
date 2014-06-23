@@ -14,9 +14,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     fluid.defaults("gpii.prefsEditor", {
         gradeNames: ["fluid.prefs.GPIIEditor", "autoInit"],
         prefsEditor: {
-            gradeNames: ["fluid.prefs.stringBundle"],
+            gradeNames: ["fluid.prefs.msgLookup"],
             members: {
-                messageResolver: "{prefsEditorLoader}.msgBundle"
+                messageResolver: "{prefsEditorLoader}.msgResolver"
             },
             events: {
                 onLogin: null,
@@ -31,7 +31,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onReady.setATTRsaveButton": {
                     "this": "{that}.dom.saveButton",
                     "method": "attr",
-                    "args": ["value", "{that}.stringBundle.saveAndApplyText"]
+                    "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
                 "onSave.hideSaveButton": {
                     "this": "{that}.dom.saveButtonContainer",
@@ -55,7 +55,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogin.showSaveMessage": {
                     "this": "{that}.dom.messageLineLabel",
                     "method": "text",
-                    "args": ["{that}.stringBundle.preferencesModified"]
+                    "args": ["{that}.msgLookup.preferencesModified"]
                 },
                 "onLogin.showUserStatusBar": {
                     "listener": "{that}.showUserStatusBar"
@@ -75,25 +75,45 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
+                "onLogout.disableSaveButton": {
+                    "this": "{that}.dom.saveAndApply",
+                    "method": "prop",
+                    "args": ["disabled", "true"]
+                },
+                "onLogout.disableCloudIcon": {
+                    "this": "{that}.dom.cloudIcon",
+                    "method": "addClass",
+                    "args": ["gpii-disabled"]
+                },
                 "onReady.setSaveAndApplyButtonText": {
-                    "this": "{that}.dom.saveAndApplyButtonLabel",
+                    "this": "{that}.dom.saveAndApply",
                     "method": "attr",
-                    "args": ["value", "{that}.stringBundle.saveAndApplyText"]
+                    "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
                 "onReady.setFullEditorLinkText": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "text",
-                    "args": ["{that}.stringBundle.fullEditorText"]
+                    "args": ["{that}.msgLookup.fullEditorText"]
+                },
+                "onReady.fullEditorLinkPreventDefault": {
+                    "this": "{that}.dom.fullEditorLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onReady.setLogoutLinkText": {
                     "this": "{that}.dom.logoutLink",
                     "method": "text",
-                    "args": ["{that}.stringBundle.logoutText"]
+                    "args": ["{that}.msgLookup.logoutText"]
                 },
                 "onReady.bindLogout": {
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
+                },
+                "onReady.logoutLinkPreventDefault": {
+                    "this": "{that}.dom.logoutLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onReady.bindModelChangedListener": {
                     // used instead of the declarative syntax so that
@@ -121,17 +141,20 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "func": "{gpiiStore}.set",
                     "args": "{that}.model",
                     "dynamic": true
+                },
+                preventDefaultLinkEvent: {
+                    "funcName": "gpii.eventUtility.preventDefaultEvent"
                 }
             },
             selectors: {
                 saveAndApply: ".flc-prefsEditor-save",
-                saveAndApplyButtonLabel: ".flc-prefsEditor-save",
                 saveButtonContainer: ".gpii-pcp-saveButtonContainer",
+                cloudIcon: ".gpii-pcp-cloudIcon",
                 messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink"
             },
-            selectorsToIgnore: ["saveAndApply"]
+            selectorsToIgnore: ["cloudIcon"]
         }
     });
 
