@@ -51,8 +51,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.mergePolicy", {
         mergePolicy: {
-            "auxiliarySchema.groups.visualAlternatives.panels": fluid.limitedArrayConcatPolicy
-            // "auxiliarySchema.groups.visualAlternatives.panels.always": fluid.prefs.compositePanel.arrayMergePolicy
+            "auxiliarySchema.groups.visualAlternatives.panels": fluid.limitedArrayConcatPolicy,
+            "auxiliarySchema.groups.increaseSize.panels": fluid.limitedArrayConcatPolicy
         }
     });
 
@@ -207,6 +207,28 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         }
     });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.screenReaderLanguage", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["screenReaderLanguage"]
+                    }
+                }
+            },
+            screenReaderLanguage: {
+                "type": "gpii.primarySchema.screenReaderLanguage",
+                "panel": {
+                    "type": "gpii.adjuster.screenReaderLanguage",
+                    "template": "%prefix/screenReaderLanguageTemplate.html",
+                    "container": ".screenReaderLanguage",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
 
     // contrast group:
 
