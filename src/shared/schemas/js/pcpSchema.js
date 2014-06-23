@@ -23,22 +23,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.limitedArrayConcatPolicy = function (target, source) {
         var target = target || {};
-        var path = ["gpii.primarySchema.speakText"];
-        var targetElement = fluid.get(target, path);
-        var sourceElement = fluid.get(source, path);
-        if (targetElement || sourceElement) {
-            //var mergedElement = fluid.arrayConcatPolicy(targetElement, sourceElement);
-            var mergedElement = fluid.makeArray(targetElement).concat(fluid.makeArray(sourceElement));
-            fluid.set(target, path, mergedElement);
-        }
+        var paths = [["gpii.primarySchema.speakText"], ["always"], ["gpii.primarySchema.visualAlternativesMoreLess"]];
 
-        var path2 = ["always"];
-        var targetElement2 = fluid.get(target, path2);
-        var sourceElement2 = fluid.get(source, path2);
-        if (targetElement2 || sourceElement2) {
-            var mergedElement2 = fluid.makeArray(targetElement2).concat(fluid.makeArray(sourceElement2));
-            fluid.set(target, path2, mergedElement2);
-        }
+        fluid.each(paths, function (path) {
+            var targetElement = fluid.get(target, path);
+            var sourceElement = fluid.get(source, path);
+            if (targetElement || sourceElement) {
+                var mergedElement = fluid.makeArray(targetElement).concat(fluid.makeArray(sourceElement));
+                fluid.set(target, path, mergedElement);
+            }
+        });
 
         return target;
     };
@@ -195,13 +189,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.voicePitch", {
         auxiliarySchema: {
-            // groups: {
-            //     visualAlternatives: {
-            //         panels: {
-            //             "gpii.primarySchema.visualAlternativesMoreLess": ["voicePitch"]
-            //         }
-            //     }
-            // },
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["voicePitch"]
+                    }
+                }
+            },
             voicePitch: {
                 "type": "gpii.primarySchema.voicePitch",
                 "panel": {
