@@ -35,15 +35,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.mergePolicy", {
         mergePolicy: {
-            auxiliarySchema: {
-                groups: {
-                    visualAlternatives: {
-                        panels: {
-                            always: fluid.prefs.compositePanel.arrayMergePolicy
-                        }
-                    }
-                }
-            }
+            "auxiliarySchema.groups.visualAlternatives.panels.always": fluid.prefs.compositePanel.arrayMergePolicy
         }
     });
 
@@ -117,13 +109,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.wordsSpokenPerMinute", {
         auxiliarySchema: {
-            // groups: {
-            //     visualAlternatives: {
-            //         panels: {
-            //             "gpii.primarySchema.speakText": ["wordsSpokenPerMinute"]
-            //         }
-            //     }
-            // },
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.speakText": ["wordsSpokenPerMinute"]
+                    }
+                }
+            },
             wordsSpokenPerMinute: {
                 "type": "gpii.primarySchema.wordsSpokenPerMinute",
                 "panel": {
@@ -138,13 +130,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.volume", {
         auxiliarySchema: {
-            // groups: {
-            //     visualAlternatives: {
-            //         panels: {
-            //             always: ["volume"]
-            //         }
-            //     }
-            // },
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        always: ["volume"]
+                    }
+                }
+            },
             volume: {
                 "type": "gpii.primarySchema.volume",
                 "panel": {
