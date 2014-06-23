@@ -21,6 +21,28 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 (function ($, fluid) {
     fluid.registerNamespace("gpii.pcp");
 
+    fluid.limitedArrayConcatPolicy = function (target, source) {
+        var target = target || {};
+        var path = ["gpii.primarySchema.speakText"];
+        var targetElement = fluid.get(target, path);
+        var sourceElement = fluid.get(source, path);
+        if (targetElement || sourceElement) {
+            //var mergedElement = fluid.arrayConcatPolicy(targetElement, sourceElement);
+            var mergedElement = fluid.makeArray(targetElement).concat(fluid.makeArray(sourceElement));
+            fluid.set(target, path, mergedElement);
+        }
+
+        var path2 = ["always"];
+        var targetElement2 = fluid.get(target, path2);
+        var sourceElement2 = fluid.get(source, path2);
+        if (targetElement2 || sourceElement2) {
+            var mergedElement2 = fluid.makeArray(targetElement2).concat(fluid.makeArray(sourceElement2));
+            fluid.set(target, path2, mergedElement2);
+        }
+
+        return target;
+    };
+
     fluid.defaults("gpii.pcp.auxiliarySchema.common", {
         auxiliarySchema: {
             // The global values:
@@ -35,7 +57,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.mergePolicy", {
         mergePolicy: {
-            "auxiliarySchema.groups.visualAlternatives.panels.always": fluid.prefs.compositePanel.arrayMergePolicy
+            "auxiliarySchema.groups.visualAlternatives.panels": fluid.limitedArrayConcatPolicy
+            // "auxiliarySchema.groups.visualAlternatives.panels.always": fluid.prefs.compositePanel.arrayMergePolicy
         }
     });
 
@@ -106,7 +129,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-
     fluid.defaults("gpii.pcp.auxiliarySchema.wordsSpokenPerMinute", {
         auxiliarySchema: {
             groups: {
@@ -152,13 +174,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.defaults("gpii.pcp.auxiliarySchema.visualAlternativesMoreLess", {
         auxiliarySchema: {
-            // groups: {
-            //     visualAlternatives: {
-            //         panels: {
-            //             "gpii.primarySchema.speakText": ["visualAlternativesMoreLess"]
-            //         }
-            //     }
-            // },
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.speakText": ["visualAlternativesMoreLess"]
+                    }
+                }
+            },
             visualAlternativesMoreLess: {
                 "type": "gpii.primarySchema.visualAlternativesMoreLess",
                 "panel": {
@@ -294,8 +316,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         }
     });
-       
-    fluid.defaults("gpii.pcp.auxiliarySchema.cursorSize", {
+
+     fluid.defaults("gpii.pcp.auxiliarySchema.cursorSize", {
         auxiliarySchema: {
             groups: {
                 increaseSize: {
