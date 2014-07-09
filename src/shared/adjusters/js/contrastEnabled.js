@@ -23,6 +23,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "model.contrast": "default"
             }
         },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "*": {
+                "listener": "{that}.events.onAdjusterChange.fire"
+            }
+        },
         protoTree: {
             headingLabel: {messagekey: "contrast"},
             valueCheckbox: "${contrast}"

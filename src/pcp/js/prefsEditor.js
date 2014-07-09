@@ -40,7 +40,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onLogout: null,
                 onApply: null,
                 onRequestPageTransition: null,
-                onSettingChanged: null
+                onSettingChanged: null,
+                onAdjusterChange: null
             },
             model: {
                 userLoggedIn: false
@@ -50,6 +51,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.applyButton",
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.applyText"]
+                },
+                "onAdjusterChange.update": {
+                    "listener": "{socket}.applySettings"
                 },
                 "onApply.hideApplyButton": {
                     "this": "{that}.dom.applyButtonContainer",
