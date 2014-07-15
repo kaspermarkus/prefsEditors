@@ -94,7 +94,7 @@
     <script type="text/javascript" src="../../src/pcp/js/visualAlternativesCollectivePanel.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/volumeCollectivePanel.js"></script>
 
-    <script type="text/javascript" src="../../src/shared/adjusters/js/starter.js"></script>
+    <script type="text/javascript" src="../../src/pcp/js/starter.js"></script>
 
     <!-- The demo script -->
     <script type="text/javascript" src="demo.js"></script>
@@ -107,7 +107,7 @@
     </div>
 
     <script>
-        pcp = starter();
+        var pcp = gpii.pcp.starter();
         pcp.renderAdjusters(["increaseSizeGroup", "textSize", "cursorSize", "magnifierEnabled", "contrastGroup", "contrastEnabled", "contrastTheme", "visualAlternativesGroup", "speakText", "wordsSpokenPerMinute", "visualAlternativesMoreLess", "voicePitch", "screenReaderLanguage"]);
     </script>
 
