@@ -15,12 +15,20 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         gradeNames: ["fluid.prefs.GPIIEditor", "autoInit"],
         prefsEditor: {
             gradeNames: ["fluid.prefs.msgLookup"],
+            components: {
+                socket: {
+                    type: "gpii.pcp.socket"
+                }
+            },
+            port: 8081,
+            updateURL: "update",
             members: {
                 messageResolver: "{prefsEditorLoader}.msgResolver"
             },
             events: {
                 onLogin: null,
                 onLogout: null,
+                onApply: null,
                 onRequestPageTransition: null,
                 onSettingChanged: null
             },
@@ -33,10 +41,18 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
-                "onSave.hideSaveButton": {
+                "onApply.hideSaveButton": {
                     "this": "{that}.dom.saveButtonContainer",
                     "method": "hide",
                     "args": []
+                },
+                "onApply.applySettings": {
+                    "listener": "{socket}.applySettings"
+                },
+                "onReady.bindApply": {
+                    "this": "{that}.dom.saveAndApply",
+                    "method": "click",
+                    "args": ["{that}.events.onApply.fire"]
                 },
                 "onReady.fullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
@@ -85,20 +101,25 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "addClass",
                     "args": ["gpii-disabled"]
                 },
+                "onReady.fullEditorLinkPreventDefault": {
+                    "this": "{that}.dom.fullEditorLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
+                },
                 "onReady.setSaveAndApplyButtonText": {
                     "this": "{that}.dom.saveAndApply",
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
+                "onReady.logoutLinkPreventDefault": {
+                    "this": "{that}.dom.logoutLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
+                },
                 "onReady.setFullEditorLinkText": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "text",
                     "args": ["{that}.msgLookup.fullEditorText"]
-                },
-                "onReady.fullEditorLinkPreventDefault": {
-                    "this": "{that}.dom.fullEditorLink",
-                    "method": "click",
-                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onReady.setLogoutLinkText": {
                     "this": "{that}.dom.logoutLink",
@@ -109,11 +130,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
-                },
-                "onReady.logoutLinkPreventDefault": {
-                    "this": "{that}.dom.logoutLink",
-                    "method": "click",
-                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onReady.bindModelChangedListener": {
                     // used instead of the declarative syntax so that
@@ -129,10 +145,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             invokers: {
-                applySettings: {
-                    "funcName": "gpii.applySettings",
-                    "args": "{that}"
-                },
                 showUserStatusBar: {
                     "this": "{that}.dom.userStatusBar",
                     "method": "slideDown"
@@ -147,7 +159,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             selectors: {
-                saveAndApply: ".flc-prefsEditor-save",
+                saveAndApply: ".gpiic-PCP-save",
                 saveButtonContainer: ".gpii-pcp-saveButtonContainer",
                 cloudIcon: ".gpii-pcp-cloudIcon",
                 messageLineLabel: ".gpiic-prefsEditor-messageLine",
@@ -157,25 +169,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             selectorsToIgnore: ["cloudIcon"]
         }
     });
-
-    gpii.applySettings = function (that) {
-        var savedSettings = that.modelTransform(that.model);
-        if (that.socket) {
-            that.socket.emit("message", savedSettings, fluid.log);
-        } else {
-            that.socket = that.socket || io.connect("http://localhost:8081/update");
-            that.socket.on("connect", function () {
-                that.socket.emit("message", savedSettings, fluid.log);
-            });
-            fluid.each(["error", "disconnect"], function (event) {
-                that.socket.on(event, function (data) {
-                    fluid.log(data);
-                    that.socket.disconnect();
-                    delete that.socket;
-                });
-            });
-        }
-    };
 
     gpii.prefsEditor.triggerEvent = function (that, targetSelector, event) {
         that.locate(targetSelector).trigger(event);
