@@ -38,7 +38,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             events: {
                 onLogin: null,
                 onLogout: null,
-                onApply: null,
                 onRequestPageTransition: null,
                 onSettingChanged: null,
                 onAdjusterChange: null
@@ -47,26 +46,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 userLoggedIn: false
             },
             listeners: {
-                "onReady.setATTRapplyButton": {
-                    "this": "{that}.dom.applyButton",
-                    "method": "attr",
-                    "args": ["value", "{that}.msgLookup.applyText"]
-                },
                 "onAdjusterChange.update": {
                     "listener": "{socket}.applySettings"
-                },
-                "onApply.hideApplyButton": {
-                    "this": "{that}.dom.applyButtonContainer",
-                    "method": "hide",
-                    "args": []
-                },
-                "onApply.applySettings": {
-                    "listener": "{socket}.applySettings"
-                },
-                "onReady.bindApply": {
-                    "this": "{that}.dom.applyButton",
-                    "method": "click",
-                    "args": ["{that}.events.onApply.fire"]
                 },
                 "onReady.fullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
@@ -105,11 +86,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                "onLogout.disableApplyButton": {
-                    "this": "{that}.dom.applyButton",
-                    "method": "prop",
-                    "args": ["disabled", "true"]
-                },
                 "onLogout.disableCloudIcon": {
                     "this": "{that}.dom.cloudIcon",
                     "method": "addClass",
@@ -119,11 +95,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.fullEditorLink",
                     "method": "click",
                     "args": ["{that}.preventDefaultLinkEvent"]
-                },
-                "onReady.setApplyButtonButtonText": {
-                    "this": "{that}.dom.applyButton",
-                    "method": "attr",
-                    "args": ["value", "{that}.msgLookup.applyText"]
                 },
                 "onReady.logoutLinkPreventDefault": {
                     "this": "{that}.dom.logoutLink",
@@ -151,11 +122,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     // the server. Thus, onSettingChanged is not fired on load.
                     "listener": "{that}.applier.modelChanged.addListener",
                     "args": ["", "{that}.events.onSettingChanged.fire"]
-                },
-                "onSettingChanged.showApplyButton": {
-                    "this": "{that}.dom.applyButtonContainer",
-                    "method": "show",
-                    "args": []
                 }
             },
             invokers: {
@@ -173,9 +139,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             selectors: {
-                applyButton: ".gpiic-apply",
-                applyButtonContainer: ".gpiic-applyButtonContainer",
-                cloudIcon: ".gpii-pcp-cloudIcon",
                 messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink"
