@@ -1,5 +1,5 @@
 (function ($, fluid) {
-    fluid.defaults("starter", {
+    fluid.defaults("gpii.pcp.starter", {
         gradeNames: ["fluid.littleComponent", "autoInit"],
         invokers: {
             renderAdjusters: {
