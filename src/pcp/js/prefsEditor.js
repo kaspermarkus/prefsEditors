@@ -86,11 +86,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                "onLogout.disableCloudIcon": {
-                    "this": "{that}.dom.cloudIcon",
-                    "method": "addClass",
-                    "args": ["gpii-disabled"]
-                },
                 "onReady.fullEditorLinkPreventDefault": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "click",
@@ -142,8 +137,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink"
-            },
-            selectorsToIgnore: ["cloudIcon"]
+            }
         }
     });
 
