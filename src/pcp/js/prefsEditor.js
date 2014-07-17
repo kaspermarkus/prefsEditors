@@ -38,8 +38,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             events: {
                 onLogin: null,
                 onLogout: null,
-                onRequestPageTransition: null,
-                onSettingChanged: null,
                 onAdjusterChange: null
             },
             model: {
@@ -49,15 +47,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onAdjusterChange.update": {
                     "listener": "{socket}.applySettings"
                 },
-                "onReady.fullEditorLink": {
+                "onReady.setFullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
-                    "method": "click",
-                    "args": ["{that}.events.onRequestPageTransition.fire"]
-                },
-                "onRequestPageTransition.save": "{that}.saveSettings",
-                "onRequestPageTransition.goToPMT": {
-                    "funcName": "fluid.set",
-                    "args": [window, "location.href", "{prefsEditorLoader}.options.pmtUrl"]
+                    "method": "attr",
+                    "args": ["href", "{prefsEditorLoader}.options.pmtUrl"]
                 },
                 "onLogin.setUserLoggedIn": {
                     listener: "{that}.applier.requestChange",
@@ -110,13 +103,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
-                },
-                "onReady.bindModelChangedListener": {
-                    // used instead of the declarative syntax so that
-                    // model won't "count" as updated when fetching from
-                    // the server. Thus, onSettingChanged is not fired on load.
-                    "listener": "{that}.applier.modelChanged.addListener",
-                    "args": ["", "{that}.events.onSettingChanged.fire"]
                 }
             },
             invokers: {
