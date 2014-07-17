@@ -109,7 +109,11 @@
 
     <script>
         var pcp = gpii.pcp.starter();
-        pcp.renderAdjusters(["increaseSizeGroup", "fontSize", "cursorSize", "magnifierEnabled", "contrastGroup", "contrastEnabled", "contrastTheme"]);
+        var exampleModel = {"http://registry.gpii.org/common/pitch":[{"value":0.4}],
+                            "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":true}],
+                            "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"most"}]
+                        };
+        pcp.renderAdjusters(exampleModel);
     </script>
 
 </body>
