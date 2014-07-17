@@ -21,6 +21,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 (function ($, fluid) {
     fluid.registerNamespace("gpii.pcp");
 
+    // This function is used to surround FLUID-5381
+
     fluid.limitedArrayConcatPolicy = function (target, source) {
         var target = target || {};
         var paths = [["gpii.primarySchema.speakText"], ["always"], ["gpii.primarySchema.visualAlternativesMoreLess"]];
