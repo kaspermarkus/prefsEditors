@@ -20,49 +20,37 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     type: "gpii.pcp.socket"
                 }
             },
-            port: 8081,
-            updateURL: "update",
+            socketConnection: {
+                "domain": "http://localhost",
+                "port": "8081",
+                "route": "update",
+                "urlTemplate": "%domain:%port/%route"
+            },
             members: {
-                messageResolver: "{prefsEditorLoader}.msgResolver"
+                messageResolver: "{prefsEditorLoader}.msgResolver",
+                socketURL: {
+                    expander: {
+                        funcName: "fluid.stringTemplate",
+                        args: ["{that}.options.socketConnection.urlTemplate", "{that}.options.socketConnection"]
+                    }
+                }
             },
             events: {
                 onLogin: null,
                 onLogout: null,
-                onApply: null,
-                onRequestPageTransition: null,
-                onSettingChanged: null
+                onAdjusterChange: null
             },
             model: {
                 userLoggedIn: false
             },
             listeners: {
-                "onReady.setATTRsaveButton": {
-                    "this": "{that}.dom.saveButton",
-                    "method": "attr",
-                    "args": ["value", "{that}.msgLookup.saveAndApplyText"]
-                },
-                "onApply.hideSaveButton": {
-                    "this": "{that}.dom.saveButtonContainer",
-                    "method": "hide",
-                    "args": []
-                },
-                "onApply.applySettings": {
+                "onAdjusterChange.update": {
                     "listener": "{socket}.applySettings"
                 },
-                "onReady.bindApply": {
-                    "this": "{that}.dom.saveAndApply",
-                    "method": "click",
-                    "args": ["{that}.events.onApply.fire"]
-                },
-                "onReady.fullEditorLink": {
+                "onReady.setFullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
-                    "method": "click",
-                    "args": ["{that}.events.onRequestPageTransition.fire"]
-                },
-                "onRequestPageTransition.save": "{that}.saveSettings",
-                "onRequestPageTransition.goToPMT": {
-                    "funcName": "fluid.set",
-                    "args": [window, "location.href", "{prefsEditorLoader}.options.pmtUrl"]
+                    "method": "attr",
+                    "args": ["href", "{prefsEditorLoader}.options.pmtUrl"]
                 },
                 "onLogin.setUserLoggedIn": {
                     listener: "{that}.applier.requestChange",
@@ -91,25 +79,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                "onLogout.disableSaveButton": {
-                    "this": "{that}.dom.saveAndApply",
-                    "method": "prop",
-                    "args": ["disabled", "true"]
-                },
-                "onLogout.disableCloudIcon": {
-                    "this": "{that}.dom.cloudIcon",
-                    "method": "addClass",
-                    "args": ["gpii-disabled"]
-                },
                 "onReady.fullEditorLinkPreventDefault": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "click",
                     "args": ["{that}.preventDefaultLinkEvent"]
-                },
-                "onReady.setSaveAndApplyButtonText": {
-                    "this": "{that}.dom.saveAndApply",
-                    "method": "attr",
-                    "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
                 "onReady.logoutLinkPreventDefault": {
                     "this": "{that}.dom.logoutLink",
@@ -130,18 +103,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
-                },
-                "onReady.bindModelChangedListener": {
-                    // used instead of the declarative syntax so that
-                    // model won't "count" as updated when fetching from
-                    // the server. Thus, onSettingChanged is not fired on load.
-                    "listener": "{that}.applier.modelChanged.addListener",
-                    "args": ["", "{that}.events.onSettingChanged.fire"]
-                },
-                "onSettingChanged.showSaveButton": {
-                    "this": "{that}.dom.saveButtonContainer",
-                    "method": "show",
-                    "args": []
                 }
             },
             invokers: {
@@ -159,14 +120,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             selectors: {
-                saveAndApply: ".gpiic-PCP-save",
-                saveButtonContainer: ".gpii-pcp-saveButtonContainer",
-                cloudIcon: ".gpii-pcp-cloudIcon",
                 messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink"
-            },
-            selectorsToIgnore: ["cloudIcon"]
+            }
         }
     });
 

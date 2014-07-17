@@ -23,7 +23,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             events: {
                 onLogin: null,
-                onLogout: null
+                onLogout: null,
+                onAdjusterChange: null
             },
             selectors: {
                 myPreferencesLabel: ".gpiic-pmt-preferenceSetSelectionButtonMyPreferencesLabel",
