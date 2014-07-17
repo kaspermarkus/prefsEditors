@@ -61,7 +61,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     // visualAlternatives group:
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.visualAlternativesGroup", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.visualAlternatives", {
         auxiliarySchema: {
             groups: {
                 "visualAlternatives": {
@@ -234,7 +234,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     // contrast group:
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.contrastGroup", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.addContrast", {
         auxiliarySchema: {
             groups: {
                 "addContrast": {
@@ -298,7 +298,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     // increaseSize group:
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.increaseSizeGroup", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.increaseSize", {
         auxiliarySchema: {
             groups: {
                 "increaseSize": {
