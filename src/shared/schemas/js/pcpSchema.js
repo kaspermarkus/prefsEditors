@@ -314,16 +314,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.textSize", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.fontSize", {
         auxiliarySchema: {
             groups: {
                 increaseSize: {
                     panels: {
-                        always: ["textSize"]
+                        always: ["fontSize"]
                     }
                 }
             },
-            textSize: {
+            fontSize: {
                 "type": "gpii.primarySchema.fontSize",
                 "panel": {
                     "type": "gpii.adjuster.textSizePCP",
