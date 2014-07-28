@@ -231,6 +231,163 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.pcp.auxiliarySchema.textHighlighting", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["textHighlighting"]
+                    }
+                }
+            },
+            textHighlighting: {
+                "type": "gpii.primarySchema.textHighlighting",
+                "panel": {
+                    "type": "gpii.adjuster.textHighlighting",
+                    "template": "%prefix/textHighlightingTemplate.html",
+                    "container": ".textHighlighting",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.punctuationVerbosity", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["punctuationVerbosity"]
+                    }
+                }
+            },
+            punctuationVerbosity: {
+                "type": "gpii.primarySchema.punctuationVerbosity",
+                "panel": {
+                    "type": "gpii.adjuster.punctuationVerbosity",
+                    "template": "%prefix/punctuationVerbosityTemplate.html",
+                    "container": ".punctuationVerbosity",
+                    "message": "%prefix/message.json",
+                    "classnameMap": {"punctuationVerbosity": "@punctuationVerbosity.classes"}
+                },
+                "classes": {
+                    "none": "radioButton-left",
+                    "some": "radioButton-middle radioButton-second",
+                    "most": "radioButton-middle radioButton-third",
+                    "all": "radioButton-right"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.announceCapitals", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["announceCapitals"]
+                    }
+                }
+            },
+            announceCapitals: {
+                "type": "gpii.primarySchema.announceCapitals",
+                "panel": {
+                    "type": "gpii.adjuster.announceCapitals",
+                    "template": "%prefix/announceCapitalsTemplate.html",
+                    "message": "%prefix/message.json",
+                    "container": ".capitals"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.speakTutorialMessages", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["speakTutorialMessages"]
+                    }
+                }
+            },
+            speakTutorialMessages: {
+                "type": "gpii.primarySchema.speakTutorialMessages",
+                "panel": {
+                    "type": "gpii.adjuster.speakTutorialMessages",
+                    "template": "%prefix/speakTutorialMessagesTemplate.html",
+                    "message": "%prefix/message.json",
+                    "container": ".tutorials"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.keyEcho", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["keyEcho"]
+                    }
+                }
+            },
+            keyEcho: {
+                "type": "gpii.primarySchema.keyEcho",
+                "panel": {
+                    "type": "gpii.adjuster.keyEcho",
+                    "template": "%prefix/keyEchoTemplate.html",
+                    "message": "%prefix/message.json",
+                    "container": ".keyEcho"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.wordEcho", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["wordEcho"]
+                    }
+                }
+            },
+            wordEcho: {
+                "type": "gpii.primarySchema.wordEcho",
+                "panel": {
+                    "type": "gpii.adjuster.wordEcho",
+                    "template": "%prefix/wordEchoTemplate.html",
+                    "message": "%prefix/message.json",
+                    "container": ".wordEcho"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.screenReaderFollows", {
+        auxiliarySchema: {
+            groups: {
+                visualAlternatives: {
+                    panels: {
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["screenReaderFollows"]
+                    }
+                }
+            },
+            screenReaderFollows: {
+                "type": "gpii.primarySchema.screenReaderTracking",
+                "panel": {
+                    "type": "gpii.adjuster.followingElement.screenReader",
+                    "container": ".screanReaderFollows",
+                    "template": "%prefix/followingElementTemplate.html",
+                    "message": "%prefix/followingElement.json",
+                    "classnameMap": {
+                        "followingElement": "@followingElement.classes",
+                        "followingElementBorder": "@followingElement.borderClasses"
+                    }
+                }
+            }
+        }
+    });
 
     // contrast group:
 
