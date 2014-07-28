@@ -389,6 +389,78 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    // volume group:
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.volumeGroup", {
+        auxiliarySchema: {
+            groups: {
+                "volume": {
+                    "type": "gpii.panel.volumeCollectivePanel",
+                    "container": ".gpiic-volumeGroup",
+                    "template": "%prefix/VolumeGroupContainer.html",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.universalVolume", {
+        auxiliarySchema: {
+            groups: {
+                volume: {
+                    panels: {
+                        "always": ["universalVolume"]
+                    }
+                }
+            },
+            universalVolume: {
+                "type": "gpii.primarySchema.universalVolume",
+                "panel": {
+                    "type": "gpii.adjuster.universalVolume",
+                    "template": "%prefix/universalVolumeTemplate.html",
+                    "container": ".universalVolume",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    // language group:
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.languageGroup", {
+        auxiliarySchema: {
+            groups: {
+                "language": {
+                    "type": "gpii.panel.languageCollectivePanel",
+                    "container": ".gpiic-languageGroup",
+                    "template": "%prefix/LanguageGroupContainer.html",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.universalLanguage", {
+        auxiliarySchema: {
+            groups: {
+                language: {
+                    panels: {
+                        "always": ["universalLanguage"]
+                    }
+                }
+            },
+            universalLanguage: {
+                "type": "gpii.primarySchema.universalLanguage",
+                "panel": {
+                    "type": "gpii.adjuster.universalLanguage",
+                    "template": "%prefix/universalLanguageTemplate.html",
+                    "container": ".universalLanguage",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
     // contrast group:
 
     fluid.defaults("gpii.pcp.auxiliarySchema.addContrast", {
