@@ -111,9 +111,6 @@
             "gpii.pcp.auxiliarySchema.mergePolicy",
             "gpii.pcp.progressiveEnhancement",
             "gpii.pcp.auxiliarySchema.common",
-            "gpii.pcp.auxiliarySchema.volumeGroup",
-            "gpii.pcp.auxiliarySchema.languageGroup",
-            "gpii.pcp.auxiliarySchema.addContrast",
             "gpii.pcp.auxiliarySchema.followingElement"
         ];
 
