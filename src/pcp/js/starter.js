@@ -9,37 +9,86 @@
     });
 
     gpii.pcp.renderPCP = function (preferences) {
-        var visualAlternativesLevels = {0: ["visualAlternatives"], 1: ["visualAlternatives", "speakText"], 2: ["visualAlternatives", "speakText", "visualAlternativesMoreLess"]};
-        var increaseSizeLevels = {0: ["increaseSize"], 1: ["increaseSize", "magnifierEnabled"]};
+        var visualAlternativesRequiredByLevel = {
+            0: ["visualAlternatives"],
+            1: ["visualAlternatives", "speakText"],
+            2: ["visualAlternatives", "speakText", "visualAlternativesMoreLess"]
+        };
 
-        var levels = [["speakText", "screenReaderBrailleOutput"],
-                      ["wordsSpokenPerMinute", "volume"],
-                      ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting", "screenReaderFollows"]
-                     ];
+        var volumeRequiredByLevel = {
+            0: ["volumeGroup"]
+        };
 
-        var levelsIS = [["fontSize", "cursorSize", "magnifierEnabled"], ["magnifier", "magnifierPosition", "magnifierFollows", "showCrosshairs"]];
+        var languageRequiredByLevel = {
+            0: ["languageGroup"]
+        };
 
-        var levelOfAdjuster = function (adjuster) {
-            for (i = 0; i < levels.length; i++) {
-                if ($.inArray(adjuster, levels[i]) > -1) {
+        var addContrastRequiredByLevel = {
+            0: ["addContrast"],
+            1: ["addContrast", "contrastEnabled"]
+        };
+
+        var increaseSizeRequiredByLevel = {
+            0: ["increaseSize"],
+            1: ["increaseSize", "magnifierEnabled"]
+        };
+
+        var visualAlternativesLevels = [
+            ["speakText", "screenReaderBrailleOutput"],
+            ["wordsSpokenPerMinute", "volume"],
+            ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting", "screenReaderFollows"]
+        ];
+
+        var volumeLevels = [["volume"]];
+
+        var languageLevels = [["universalLanguage"]];
+
+        var addContrastLevels = [
+            ["contrastEnabled"],
+            ["contrast_theme"]  // TODO: rename this to camelCase everywhere
+        ];
+
+        var increaseSizeLevels = [
+            ["fontSize", "cursorSize", "magnifierEnabled"],
+            ["magnifier", "magnifierPosition", "magnifierFollows", "showCrosshairs"]
+        ];
+
+        var levelOfAdjuster = function (adjuster, groupLevels) {
+            for (i = 0; i < groupLevels.length; i++) {
+                if ($.inArray(adjuster, groupLevels[i]) > -1) {
                     return i;
                 };
             };
             return -1;
         };
 
-        var deepestLevel = function (arrayOfAdjusters) {
-            return Math.max.apply(null, arrayOfAdjusters.map(levelOfAdjuster));
+        var deepestLevel = function (arrayOfAdjusters, groupLevels) {
+            return Math.max.apply(null, arrayOfAdjusters.map(function (adj) {
+                return levelOfAdjuster(adj, groupLevels);
+            }));
         };
 
-        // for visualAlternatives only for now
-        var determineAdjusterGradeNames = function (arrayOfModelAdjusters) {
+        var determineAdditionalGradeNames = function (arrayOfModelAdjusters) {
             var commonModelPartLength = 19;
             var arrayOfAdjusters = fluid.transform(arrayOfModelAdjusters, function (adjuster) {
                 return adjuster.substr(commonModelPartLength);
             });
 
-            var additionals = visualAlternativesLevels[deepestLevel(arrayOfAdjusters)];
+            var groups = [
+                [visualAlternativesRequiredByLevel, visualAlternativesLevels],
+                [volumeRequiredByLevel, volumeLevels],
+                [languageRequiredByLevel, languageLevels],
+                [addContrastRequiredByLevel, addContrastLevels],
+                [increaseSizeRequiredByLevel, increaseSizeLevels]
+            ];
+
+            var additionals = [];
+
+            fluid.each(groups, function (group) {
+                toBePushed = group[0][deepestLevel(arrayOfAdjusters, group[1])];
+                additionals = additionals.concat(toBePushed);
+            });
+
             for (i = 0; i < additionals.length; i++) {
                 if ($.inArray(additionals[i], arrayOfAdjusters) < 0) {
                     arrayOfAdjusters.push(additionals[i]);
@@ -53,15 +102,23 @@
             return arrayOfSchemaAdjusters;
         };
 
-        var compulsory = ["gpii.pcp.auxiliarySchema.mergePolicy", "gpii.pcp.progressiveEnhancement", "gpii.pcp.auxiliarySchema.common", "gpii.pcp.auxiliarySchema.increaseSize", "gpii.pcp.auxiliarySchema.volumeGroup", "gpii.pcp.auxiliarySchema.languageGroup", "gpii.pcp.auxiliarySchema.addContrast", "gpii.pcp.auxiliarySchema.followingElement"];
+        var required = [
+            "gpii.pcp.auxiliarySchema.mergePolicy",
+            "gpii.pcp.progressiveEnhancement",
+            "gpii.pcp.auxiliarySchema.common",
+            "gpii.pcp.auxiliarySchema.volumeGroup",
+            "gpii.pcp.auxiliarySchema.languageGroup",
+            "gpii.pcp.auxiliarySchema.addContrast",
+            "gpii.pcp.auxiliarySchema.followingElement"
+        ];
 
         var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
         var modelKeys = Object.keys(modelToRender);
-        var finalAdjusterGradeNames = determineAdjusterGradeNames(modelKeys);
+        var additionalAdjusterGradeNames = determineAdditionalGradeNames(modelKeys);
 
         fluid.prefs.create("#gpiic-pcp", {
             build: {
-                gradeNames: compulsory.concat(finalAdjusterGradeNames),
+                gradeNames: required.concat(additionalAdjusterGradeNames),
                 primarySchema: gpii.primarySchema
             },
             prefsEditor: {

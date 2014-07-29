@@ -71,12 +71,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "message": "%prefix/message.json",
                     "panels": {
                         "always": [],
-                        "gpii.primarySchema.speakText": [
-                            // "wordsSpokenPerMinute", "visualAlternativesMoreLess"
-                        ],
-                        "gpii.primarySchema.visualAlternativesMoreLess": [
-                            // "voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting", "screenReaderFollows"
-                        ]
+                        "gpii.primarySchema.speakText": [],
+                        "gpii.primarySchema.visualAlternativesMoreLess": []
                     }
                 }
             }
@@ -166,7 +162,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         }
     });
-
 
     fluid.defaults("gpii.pcp.auxiliarySchema.visualAlternativesMoreLess", {
         auxiliarySchema: {

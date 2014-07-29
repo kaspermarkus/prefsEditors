@@ -113,7 +113,7 @@
     </div>
 
     <script>
-        pcp = gpii.pcp.starter();
+        var pcp = gpii.pcp.starter();
         var exampleModel = {
             "http://registry.gpii.org/common/pitch":[{"value":0.5}],
             "http://registry.gpii.org/common/volume":[{"value":0.4}],
@@ -130,14 +130,14 @@
             "http://registry.gpii.org/common/magnification":[{"value":2.75}],
             "http://registry.gpii.org/common/showCrosshairs":[{"value":true}],
             "http://registry.gpii.org/common/announceCapitals":[{"value":true}],
-            "http://registry.gpii.org/common/magnifierEnabled":[{"value":true}],
+            // "http://registry.gpii.org/common/magnifierEnabled":[{"value":true}],  // the "enabled" switches have been missed on purpose here
             "http://registry.gpii.org/common/highContrastTheme":[{"value":"white-black"}],
             "http://registry.gpii.org/common/magnifierPosition":[{"value":"Lens"}],
             "http://registry.gpii.org/common/auditoryOutLanguage":[{"value":"el"}],
-            "http://registry.gpii.org/common/highContrastEnabled":[{"value":true}],
+            // "http://registry.gpii.org/common/highContrastEnabled":[{"value":true}],
             "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"all"}],
             "http://registry.gpii.org/common/speakTutorialMessages":[{"value":true}],
-            "http://registry.gpii.org/common/screenReaderTTSEnabled":[{"value":true}],
+            // "http://registry.gpii.org/common/screenReaderTTSEnabled":[{"value":true}],
             "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":true}]
         };
         pcp.renderAdjusters(exampleModel);
