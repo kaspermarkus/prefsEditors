@@ -68,6 +68,11 @@
             }));
         };
 
+        // used for adding gradeNames that:
+        // 1) aren't part of the model, e.g. grade names for groups
+        // 2) have been missed in the preferences set, but should be there,
+        //    e.g. if speechRate value is given, but screenReaderTTSEnabled value - not.
+
         var determineAdditionalGradeNames = function (arrayOfModelAdjusters) {
             var commonModelPartLength = 19;
             var arrayOfAdjusters = fluid.transform(arrayOfModelAdjusters, function (adjuster) {
@@ -95,11 +100,11 @@
                 };
             };
 
-            var arrayOfSchemaAdjusters = fluid.transform(arrayOfAdjusters, function (adjuster) {
+            var additionalSchemaAdjusters = fluid.transform(arrayOfAdjusters, function (adjuster) {
                 return "gpii.pcp.auxiliarySchema." + adjuster;
             });
 
-            return arrayOfSchemaAdjusters;
+            return additionalSchemaAdjusters;
         };
 
         var required = [
@@ -114,11 +119,11 @@
 
         var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
         var modelKeys = Object.keys(modelToRender);
-        var additionalAdjusterGradeNames = determineAdditionalGradeNames(modelKeys);
+        var additionalGradeNames = determineAdditionalGradeNames(modelKeys);
 
         fluid.prefs.create("#gpiic-pcp", {
             build: {
-                gradeNames: required.concat(additionalAdjusterGradeNames),
+                gradeNames: required.concat(additionalGradeNames),
                 primarySchema: gpii.primarySchema
             },
             prefsEditor: {
