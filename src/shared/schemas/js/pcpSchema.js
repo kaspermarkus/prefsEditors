@@ -25,7 +25,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     fluid.limitedArrayConcatPolicy = function (target, source) {
         var target = target || {};
-        var paths = [["gpii.primarySchema.speakText"], ["always"], ["gpii.primarySchema.visualAlternativesMoreLess"]];
+        var paths = [["gpii.primarySchema.speakText"], ["always"], ["gpii.primarySchema.visualAlternativesMoreLess"], ["gpii.primarySchema.magnifierEnabled"]];
 
         fluid.each(paths, function (path) {
             var targetElement = fluid.get(target, path);
@@ -151,7 +151,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             groups: {
                 visualAlternatives: {
                     panels: {
-                        always: ["volume"]
+                        "gpii.primarySchema.speakText": ["volume"]
                     }
                 }
             },
@@ -364,16 +364,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.screenReaderFollows", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.screenReaderTracking", {
         auxiliarySchema: {
             groups: {
                 visualAlternatives: {
                     panels: {
-                        "gpii.primarySchema.visualAlternativesMoreLess": ["screenReaderFollows"]
+                        "gpii.primarySchema.visualAlternativesMoreLess": ["screenReaderTracking"]
                     }
                 }
             },
-            screenReaderFollows: {
+            screenReaderTracking: {
                 "type": "gpii.primarySchema.screenReaderTracking",
                 "panel": {
                     "type": "gpii.adjuster.followingElement.screenReader",
@@ -398,7 +398,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "type": "gpii.panel.volumeCollectivePanel",
                     "container": ".gpiic-volumeGroup",
                     "template": "%prefix/VolumeGroupContainer.html",
-                    "message": "%prefix/message.json"
+                    "message": "%prefix/message.json",
+                    "panels": {
+                        "always": []
+                    }
                 }
             }
         }
@@ -434,7 +437,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "type": "gpii.panel.languageCollectivePanel",
                     "container": ".gpiic-languageGroup",
                     "template": "%prefix/LanguageGroupContainer.html",
-                    "message": "%prefix/message.json"
+                    "message": "%prefix/message.json",
+                    "panels": {
+                        "always": []
+                    }
                 }
             }
         }
@@ -497,7 +503,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.contrastTheme", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.contrast_theme", {
         auxiliarySchema: {
             groups: {
                 addContrast: {
@@ -531,12 +537,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         auxiliarySchema: {
             groups: {
                 "increaseSize": {
-                    "type": "gpii.panel.increaseSizePCP",
+                    "type": "gpii.panel.increaseSizePMT",
                     "container": ".gpiic-prefsEditor-increaseSizePanel",
-                    "template": "%prefix/increaseSizeTemplatePCP.html",
+                    "template": "%prefix/increaseSizeTemplatePMT.html",
                     "message": "%prefix/increaseSize.json",
                     "panels": {
-                        "always": []
+                        "always": [],
+                        "gpii.primarySchema.magnifierEnabled": []
                     }
                 }
             }
@@ -601,6 +608,120 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "container": ".gpiic-prefsEditor-magnifierEnabled",
                     "template": "%prefix/onOffSwitchTemplate.html",
                     "message": "%prefix/magnifier.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.magnification", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        "gpii.primarySchema.magnifierEnabled": ["magnifier"]
+                    }
+                }
+            },
+            magnifier: {
+                "type": "gpii.primarySchema.magnification",
+                "panel": {
+                    "type": "gpii.adjuster.magnifierPCP",
+                    "container": ".gpiic-prefsEditor-magnifier",
+                    "template": "%prefix/magnifierTemplatePCP.html",
+                    "message": "%prefix/magnifier.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.magnificationPosition", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        "gpii.primarySchema.magnifierEnabled": ["magnifierPosition"]
+                    }
+                }
+            },
+            magnifierPosition: {
+                "type": "gpii.primarySchema.magnificationPosition",
+                "classes": {
+                    "Lens": "gpii-increaseSize-magnifierPositionLens gpii-increaseSize-magnifierPositionIconLabel",
+                    "FullScreen": "gpii-increaseSize-magnifierPositionFullscreen gpii-increaseSize-magnifierPositionIconLabel",
+                    "TopHalf": "gpii-prefsEditor-adjusterIcons gpii-increaseSize-magnifierPositionTop gpii-increaseSize-magnifierPositionIconLabel",
+                    "BottomHalf": "gpii-prefsEditor-adjusterIcons gpii-increaseSize-magnifierPositionBottom gpii-increaseSize-magnifierPositionIconLabel",
+                    "LeftHalf": "gpii-prefsEditor-adjusterIcons gpii-increaseSize-magnifierPositionLeft gpii-increaseSize-magnifierPositionIconLabel",
+                    "RightHalf": "gpii-prefsEditor-adjusterIcons gpii-increaseSize-magnifierPositionRight gpii-increaseSize-magnifierPositionIconLabel"
+                },
+                "panel": {
+                    "type": "gpii.adjuster.magnifierPosition",
+                    "container": ".gpiic-prefsEditor-magnifierPosition",
+                    "template": "%prefix/magnifierPositionTemplate.html",
+                    "message": "%prefix/magnifierPosition.json",
+                    "classnameMap": {"magnifierPosition": "@magnifierPosition.classes"}
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.followingElement", {
+        auxiliarySchema: {
+            followingElement: {
+                "classes": {
+                    "mouse": "gpii-prefsEditor-adjusterIcons gpii-followingElement-mouseCursorIcon",
+                    "caret": "gpii-prefsEditor-adjusterIcons gpii-followingElement-textCursorIcon",
+                    "focus": "gpii-prefsEditor-adjusterIcons gpii-followingElement-keyboardFocusIcon"
+                },
+                "borderClasses": {
+                    "topOnly": "gpii-iconCheckAdjusterAreaTopOnlyBorder",
+                    "bottomOnly": "gpii-iconCheckAdjusterAreaBottomOnlyBorder",
+                    "noBorder": "gpii-iconCheckAdjusterAreaNoBorder"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.tracking", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        "gpii.primarySchema.magnifierEnabled": ["tracking"]
+                    }
+                }
+            },
+            tracking: {
+                "type": "gpii.primarySchema.tracking",
+                "panel": {
+                    "type": "gpii.adjuster.followingElement.magnifier",
+                    "container": ".gpiic-prefsEditor-magnifierFollows",
+                    "template": "%prefix/followingElementTemplate.html",
+                    "message": "%prefix/followingElement.json",
+                    "classnameMap": {
+                        "followingElement": "@followingElement.classes",
+                        "followingElementBorder": "@followingElement.borderClasses"
+                    }
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.showCrosshairs", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        "gpii.primarySchema.magnifierEnabled": ["showCrosshairs"]
+                    }
+                }
+            },
+            showCrosshairs: {
+                "type": "gpii.primarySchema.showCrosshairs",
+                "panel": {
+                    "type": "gpii.adjuster.showCrosshairs",
+                    "container": ".gpiic-prefsEditor-showCrosshairs",
+                    "template": "%prefix/iconCheckTemplateShowCrosshairs.html",
+                    "message": "%prefix/showCrosshairs.json"
                 }
             }
         }

@@ -58,14 +58,19 @@
     <script type="text/javascript" src="../../src/shared/adjusters/js/contrastThemeNoPreview.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/contrastEnabled.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/increaseSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/increaseSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/textSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/textSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/cursorSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/cursorSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierEnabled.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierInvertColours.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPosition.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/followingElement.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierFollowsFollowingElement.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/screenReaderFollowsFollowingElement.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/showCrosshairs.js"></script>
 
     <!-- The JS files of the enactors of my custom adjusters -->
@@ -108,11 +113,33 @@
     </div>
 
     <script>
-        var pcp = gpii.pcp.starter();
-        var exampleModel = {"http://registry.gpii.org/common/pitch":[{"value":0.4}],
-                            "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":true}],
-                            "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"most"}]
-                        };
+        pcp = gpii.pcp.starter();
+        var exampleModel = {
+            "http://registry.gpii.org/common/pitch":[{"value":0.5}],
+            "http://registry.gpii.org/common/volume":[{"value":0.4}],
+            "http://registry.gpii.org/common/keyEcho":[{"value":true}],
+            "http://registry.gpii.org/common/language":[{"value":"es"}],
+            "http://registry.gpii.org/common/wordEcho":[{"value":true}],
+            "http://registry.gpii.org/common/fontSize":[{"value":21}],
+            "http://registry.gpii.org/common/tracking":[{"value":["mouse","caret","focus"]}],
+            "http://registry.gpii.org/common/volumeTTS":[{"value":1}],
+            "http://registry.gpii.org/common/speechRate":[{"value":150}],
+            "http://registry.gpii.org/common/cursorSize":[{"value":0.8400000000000001}],
+            "http://registry.gpii.org/common/readingUnit":[{"value":"Paragraph"}],
+            "http://registry.gpii.org/common/trackingTTS":[{"value":["mouse","caret","focus"]}],
+            "http://registry.gpii.org/common/magnification":[{"value":2.75}],
+            "http://registry.gpii.org/common/showCrosshairs":[{"value":true}],
+            "http://registry.gpii.org/common/announceCapitals":[{"value":true}],
+            "http://registry.gpii.org/common/magnifierEnabled":[{"value":true}],
+            "http://registry.gpii.org/common/highContrastTheme":[{"value":"white-black"}],
+            "http://registry.gpii.org/common/magnifierPosition":[{"value":"Lens"}],
+            "http://registry.gpii.org/common/auditoryOutLanguage":[{"value":"el"}],
+            "http://registry.gpii.org/common/highContrastEnabled":[{"value":true}],
+            "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"all"}],
+            "http://registry.gpii.org/common/speakTutorialMessages":[{"value":true}],
+            "http://registry.gpii.org/common/screenReaderTTSEnabled":[{"value":true}],
+            "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":true}]
+        };
         pcp.renderAdjusters(exampleModel);
     </script>
 
