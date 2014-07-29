@@ -62,8 +62,8 @@
             return -1;
         };
 
-        var deepestLevel = function (arrayOfAdjusters, groupLevels) {
-            return Math.max.apply(null, arrayOfAdjusters.map(function (adj) {
+        var deepestLevel = function (adjusters, groupLevels) {
+            return Math.max.apply(null, adjusters.map(function (adj) {
                 return levelOfAdjuster(adj, groupLevels);
             }));
         };
@@ -73,9 +73,10 @@
         // 2) have been missed in the preferences set, but should be there,
         //    e.g. if speechRate value is given, but screenReaderTTSEnabled value - not.
 
-        var determineAdditionalGradeNames = function (arrayOfModelAdjusters) {
-            var commonModelPartLength = 19;
-            var arrayOfAdjusters = fluid.transform(arrayOfModelAdjusters, function (adjuster) {
+        var determineAdditionalGradeNames = function (modelAdjusters) {
+            var commonModelPartLength = "gpii_primarySchema_".length;
+
+            var baseAdjusters = fluid.transform(modelAdjusters, function (adjuster) {
                 return adjuster.substr(commonModelPartLength);
             });
 
@@ -90,17 +91,16 @@
             var additionals = [];
 
             fluid.each(groups, function (group) {
-                toBePushed = group[0][deepestLevel(arrayOfAdjusters, group[1])];
-                additionals = additionals.concat(toBePushed);
+                additionals = additionals.concat(group[0][deepestLevel(baseAdjusters, group[1])]);
             });
 
             for (i = 0; i < additionals.length; i++) {
-                if ($.inArray(additionals[i], arrayOfAdjusters) < 0) {
-                    arrayOfAdjusters.push(additionals[i]);
+                if ($.inArray(additionals[i], baseAdjusters) < 0) {
+                    baseAdjusters.push(additionals[i]);  // add every additional adjuster, that has been omitted
                 };
             };
 
-            var additionalSchemaAdjusters = fluid.transform(arrayOfAdjusters, function (adjuster) {
+            var additionalSchemaAdjusters = fluid.transform(baseAdjusters, function (adjuster) {
                 return "gpii.pcp.auxiliarySchema." + adjuster;
             });
 
