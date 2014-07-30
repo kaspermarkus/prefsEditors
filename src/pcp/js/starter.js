@@ -8,6 +8,8 @@
         }
     });
 
+    // TODO: Rewrite this function more declaratively
+
     gpii.pcp.renderPCP = function (preferences) {
         var visualAlternativesRequiredByLevel = {
             0: ["visualAlternatives"],
@@ -45,7 +47,7 @@
 
         var addContrastLevels = [
             ["contrastEnabled"],
-            ["contrast_theme"]  // TODO: rename this to camelCase everywhere
+            ["contrastTheme"]
         ];
 
         var increaseSizeLevels = [
@@ -71,7 +73,7 @@
         // used for adding gradeNames that:
         // 1) aren't part of the model, e.g. grade names for groups
         // 2) have been missed in the preferences set, but should be there,
-        //    e.g. if speechRate value is given, but screenReaderTTSEnabled value - not.
+        //    e.g. if speechRate value is given, but screenReaderTTSEnabled value is not.
 
         var determineAdditionalGradeNames = function (modelAdjusters) {
             var commonModelPartLength = "gpii_primarySchema_".length;

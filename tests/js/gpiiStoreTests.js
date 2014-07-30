@@ -35,7 +35,7 @@ https://github.com/gpii/universal/LICENSE.txt
         "gpii_primarySchema_voicePitch": 80,
         "gpii_primarySchema_cursorSize": 1,
         "gpii_primarySchema_magnification": 100,
-        "gpii_primarySchema_contrast_theme": "black-white",
+        "gpii_primarySchema_contrastTheme": "black-white",
         "gpii_primarySchema_showCrosshairs": false,
         "gpii_primarySchema_universalVolume": 80,
         "gpii_primarySchema_contrastEnabled": false,
@@ -144,7 +144,7 @@ https://github.com/gpii/universal/LICENSE.txt
     };
 
     gpii.prefs.gpiiStore.tests.assertGetSettingsFromLoggedUser = function () {
-        var keys = ["volume", "keyEcho", "wordEcho", "fontSize", "speakText", "voicePitch", "cursorSize", "magnification", "contrast_theme", "showCrosshairs", "universalVolume", "contrastEnabled", "announceCapitals", "textHighlighting", "magnifierEnabled", "universalLanguage", "punctuationVerbosity", "screenReaderLanguage", "wordsSpokenPerMinute", "speakTutorialMessages", "magnificationPosition", "screenReaderBrailleOutput"];
+        var keys = ["volume", "keyEcho", "wordEcho", "fontSize", "speakText", "voicePitch", "cursorSize", "magnification", "contrastTheme", "showCrosshairs", "universalVolume", "contrastEnabled", "announceCapitals", "textHighlighting", "magnifierEnabled", "universalLanguage", "punctuationVerbosity", "screenReaderLanguage", "wordsSpokenPerMinute", "speakTutorialMessages", "magnificationPosition", "screenReaderBrailleOutput"];
 
         var modelKeys = fluid.transform(keys, function (key) {
             return "gpii_primarySchema_" + key;

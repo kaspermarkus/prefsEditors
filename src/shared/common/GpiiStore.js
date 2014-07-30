@@ -99,7 +99,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             value: "gpii_primarySchema_contrastEnabled"
         }],
         "http://registry\\.gpii\\.org/common/highContrastTheme": [{
-            value: "gpii_primarySchema_contrast_theme"
+            value: "gpii_primarySchema_contrastTheme"
         }],
         "http://registry\\.gpii\\.org/common/cursorSize": [{
             transform: {

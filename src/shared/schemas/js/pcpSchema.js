@@ -498,7 +498,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.contrast_theme", {
+    fluid.defaults("gpii.pcp.auxiliarySchema.contrastTheme", {
         auxiliarySchema: {
             groups: {
                 addContrast: {
