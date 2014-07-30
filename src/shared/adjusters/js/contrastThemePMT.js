@@ -21,7 +21,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             selectorsToIgnore: fluid.prefs.compositePanel.arrayMergePolicy
         },
         preferenceMap: {
-            "gpii.primarySchema.contrast.theme": {
+            "gpii.primarySchema.contrastTheme": {
                 "model.value": "default"
             }
         },

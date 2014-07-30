@@ -22,7 +22,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "stringArrayIndex.theme": gpii.prefs.merging.arrayOverridePolicy
         },
         preferenceMap: {
-            "gpii.primarySchema.contrast.theme": {
+            "gpii.primarySchema.contrastTheme": {
                 "model.value": "default"
             }
         },

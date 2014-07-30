@@ -57,7 +57,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "type": "boolean",
             "default": false
         },
-        "gpii.primarySchema.contrast.theme": {
+        "gpii.primarySchema.contrastTheme": {
             "type": "string",
             "default": "black-white",
             "enum": ["black-white", "white-black", "black-yellow", "yellow-black"]

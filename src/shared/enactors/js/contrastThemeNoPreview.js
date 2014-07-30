@@ -21,7 +21,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "gpii.primarySchema.contrastEnabled": {
                 "model.enabled": "default"
             },
-            "gpii.primarySchema.contrast.theme": {
+            "gpii.primarySchema.contrastTheme": {
                 "model.value": "default"
             }
         },

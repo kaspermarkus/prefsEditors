@@ -508,7 +508,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             contrastTheme: {
-                "type": "gpii.primarySchema.contrast.theme",
+                "type": "gpii.primarySchema.contrastTheme",
                 "classes": {
                     "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
                     "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
