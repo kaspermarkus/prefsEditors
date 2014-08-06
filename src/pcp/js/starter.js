@@ -120,6 +120,13 @@
         var modelKeys = Object.keys(modelToRender);
         var additionalGradeNames = determineAdditionalGradeNames(modelKeys);
 
+        for (var key in modelToRender) {
+            if (modelToRender.hasOwnProperty(key)) {
+                var schemaKey = key.replace(/_/g, ".");
+                gpii.primarySchema[schemaKey]["default"] = modelToRender[key];
+            }
+        };
+
         fluid.prefs.create("#gpiic-pcp", {
             build: {
                 gradeNames: required.concat(additionalGradeNames),
