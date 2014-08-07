@@ -11,6 +11,15 @@
     // TODO: Rewrite this function more declaratively
 
     gpii.pcp.renderPCP = function (preferences) {
+        var metaGradeNames = [
+            "visualAlternatives",
+            "visualAlternativesMoreLess",
+            "volumeGroup",
+            "languageGroup",
+            "addContrast",
+            "increaseSize"
+        ];
+
         var visualAlternativesRequiredByLevel = {
             0: ["visualAlternatives"],
             1: ["visualAlternatives", "speakText"],
@@ -99,6 +108,9 @@
             for (i = 0; i < additionals.length; i++) {
                 if ($.inArray(additionals[i], baseAdjusters) < 0) {
                     baseAdjusters.push(additionals[i]);  // add every additional adjuster, that has been omitted
+                    if (metaGradeNames.indexOf(additionals[i]) < 0) {
+                        modelToRender["gpii_primarySchema_" + additionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
+                    };
                 };
             };
 
@@ -124,7 +136,7 @@
             if (modelToRender.hasOwnProperty(key)) {
                 var schemaKey = key.replace(/_/g, ".");
                 gpii.primarySchema[schemaKey]["default"] = modelToRender[key];
-            }
+            };
         };
 
         fluid.prefs.create("#gpiic-pcp", {
