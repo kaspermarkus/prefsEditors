@@ -1,10 +1,19 @@
 (function ($, fluid) {
     fluid.defaults("gpii.pcp.starter", {
-        gradeNames: ["fluid.littleComponent", "autoInit"],
-        invokers: {
-            renderAdjusters: {
+        gradeNames: ["fluid.eventedComponent", "autoInit"],
+        events: {
+            onRenderRquest: null
+        },
+        listeners: {
+            "onRenderRquest.renderPCP": {
                 "funcName": "gpii.pcp.renderPCP",
                 "args": ["{that}.options.metaGradeNames", "{arguments}.0"]
+            }
+        },
+        invokers: {
+            renderAdjusters: {
+                "func": "{that}.events.onRenderRquest.fire",
+                "args": ["{arguments}.0"]
             }
         },
         metaGradeNames: [
