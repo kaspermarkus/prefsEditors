@@ -2,12 +2,17 @@
     fluid.defaults("gpii.pcp.starter", {
         gradeNames: ["fluid.eventedComponent", "autoInit"],
         events: {
-            onRenderRquest: null
+            onRenderRquest: null,
+            renderPCP: null
         },
         listeners: {
-            "onRenderRquest.renderPCP": {
-                "funcName": "gpii.pcp.renderPCP",
-                "args": ["{that}.options.metaGradeNames", "{arguments}.0"]
+            "onRenderRquest.populateGradeNames": {
+                "funcName": "gpii.pcp.populateGradeNames",
+                "args": ["{that}", "{that}.options.metaGradeNames", "{arguments}.0"]
+            },
+            "renderPCP.create":{
+                "listener": "gpii.pcp.renderPCP",
+                "args": ["{arguments}.0"]
             }
         },
         invokers: {
@@ -23,14 +28,12 @@
             "languageGroup",
             "addContrast",
             "increaseSize"
-        ],
-
+        ]
     });
 
     // TODO: Rewrite this function more declaratively
 
-    gpii.pcp.renderPCP = function (metaGradeNames, preferences) {
-
+    gpii.pcp.populateGradeNames = function (that, metaGradeNames, preferences) {
         var visualAlternativesRequiredByLevel = {
             0: ["visualAlternatives"],
             1: ["visualAlternatives", "speakText"],
@@ -150,9 +153,16 @@
             };
         };
 
+        var finalGradeNames = required.concat(additionalGradeNames);
+        that.events.renderPCP.fire(finalGradeNames);
+    };
+
+
+    gpii.pcp.renderPCP = function (finalGradeNames) {
+
         fluid.prefs.create("#gpiic-pcp", {
             build: {
-                gradeNames: required.concat(additionalGradeNames),
+                gradeNames: finalGradeNames,
                 primarySchema: gpii.primarySchema
             },
             prefsEditor: {
