@@ -3,22 +3,24 @@
         gradeNames: ["fluid.littleComponent", "autoInit"],
         invokers: {
             renderAdjusters: {
-                "funcName": "gpii.pcp.renderPCP"
+                "funcName": "gpii.pcp.renderPCP",
+                "args": ["{that}.options.metaGradeNames", "{arguments}.0"]
             }
-        }
-    });
-
-    // TODO: Rewrite this function more declaratively
-
-    gpii.pcp.renderPCP = function (preferences) {
-        var metaGradeNames = [
+        },
+        metaGradeNames: [
             "visualAlternatives",
             "visualAlternativesMoreLess",
             "volumeGroup",
             "languageGroup",
             "addContrast",
             "increaseSize"
-        ];
+        ],
+
+    });
+
+    // TODO: Rewrite this function more declaratively
+
+    gpii.pcp.renderPCP = function (metaGradeNames, preferences) {
 
         var visualAlternativesRequiredByLevel = {
             0: ["visualAlternatives"],
@@ -80,7 +82,7 @@
         };
 
         // used for adding gradeNames that:
-        // 1) aren't part of the model, e.g. grade names for groups
+        // 1) aren't part of the model, e.g. grade names for groups (called "metaGradeNames")
         // 2) have been missed in the preferences set, but should be there,
         //    e.g. if speechRate value is given, but screenReaderTTSEnabled value is not.
 
