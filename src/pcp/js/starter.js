@@ -10,7 +10,7 @@
                 "funcName": "gpii.pcp.populateGradeNames",
                 "args": ["{that}", "{that}.options.metaGradeNames", "{arguments}.0"]
             },
-            "renderPCP.create":{
+            "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
                 "args": ["{arguments}.0"]
             }
@@ -121,9 +121,9 @@
 
             for (i = 0; i < additionals.length; i++) {
                 if ($.inArray(additionals[i], baseAdjusters) < 0) {
-                    baseAdjusters.push(additionals[i]);  // add every additional adjuster, that has been omitted
-                    if (metaGradeNames.indexOf(additionals[i]) < 0) {
-                        modelToRender["gpii_primarySchema_" + additionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
+                    baseAdjusters.push(additionals[i]);  // add every additional adjuster needed for rendering (including meta grade names)
+                    if (metaGradeNames.indexOf(additionals[i]) < 0) {  // if it's not a meta grade name, then there has been an ebaled switch missed in the prefs set supplied to PCP
+                        modelToRender["gpii_primarySchema_" + additionals[i]] = true; // used to update primarySchema with true values for enabling switches (since they've been missed)
                     };
                 };
             };
