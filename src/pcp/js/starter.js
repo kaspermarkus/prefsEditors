@@ -119,14 +119,14 @@
                 additionals = additionals.concat(group[0][deepestLevel(baseAdjusters, group[1])]);
             });
 
-            for (i = 0; i < additionals.length; i++) {
-                if ($.inArray(additionals[i], baseAdjusters) < 0) {
-                    baseAdjusters.push(additionals[i]);  // add every additional adjuster needed for rendering (including meta grade names)
-                    if (metaGradeNames.indexOf(additionals[i]) < 0) {  // if it's not a meta grade name, then there has been an ebaled switch missed in the prefs set supplied to PCP
-                        modelToRender["gpii_primarySchema_" + additionals[i]] = true; // used to update primarySchema with true values for enabling switches (since they've been missed)
+            fluid.each(additionals, function (grade) {
+                if ($.inArray(grade, baseAdjusters) < 0) {
+                    baseAdjusters.push(grade);  // add every additional adjuster needed for rendering (including meta grade names)
+                    if (metaGradeNames.indexOf(grade) < 0) {  // if it's not a meta grade name, then there has been an ebaled switch missed in the prefs set supplied to PCP
+                        modelToRender["gpii_primarySchema_" + grade] = true; // used to update primarySchema with true values for enabling switches (since they've been missed)
                     };
                 };
-            };
+            });
 
             var additionalSchemaAdjusters = fluid.transform(baseAdjusters, function (adjuster) {
                 return "gpii.pcp.auxiliarySchema." + adjuster;
