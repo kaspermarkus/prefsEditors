@@ -32,24 +32,47 @@
         groupsData: [[{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],[{"0":["volumeGroup"]},[["volume"]]],[{"0":["languageGroup"]},[["universalLanguage"]]],[{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],[{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]]]
     });
 
+    fluid.defaults("gpii.pcp.visualAlternativesInformer", {
+        gradeNames: ["fluid.littleComponent", "autoInit"],
+        groupData: [{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],
+        invokers: {
+            determineGradeNames: {
+                "funcName": "gpii.pcp.visualAlternativesInformer.determineGrades",
+                "args": ["{arguments}.0", "{that}.options.groupData"]
+            }
+        }
+    });
+
+    gpii.pcp.visualAlternativesInformer.determineGrades = function (preferences, groupData) {
+        var commonModelPartLength = "gpii_primarySchema_".length;
+        var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
+        var modelKeys = Object.keys(modelToRender);
+
+        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
+            return adjuster.substr(commonModelPartLength);
+        });
+
+        return groupData[0][deepestLevel(baseAdjusters, groupData[1])];
+    };
+
+    levelOfAdjuster = function (adjuster, groupLevels) {
+        for (i = 0; i < groupLevels.length; i++) {
+            if ($.inArray(adjuster, groupLevels[i]) > -1) {
+                return i;
+            };
+        };
+        return -1;
+    };
+
+    deepestLevel = function (adjusters, groupLevels) {
+        return Math.max.apply(null, adjusters.map(function (adj) {
+            return levelOfAdjuster(adj, groupLevels);
+        }));
+    };
+
     // TODO: Rewrite this function more declaratively
 
     gpii.pcp.populateGradeNames = function (that, metaGradeNames, groups, preferences) {
-
-        var levelOfAdjuster = function (adjuster, groupLevels) {
-            for (i = 0; i < groupLevels.length; i++) {
-                if ($.inArray(adjuster, groupLevels[i]) > -1) {
-                    return i;
-                };
-            };
-            return -1;
-        };
-
-        var deepestLevel = function (adjusters, groupLevels) {
-            return Math.max.apply(null, adjusters.map(function (adj) {
-                return levelOfAdjuster(adj, groupLevels);
-            }));
-        };
 
         // used for adding gradeNames that:
         // 1) aren't part of the model, e.g. grade names for groups (called "metaGradeNames")
