@@ -8,7 +8,7 @@
         listeners: {
             "onRenderRquest.populateGradeNames": {
                 "funcName": "gpii.pcp.populateGradeNames",
-                "args": ["{that}", "{that}.options.metaGradeNames", "{arguments}.0"]
+                "args": ["{that}", "{that}.options.metaGradeNames", "{that}.options.groupsData", "{arguments}.0"]
             },
             "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
@@ -28,55 +28,13 @@
             "languageGroup",
             "addContrast",
             "increaseSize"
-        ]
+        ],
+        groupsData: [[{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],[{"0":["volumeGroup"]},[["volume"]]],[{"0":["languageGroup"]},[["universalLanguage"]]],[{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],[{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]]]
     });
 
     // TODO: Rewrite this function more declaratively
 
-    gpii.pcp.populateGradeNames = function (that, metaGradeNames, preferences) {
-        var visualAlternativesRequiredByLevel = {
-            0: ["visualAlternatives"],
-            1: ["visualAlternatives", "speakText"],
-            2: ["visualAlternatives", "speakText", "visualAlternativesMoreLess"]
-        };
-
-        var volumeRequiredByLevel = {
-            0: ["volumeGroup"]
-        };
-
-        var languageRequiredByLevel = {
-            0: ["languageGroup"]
-        };
-
-        var addContrastRequiredByLevel = {
-            0: ["addContrast"],
-            1: ["addContrast", "contrastEnabled"]
-        };
-
-        var increaseSizeRequiredByLevel = {
-            0: ["increaseSize"],
-            1: ["increaseSize", "magnifierEnabled"]
-        };
-
-        var visualAlternativesLevels = [
-            ["speakText", "screenReaderBrailleOutput"],
-            ["wordsSpokenPerMinute", "volume"],
-            ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting", "screenReaderFollows"]
-        ];
-
-        var volumeLevels = [["volume"]];
-
-        var languageLevels = [["universalLanguage"]];
-
-        var addContrastLevels = [
-            ["contrastEnabled"],
-            ["contrastTheme"]
-        ];
-
-        var increaseSizeLevels = [
-            ["fontSize", "cursorSize", "magnifierEnabled"],
-            ["magnifier", "magnifierPosition", "magnifierFollows", "showCrosshairs"]
-        ];
+    gpii.pcp.populateGradeNames = function (that, metaGradeNames, groups, preferences) {
 
         var levelOfAdjuster = function (adjuster, groupLevels) {
             for (i = 0; i < groupLevels.length; i++) {
@@ -104,14 +62,6 @@
             var baseAdjusters = fluid.transform(modelAdjusters, function (adjuster) {
                 return adjuster.substr(commonModelPartLength);
             });
-
-            var groups = [
-                [visualAlternativesRequiredByLevel, visualAlternativesLevels],
-                [volumeRequiredByLevel, volumeLevels],
-                [languageRequiredByLevel, languageLevels],
-                [addContrastRequiredByLevel, addContrastLevels],
-                [increaseSizeRequiredByLevel, increaseSizeLevels]
-            ];
 
             var additionals = [];
 
