@@ -135,10 +135,10 @@
             return adjuster.substr(commonModelPartLength);
         });
 
-        return groupData[0][deepestLevel(baseAdjusters, groupData[1])];
+        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
     };
 
-    levelOfAdjuster = function (adjuster, groupLevels) {
+    gpii.pcp.levelOfAdjuster = function (adjuster, groupLevels) {
         for (i = 0; i < groupLevels.length; i++) {
             if ($.inArray(adjuster, groupLevels[i]) > -1) {
                 return i;
@@ -147,9 +147,9 @@
         return -1;
     };
 
-    deepestLevel = function (adjusters, groupLevels) {
+    gpii.pcp.deepestLevel = function (adjusters, groupLevels) {
         return Math.max.apply(null, adjusters.map(function (adj) {
-            return levelOfAdjuster(adj, groupLevels);
+            return gpii.pcp.levelOfAdjuster(adj, groupLevels);
         }));
     };
 
