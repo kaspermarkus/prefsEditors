@@ -23,10 +23,20 @@
                 "type": "gpii.pcp.increaseSizeInformer"
             }
         },
+        members: {
+            modelToRender: false
+        },
         listeners: {
-            "onRenderRquest.populateGradeNames": {
-                // "funcName": "gpii.pcp.populateGradeNames",
-                // "args": ["{that}", "{that}.options.metaGradeNames", "{that}.options.groupsData", "{arguments}.0"]
+            "onRenderRquest.setInitialModelToRender": {
+                "funcName": "fluid.set",
+                "args": ["{that}", "modelToRender", {
+                    expander: {
+                        "funcName": "fluid.model.transform",
+                        "args": ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                    }
+                }]
+            },
+            "onRenderRquest.gatherAdditionals": {
                 "listener": "{that}.gather",
                 "args": ["{arguments}.0"]
             },
@@ -50,31 +60,31 @@
                     {
                         "expander": {
                             "func": "{visualAlternatives}.determineGradeNames",
-                            "args": ["{arguments}.0"]
+                            "args": ["{that}.modelToRender"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{volume}.determineGradeNames",
-                            "args": ["{arguments}.0"]
+                            "args": ["{that}.modelToRender"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{language}.determineGradeNames",
-                            "args": ["{arguments}.0"]
+                            "args": ["{that}.modelToRender"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{addContrast}.determineGradeNames",
-                            "args": ["{arguments}.0"]
+                            "args": ["{that}.modelToRender"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{increaseSize}.determineGradeNames",
-                            "args": ["{arguments}.0"]
+                            "args": ["{that}.modelToRender"]
                         }
                     }
                 ]]
@@ -89,7 +99,6 @@
             "increaseSize"
         ]
     });
-
 
     fluid.defaults("gpii.pcp.informer", {
         gradeNames: ["fluid.littleComponent", "autoInit"],
@@ -126,11 +135,9 @@
         groupData: [{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]],
     });
 
-    gpii.pcp.determineAdditionalGradesByGroup = function (preferences, groupData) {
+    gpii.pcp.determineAdditionalGradesByGroup = function (modelToRender, groupData) {
         var commonModelPartLength = "gpii_primarySchema_".length;
-        var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
         var modelKeys = Object.keys(modelToRender);
-
         var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
             return adjuster.substr(commonModelPartLength);
         });
