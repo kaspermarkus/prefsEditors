@@ -87,64 +87,43 @@
             "languageGroup",
             "addContrast",
             "increaseSize"
-        ],
-        groupsData: [[{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],[{"0":["volumeGroup"]},[["volume"]]],[{"0":["languageGroup"]},[["universalLanguage"]]],[{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],[{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]]]
+        ]
     });
 
 
-    fluid.defaults("gpii.pcp.visualAlternativesInformer", {
+    fluid.defaults("gpii.pcp.informer", {
         gradeNames: ["fluid.littleComponent", "autoInit"],
-        groupData: [{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],
         invokers: {
             determineGradeNames: {
                 "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
                 "args": ["{arguments}.0", "{that}.options.groupData"]
             }
         }
+    });
+
+    fluid.defaults("gpii.pcp.visualAlternativesInformer", {
+        gradeNames: ["gpii.pcp.informer", "autoInit"],
+        groupData: [{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],
     });
 
     fluid.defaults("gpii.pcp.volumeInformer", {
-        gradeNames: ["fluid.littleComponent", "autoInit"],
+        gradeNames: ["gpii.pcp.informer", "autoInit"],
         groupData: [{"0":["volumeGroup"]},[["volume"]]],
-        invokers: {
-            determineGradeNames: {
-                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
-                "args": ["{arguments}.0", "{that}.options.groupData"]
-            }
-        }
     });
 
     fluid.defaults("gpii.pcp.languageInformer", {
-        gradeNames: ["fluid.littleComponent", "autoInit"],
+        gradeNames: ["gpii.pcp.informer", "autoInit"],
         groupData: [{"0":["languageGroup"]},[["universalLanguage"]]],
-        invokers: {
-            determineGradeNames: {
-                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
-                "args": ["{arguments}.0", "{that}.options.groupData"]
-            }
-        }
     });
 
     fluid.defaults("gpii.pcp.addContrastInformer", {
-        gradeNames: ["fluid.littleComponent", "autoInit"],
+        gradeNames: ["gpii.pcp.informer", "autoInit"],
         groupData: [{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],
-        invokers: {
-            determineGradeNames: {
-                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
-                "args": ["{arguments}.0", "{that}.options.groupData"]
-            }
-        }
     });
 
     fluid.defaults("gpii.pcp.increaseSizeInformer", {
-        gradeNames: ["fluid.littleComponent", "autoInit"],
+        gradeNames: ["gpii.pcp.informer", "autoInit"],
         groupData: [{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]],
-        invokers: {
-            determineGradeNames: {
-                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
-                "args": ["{arguments}.0", "{that}.options.groupData"]
-            }
-        }
     });
 
     gpii.pcp.determineAdditionalGradesByGroup = function (preferences, groupData) {
