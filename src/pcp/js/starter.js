@@ -79,7 +79,7 @@
             },
             gather: {
                 "funcName": "gpii.pcp.gatherAdditionals",
-                "args": ["{that}", "{that}.modelToRender", "{that}.options.metaGradeNames", [
+                "args": ["{that}", "{that}.modelToRender", "{that}.baseAdjusters", "{that}.options.metaGradeNames", [
                     {
                         "expander": {
                             "func": "{visualAlternatives}.determineGradeNames",
@@ -178,19 +178,11 @@
         }));
     };
 
-
     gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, groupData) {
         return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
     };
 
-
-    gpii.pcp.gatherAdditionals = function (that, modelToRender, metaGradeNames, additionals) {
-        var commonModelPartLength = "gpii_primarySchema_".length;
-        var modelKeys = Object.keys(modelToRender);
-        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
-            return adjuster.substr(commonModelPartLength);
-        });
-
+    gpii.pcp.gatherAdditionals = function (that, modelToRender, baseAdjusters, metaGradeNames, additionals) {
         var arrayOfAdditionals = Array.prototype.concat.apply([], additionals);
 
         for (i = 0; i < arrayOfAdditionals.length; i++) {
@@ -230,7 +222,6 @@
         var finalGradeNames = required.concat(additionalGradeNames);
         that.events.renderPCP.fire(finalGradeNames);
     };
-
 
     gpii.pcp.renderPCP = function (finalGradeNames) {
 
