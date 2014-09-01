@@ -56,7 +56,7 @@
             },
             gather: {
                 "funcName": "gpii.pcp.gatherAdditionals",
-                "args": ["{that}", "{arguments}.0", "{that}.options.metaGradeNames", [
+                "args": ["{that}", "{that}.modelToRender", "{that}.options.metaGradeNames", [
                     {
                         "expander": {
                             "func": "{visualAlternatives}.determineGradeNames",
@@ -135,16 +135,6 @@
         groupData: [{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]],
     });
 
-    gpii.pcp.determineAdditionalGradesByGroup = function (modelToRender, groupData) {
-        var commonModelPartLength = "gpii_primarySchema_".length;
-        var modelKeys = Object.keys(modelToRender);
-        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
-            return adjuster.substr(commonModelPartLength);
-        });
-
-        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
-    };
-
     gpii.pcp.levelOfAdjuster = function (adjuster, groupLevels) {
         for (i = 0; i < groupLevels.length; i++) {
             if ($.inArray(adjuster, groupLevels[i]) > -1) {
@@ -160,9 +150,19 @@
         }));
     };
 
-    gpii.pcp.gatherAdditionals = function (that, preferences, metaGradeNames, additionals) {
+    gpii.pcp.determineAdditionalGradesByGroup = function (modelToRender, groupData) {
         var commonModelPartLength = "gpii_primarySchema_".length;
-        var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
+        var modelKeys = Object.keys(modelToRender);
+        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
+            return adjuster.substr(commonModelPartLength);
+        });
+
+        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
+    };
+
+
+    gpii.pcp.gatherAdditionals = function (that, modelToRender, metaGradeNames, additionals) {
+        var commonModelPartLength = "gpii_primarySchema_".length;
         var modelKeys = Object.keys(modelToRender);
         var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
             return adjuster.substr(commonModelPartLength);
@@ -183,12 +183,12 @@
             return "gpii.pcp.auxiliarySchema." + adjuster;
         });
 
-        that.events.populateGradeNames.fire(preferences, modelToRender, additionalSchemaAdjusters);
+        that.events.populateGradeNames.fire(modelToRender, additionalSchemaAdjusters);
     };
 
     // TODO: Rewrite this function more declaratively
 
-    gpii.pcp.populateGradeNames = function (that, preferences, modelToRender, additionalGradeNames) {
+    gpii.pcp.populateGradeNames = function (that, modelToRender, additionalGradeNames) {
 
         for (var key in modelToRender) {
             if (modelToRender.hasOwnProperty(key)) {
