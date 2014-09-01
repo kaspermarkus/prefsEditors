@@ -3,12 +3,36 @@
         gradeNames: ["fluid.eventedComponent", "autoInit"],
         events: {
             onRenderRquest: null,
+            populateGradeNames: null,
             renderPCP: null
+        },
+        components: {
+            visualAlternatives: {
+                "type": "gpii.pcp.visualAlternativesInformer"
+            },
+            volume: {
+                "type": "gpii.pcp.volumeInformer"
+            },
+            language: {
+                "type": "gpii.pcp.languageInformer"
+            },
+            addContrast: {
+                "type": "gpii.pcp.addContrastInformer"
+            },
+            increaseSize: {
+                "type": "gpii.pcp.increaseSizeInformer"
+            }
         },
         listeners: {
             "onRenderRquest.populateGradeNames": {
+                // "funcName": "gpii.pcp.populateGradeNames",
+                // "args": ["{that}", "{that}.options.metaGradeNames", "{that}.options.groupsData", "{arguments}.0"]
+                "listener": "{that}.gather",
+                "args": ["{arguments}.0"]
+            },
+            "populateGradeNames.populate": {
                 "funcName": "gpii.pcp.populateGradeNames",
-                "args": ["{that}", "{that}.options.metaGradeNames", "{that}.options.groupsData", "{arguments}.0"]
+                "args": ["{that}", "{arguments}.0", "{arguments}.1", "{arguments}.2"]
             },
             "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
@@ -19,6 +43,41 @@
             renderAdjusters: {
                 "func": "{that}.events.onRenderRquest.fire",
                 "args": ["{arguments}.0"]
+            },
+            gather: {
+                "funcName": "gpii.pcp.gatherAdditionals",
+                "args": ["{that}", "{arguments}.0", "{that}.options.metaGradeNames", [
+                    {
+                        "expander": {
+                            "func": "{visualAlternatives}.determineGradeNames",
+                            "args": ["{arguments}.0"]
+                        }
+                    },
+                    {
+                        "expander": {
+                            "func": "{volume}.determineGradeNames",
+                            "args": ["{arguments}.0"]
+                        }
+                    },
+                    {
+                        "expander": {
+                            "func": "{language}.determineGradeNames",
+                            "args": ["{arguments}.0"]
+                        }
+                    },
+                    {
+                        "expander": {
+                            "func": "{addContrast}.determineGradeNames",
+                            "args": ["{arguments}.0"]
+                        }
+                    },
+                    {
+                        "expander": {
+                            "func": "{increaseSize}.determineGradeNames",
+                            "args": ["{arguments}.0"]
+                        }
+                    }
+                ]]
             }
         },
         metaGradeNames: [
@@ -32,18 +91,63 @@
         groupsData: [[{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],[{"0":["volumeGroup"]},[["volume"]]],[{"0":["languageGroup"]},[["universalLanguage"]]],[{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],[{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]]]
     });
 
+
     fluid.defaults("gpii.pcp.visualAlternativesInformer", {
         gradeNames: ["fluid.littleComponent", "autoInit"],
         groupData: [{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],
         invokers: {
             determineGradeNames: {
-                "funcName": "gpii.pcp.visualAlternativesInformer.determineGrades",
+                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
                 "args": ["{arguments}.0", "{that}.options.groupData"]
             }
         }
     });
 
-    gpii.pcp.visualAlternativesInformer.determineGrades = function (preferences, groupData) {
+    fluid.defaults("gpii.pcp.volumeInformer", {
+        gradeNames: ["fluid.littleComponent", "autoInit"],
+        groupData: [{"0":["volumeGroup"]},[["volume"]]],
+        invokers: {
+            determineGradeNames: {
+                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
+                "args": ["{arguments}.0", "{that}.options.groupData"]
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.languageInformer", {
+        gradeNames: ["fluid.littleComponent", "autoInit"],
+        groupData: [{"0":["languageGroup"]},[["universalLanguage"]]],
+        invokers: {
+            determineGradeNames: {
+                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
+                "args": ["{arguments}.0", "{that}.options.groupData"]
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.addContrastInformer", {
+        gradeNames: ["fluid.littleComponent", "autoInit"],
+        groupData: [{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],
+        invokers: {
+            determineGradeNames: {
+                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
+                "args": ["{arguments}.0", "{that}.options.groupData"]
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.increaseSizeInformer", {
+        gradeNames: ["fluid.littleComponent", "autoInit"],
+        groupData: [{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]],
+        invokers: {
+            determineGradeNames: {
+                "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
+                "args": ["{arguments}.0", "{that}.options.groupData"]
+            }
+        }
+    });
+
+    gpii.pcp.determineAdditionalGradesByGroup = function (preferences, groupData) {
         var commonModelPartLength = "gpii_primarySchema_".length;
         var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
         var modelKeys = Object.keys(modelToRender);
@@ -70,42 +174,41 @@
         }));
     };
 
+    gpii.pcp.gatherAdditionals = function (that, preferences, metaGradeNames, additionals) {
+        var commonModelPartLength = "gpii_primarySchema_".length;
+        var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
+        var modelKeys = Object.keys(modelToRender);
+        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
+            return adjuster.substr(commonModelPartLength);
+        });
+
+        var arrayOfAdditionals = Array.prototype.concat.apply([], additionals);
+
+        for (i = 0; i < arrayOfAdditionals.length; i++) {
+            if ($.inArray(arrayOfAdditionals[i], baseAdjusters) < 0) {
+                baseAdjusters.push(arrayOfAdditionals[i]);  // add every additional adjuster, that has been omitted
+                if (metaGradeNames.indexOf(arrayOfAdditionals[i]) < 0) {
+                    modelToRender["gpii_primarySchema_" + arrayOfAdditionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
+                };
+            };
+        };
+
+        var additionalSchemaAdjusters = fluid.transform(baseAdjusters, function (adjuster) {
+            return "gpii.pcp.auxiliarySchema." + adjuster;
+        });
+
+        that.events.populateGradeNames.fire(preferences, modelToRender, additionalSchemaAdjusters);
+    };
+
     // TODO: Rewrite this function more declaratively
 
-    gpii.pcp.populateGradeNames = function (that, metaGradeNames, groups, preferences) {
+    gpii.pcp.populateGradeNames = function (that, preferences, modelToRender, additionalGradeNames) {
 
-        // used for adding gradeNames that:
-        // 1) aren't part of the model, e.g. grade names for groups (called "metaGradeNames")
-        // 2) have been missed in the preferences set, but should be there,
-        //    e.g. if speechRate value is given, but screenReaderTTSEnabled value is not.
-
-        var determineAdditionalGradeNames = function (modelAdjusters) {
-            var commonModelPartLength = "gpii_primarySchema_".length;
-
-            var baseAdjusters = fluid.transform(modelAdjusters, function (adjuster) {
-                return adjuster.substr(commonModelPartLength);
-            });
-
-            var additionals = [];
-
-            fluid.each(groups, function (group) {
-                additionals = additionals.concat(group[0][deepestLevel(baseAdjusters, group[1])]);
-            });
-
-            fluid.each(additionals, function (grade) {
-                if ($.inArray(grade, baseAdjusters) < 0) {
-                    baseAdjusters.push(grade);  // add every additional adjuster needed for rendering (including meta grade names)
-                    if (metaGradeNames.indexOf(grade) < 0) {  // if it's not a meta grade name, then there has been an ebaled switch missed in the prefs set supplied to PCP
-                        modelToRender["gpii_primarySchema_" + grade] = true; // used to update primarySchema with true values for enabling switches (since they've been missed)
-                    };
-                };
-            });
-
-            var additionalSchemaAdjusters = fluid.transform(baseAdjusters, function (adjuster) {
-                return "gpii.pcp.auxiliarySchema." + adjuster;
-            });
-
-            return additionalSchemaAdjusters;
+        for (var key in modelToRender) {
+            if (modelToRender.hasOwnProperty(key)) {
+                var schemaKey = key.replace(/_/g, ".");
+                gpii.primarySchema[schemaKey]["default"] = modelToRender[key];
+            };
         };
 
         var required = [
@@ -114,17 +217,6 @@
             "gpii.pcp.auxiliarySchema.common",
             "gpii.pcp.auxiliarySchema.followingElement"
         ];
-
-        var modelToRender = fluid.model.transform(preferences, gpii.prefs.commonTermsInverseTransformationRules);
-        var modelKeys = Object.keys(modelToRender);
-        var additionalGradeNames = determineAdditionalGradeNames(modelKeys);
-
-        for (var key in modelToRender) {
-            if (modelToRender.hasOwnProperty(key)) {
-                var schemaKey = key.replace(/_/g, ".");
-                gpii.primarySchema[schemaKey]["default"] = modelToRender[key];
-            };
-        };
 
         var finalGradeNames = required.concat(additionalGradeNames);
         that.events.renderPCP.fire(finalGradeNames);
