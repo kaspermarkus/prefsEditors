@@ -83,31 +83,31 @@
                     {
                         "expander": {
                             "func": "{visualAlternatives}.determineGradeNames",
-                            "args": ["{that}.modelToRender"]
+                            "args": ["{that}.baseAdjusters"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{volume}.determineGradeNames",
-                            "args": ["{that}.modelToRender"]
+                            "args": ["{that}.baseAdjusters"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{language}.determineGradeNames",
-                            "args": ["{that}.modelToRender"]
+                            "args": ["{that}.baseAdjusters"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{addContrast}.determineGradeNames",
-                            "args": ["{that}.modelToRender"]
+                            "args": ["{that}.baseAdjusters"]
                         }
                     },
                     {
                         "expander": {
                             "func": "{increaseSize}.determineGradeNames",
-                            "args": ["{that}.modelToRender"]
+                            "args": ["{that}.baseAdjusters"]
                         }
                     }
                 ]]
@@ -179,13 +179,7 @@
     };
 
 
-    gpii.pcp.determineAdditionalGradesByGroup = function (modelToRender, groupData) {
-        var commonModelPartLength = "gpii_primarySchema_".length;
-        var modelKeys = Object.keys(modelToRender);
-        var baseAdjusters = fluid.transform(modelKeys, function (adjuster) {
-            return adjuster.substr(commonModelPartLength);
-        });
-
+    gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, groupData) {
         return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
     };
 
