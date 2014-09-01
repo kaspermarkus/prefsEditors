@@ -1,4 +1,5 @@
 (function ($, fluid) {
+
     fluid.defaults("gpii.pcp.starter", {
         gradeNames: ["fluid.eventedComponent", "autoInit"],
         events: {
@@ -24,7 +25,8 @@
             }
         },
         members: {
-            modelToRender: false
+            modelToRender: {},
+            baseAdjusters: []
         },
         listeners: {
             "onRenderRquest.setInitialModelToRender": {
@@ -33,6 +35,23 @@
                     expander: {
                         "funcName": "fluid.model.transform",
                         "args": ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                    }
+                }]
+            },
+            "onRenderRquest.createAdjusterNames": {
+                "funcName": "fluid.set",
+                "args": ["{that}", "baseAdjusters", {
+                    expander: {
+                        "funcName": "fluid.transform",
+                        "args": [
+                            {
+                                expander: {
+                                    "funcName": "Object.keys",
+                                    "args": ["{that}.modelToRender"]
+                                }
+                            },
+                            "{that}.extractAdjusterNameFromModel"
+                        ]
                     }
                 }]
             },
@@ -50,6 +69,10 @@
             }
         },
         invokers: {
+            extractAdjusterNameFromModel: {
+                "funcName": "gpii.pcp.extractAdjusterNameFromModel",
+                "args": ["{arguments}.0", "{that}.options.commonModelPartLength"]
+            },
             renderAdjusters: {
                 "func": "{that}.events.onRenderRquest.fire",
                 "args": ["{arguments}.0"]
@@ -90,6 +113,7 @@
                 ]]
             }
         },
+        commonModelPartLength: "gpii_primarySchema_".length,
         metaGradeNames: [
             "visualAlternatives",
             "visualAlternativesMoreLess",
@@ -99,6 +123,10 @@
             "increaseSize"
         ]
     });
+
+    gpii.pcp.extractAdjusterNameFromModel = function (adjuster, commonModelPartLength) {
+        return adjuster.substr(commonModelPartLength);
+    };
 
     fluid.defaults("gpii.pcp.informer", {
         gradeNames: ["fluid.littleComponent", "autoInit"],
@@ -149,6 +177,7 @@
             return gpii.pcp.levelOfAdjuster(adj, groupLevels);
         }));
     };
+
 
     gpii.pcp.determineAdditionalGradesByGroup = function (modelToRender, groupData) {
         var commonModelPartLength = "gpii_primarySchema_".length;
