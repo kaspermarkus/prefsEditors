@@ -127,6 +127,12 @@
             "languageGroup",
             "addContrast",
             "increaseSize"
+        ],
+        requiredAuxGrades: [
+            "gpii.pcp.auxiliarySchema.mergePolicy",
+            "gpii.pcp.progressiveEnhancement",
+            "gpii.pcp.auxiliarySchema.common",
+            "gpii.pcp.auxiliarySchema.followingElement"
         ]
     });
 
@@ -219,14 +225,7 @@
 
     gpii.pcp.populateGradeNames = function (that, additionalGradeNames) {
 
-        var required = [
-            "gpii.pcp.auxiliarySchema.mergePolicy",
-            "gpii.pcp.progressiveEnhancement",
-            "gpii.pcp.auxiliarySchema.common",
-            "gpii.pcp.auxiliarySchema.followingElement"
-        ];
-
-        var finalGradeNames = required.concat(additionalGradeNames);
+        var finalGradeNames = that.options.requiredAuxGrades.concat(additionalGradeNames);
         that.events.renderPCP.fire(finalGradeNames);
     };
 
