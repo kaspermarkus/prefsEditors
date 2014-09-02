@@ -71,7 +71,7 @@
         invokers: {
             extractAdjusterNameFromModel: {
                 "funcName": "gpii.pcp.extractAdjusterNameFromModel",
-                "args": ["{arguments}.0", "{that}.options.commonModelPartLength"]
+                "args": ["{arguments}.0", "{that}.options.commonModelPart"]
             },
             renderAdjusters: {
                 "func": "{that}.events.onRenderRquest.fire",
@@ -113,7 +113,7 @@
                 ]]
             }
         },
-        commonModelPartLength: "gpii_primarySchema_".length,
+        commonModelPart: "gpii_primarySchema_",
         metaGradeNames: [
             "visualAlternatives",
             "visualAlternativesMoreLess",
@@ -124,8 +124,8 @@
         ]
     });
 
-    gpii.pcp.extractAdjusterNameFromModel = function (adjuster, commonModelPartLength) {
-        return adjuster.substr(commonModelPartLength);
+    gpii.pcp.extractAdjusterNameFromModel = function (adjuster, commonModelPart) {
+        return adjuster.substr(commonModelPart.length);
     };
 
     fluid.defaults("gpii.pcp.informer", {
@@ -189,7 +189,7 @@
             if ($.inArray(arrayOfAdditionals[i], baseAdjusters) < 0) {
                 baseAdjusters.push(arrayOfAdditionals[i]);  // add every additional adjuster, that has been omitted
                 if (metaGradeNames.indexOf(arrayOfAdditionals[i]) < 0) {
-                    modelToRender["gpii_primarySchema_" + arrayOfAdditionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
+                    modelToRender[that.options.commonModelPart + arrayOfAdditionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
                 };
             };
         };
