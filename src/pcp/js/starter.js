@@ -126,13 +126,13 @@
             "volumeGroup",
             "languageGroup",
             "addContrast",
-            "increaseSize"
+            "increaseSize",
+            "followingElement"
         ],
         requiredAuxGrades: [
             "gpii.pcp.auxiliarySchema.mergePolicy",
             "gpii.pcp.progressiveEnhancement",
-            "gpii.pcp.auxiliarySchema.common",
-            "gpii.pcp.auxiliarySchema.followingElement"
+            "gpii.pcp.auxiliarySchema.common"
         ]
     });
 
@@ -154,13 +154,15 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["visualAlternatives"],
-            "1": ["visualAlternatives","speakText"],
-            "2": ["visualAlternatives","speakText","visualAlternativesMoreLess"]
+            "1": ["visualAlternatives", "speakText"],
+            "2": ["visualAlternatives", "speakText", "visualAlternativesMoreLess"],
+            "3": ["visualAlternatives", "speakText", "visualAlternativesMoreLess", "followingElement"]
         },
         adjusterLevels: [
-            ["speakText","screenReaderBrailleOutput"],
-            ["wordsSpokenPerMinute","volume"],
-            ["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]
+            ["speakText", "screenReaderBrailleOutput"],
+            ["wordsSpokenPerMinute", "volume"],
+            ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting"],
+            ["screenReaderTracking"]
         ]
     });
 
@@ -188,7 +190,7 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["addContrast"],
-            "1": ["addContrast","contrastEnabled"]
+            "1": ["addContrast", "contrastEnabled"]
         },
         adjusterLevels: [
             ["contrastEnabled"],
@@ -200,11 +202,13 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["increaseSize"],
-            "1": ["increaseSize","magnifierEnabled"]
+            "1": ["increaseSize", "magnifierEnabled"],
+            "2": ["increaseSize", "magnifierEnabled", "followingElement"]
         },
         adjusterLevels: [
-            ["fontSize","cursorSize","magnifierEnabled"],
-            ["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]
+            ["fontSize", "cursorSize", "magnifierEnabled"],
+            ["magnifier", "magnifierPosition", "showCrosshairs"],
+            ["tracking"]
         ]
     });
 
