@@ -67,7 +67,7 @@
             },
             "populateGradeNames.populate": {
                 "funcName": "gpii.pcp.populateGradeNames",
-                "args": ["{that}", "{arguments}.0", "{arguments}.1", "{arguments}.2"]
+                "args": ["{that}", "{arguments}.0"]
             },
             "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
@@ -205,7 +205,7 @@
         });
 
         that.events.updatePrimarySchema.fire();
-        that.events.populateGradeNames.fire(modelToRender, additionalSchemaAdjusters);
+        that.events.populateGradeNames.fire(additionalSchemaAdjusters);
     };
 
     gpii.pcp.updatePrimarySchema = function (modelToRender, primarySchema) {
@@ -217,7 +217,7 @@
         };
     };
 
-    gpii.pcp.populateGradeNames = function (that, modelToRender, additionalGradeNames) {
+    gpii.pcp.populateGradeNames = function (that, additionalGradeNames) {
 
         var required = [
             "gpii.pcp.auxiliarySchema.mergePolicy",
