@@ -4,6 +4,7 @@
         gradeNames: ["fluid.eventedComponent", "autoInit"],
         events: {
             onRenderRquest: null,
+            updatePrimarySchema: null,
             populateGradeNames: null,
             renderPCP: null
         },
@@ -26,7 +27,8 @@
         },
         members: {
             modelToRender: {},
-            baseAdjusters: []
+            baseAdjusters: [],
+            primarySchema: gpii.primarySchema
         },
         listeners: {
             "onRenderRquest.setInitialModelToRender": {
@@ -59,13 +61,17 @@
                 "listener": "{that}.gather",
                 "args": ["{arguments}.0"]
             },
+            "updatePrimarySchema.update": {
+                "funcName": "gpii.pcp.updatePrimarySchema",
+                "args": ["{that}.modelToRender", "{that}.primarySchema"]
+            },
             "populateGradeNames.populate": {
                 "funcName": "gpii.pcp.populateGradeNames",
                 "args": ["{that}", "{arguments}.0", "{arguments}.1", "{arguments}.2"]
             },
             "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
-                "args": ["{arguments}.0"]
+                "args": ["{that}.primarySchema", "{arguments}.0"]
             }
         },
         invokers: {
@@ -198,19 +204,20 @@
             return "gpii.pcp.auxiliarySchema." + adjuster;
         });
 
+        that.events.updatePrimarySchema.fire();
         that.events.populateGradeNames.fire(modelToRender, additionalSchemaAdjusters);
     };
 
-    // TODO: Rewrite this function more declaratively
-
-    gpii.pcp.populateGradeNames = function (that, modelToRender, additionalGradeNames) {
-
+    gpii.pcp.updatePrimarySchema = function (modelToRender, primarySchema) {
         for (var key in modelToRender) {
             if (modelToRender.hasOwnProperty(key)) {
                 var schemaKey = key.replace(/_/g, ".");
-                gpii.primarySchema[schemaKey]["default"] = modelToRender[key];
+                primarySchema[schemaKey]["default"] = modelToRender[key];
             };
         };
+    };
+
+    gpii.pcp.populateGradeNames = function (that, modelToRender, additionalGradeNames) {
 
         var required = [
             "gpii.pcp.auxiliarySchema.mergePolicy",
@@ -223,12 +230,12 @@
         that.events.renderPCP.fire(finalGradeNames);
     };
 
-    gpii.pcp.renderPCP = function (finalGradeNames) {
+    gpii.pcp.renderPCP = function (primarySchema, finalGradeNames) {
 
         fluid.prefs.create("#gpiic-pcp", {
             build: {
                 gradeNames: finalGradeNames,
-                primarySchema: gpii.primarySchema
+                primarySchema: primarySchema
             },
             prefsEditor: {
                 gradeNames: ["demo.pcp"]
