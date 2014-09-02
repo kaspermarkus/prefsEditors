@@ -145,34 +145,67 @@
         invokers: {
             determineGradeNames: {
                 "funcName": "gpii.pcp.determineAdditionalGradesByGroup",
-                "args": ["{arguments}.0", "{that}.options.groupData"]
+                "args": ["{arguments}.0", "{that}.options.requiredByLevel", "{that}.options.adjusterLevels"]
             }
         }
     });
 
     fluid.defaults("gpii.pcp.visualAlternativesInformer", {
         gradeNames: ["gpii.pcp.informer", "autoInit"],
-        groupData: [{"0":["visualAlternatives"],"1":["visualAlternatives","speakText"],"2":["visualAlternatives","speakText","visualAlternativesMoreLess"]},[["speakText","screenReaderBrailleOutput"],["wordsSpokenPerMinute","volume"],["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]]],
+        requiredByLevel: {
+            "0": ["visualAlternatives"],
+            "1": ["visualAlternatives","speakText"],
+            "2": ["visualAlternatives","speakText","visualAlternativesMoreLess"]
+        },
+        adjusterLevels: [
+            ["speakText","screenReaderBrailleOutput"],
+            ["wordsSpokenPerMinute","volume"],
+            ["voicePitch","screenReaderLanguage","punctuationVerbosity","announceCapitals","speakTutorialMessages","keyEcho","wordEcho","textHighlighting","screenReaderFollows"]
+        ]
     });
 
     fluid.defaults("gpii.pcp.volumeInformer", {
         gradeNames: ["gpii.pcp.informer", "autoInit"],
-        groupData: [{"0":["volumeGroup"]},[["volume"]]],
+        requiredByLevel: {
+            "0": ["volumeGroup"]
+        },
+        adjusterLevels: [
+            ["volume"]
+        ]
     });
 
     fluid.defaults("gpii.pcp.languageInformer", {
         gradeNames: ["gpii.pcp.informer", "autoInit"],
-        groupData: [{"0":["languageGroup"]},[["universalLanguage"]]],
+        requiredByLevel: {
+            "0": ["languageGroup"]
+        },
+        adjusterLevels: [
+            ["universalLanguage"]
+        ]
     });
 
     fluid.defaults("gpii.pcp.addContrastInformer", {
         gradeNames: ["gpii.pcp.informer", "autoInit"],
-        groupData: [{"0":["addContrast"],"1":["addContrast","contrastEnabled"]},[["contrastEnabled"],["contrastTheme"]]],
+        requiredByLevel: {
+            "0": ["addContrast"],
+            "1": ["addContrast","contrastEnabled"]
+        },
+        adjusterLevels: [
+            ["contrastEnabled"],
+            ["contrastTheme"]
+        ]
     });
 
     fluid.defaults("gpii.pcp.increaseSizeInformer", {
         gradeNames: ["gpii.pcp.informer", "autoInit"],
-        groupData: [{"0":["increaseSize"],"1":["increaseSize","magnifierEnabled"]},[["fontSize","cursorSize","magnifierEnabled"],["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]]],
+        requiredByLevel: {
+            "0": ["increaseSize"],
+            "1": ["increaseSize","magnifierEnabled"]
+        },
+        adjusterLevels: [
+            ["fontSize","cursorSize","magnifierEnabled"],
+            ["magnifier","magnifierPosition","magnifierFollows","showCrosshairs"]
+        ]
     });
 
     gpii.pcp.levelOfAdjuster = function (adjuster, groupLevels) {
@@ -190,8 +223,8 @@
         }));
     };
 
-    gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, groupData) {
-        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])] || [];
+    gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, requiredByLevel, adjusterLevels) {
+        return requiredByLevel[gpii.pcp.deepestLevel(baseAdjusters, adjusterLevels)] || [];
     };
 
     gpii.pcp.gatherAdditionals = function (that, modelToRender, baseAdjusters, metaGradeNames, additionals) {
