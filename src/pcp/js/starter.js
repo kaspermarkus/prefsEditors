@@ -191,7 +191,7 @@
     };
 
     gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, groupData) {
-        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])];
+        return groupData[0][gpii.pcp.deepestLevel(baseAdjusters, groupData[1])] || [];
     };
 
     gpii.pcp.gatherAdditionals = function (that, modelToRender, baseAdjusters, metaGradeNames, additionals) {
@@ -224,7 +224,6 @@
     };
 
     gpii.pcp.populateGradeNames = function (that, additionalGradeNames) {
-
         var finalGradeNames = that.options.requiredAuxGrades.concat(additionalGradeNames);
         that.events.renderPCP.fire(finalGradeNames);
     };
