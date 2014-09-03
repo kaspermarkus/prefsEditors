@@ -154,9 +154,9 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["visualAlternatives"],
-            "1": ["visualAlternatives", "speakText"],
-            "2": ["visualAlternatives", "speakText", "visualAlternativesMoreLess"],
-            "3": ["visualAlternatives", "speakText", "visualAlternativesMoreLess", "followingElement"]
+            "1": ["speakText"],
+            "2": ["visualAlternativesMoreLess"],
+            "3": ["followingElement"]
         },
         adjusterLevels: [
             ["speakText", "screenReaderBrailleOutput"],
@@ -190,7 +190,7 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["addContrast"],
-            "1": ["addContrast", "contrastEnabled"]
+            "1": ["contrastEnabled"]
         },
         adjusterLevels: [
             ["contrastEnabled"],
@@ -202,8 +202,8 @@
         gradeNames: ["gpii.pcp.informer", "autoInit"],
         requiredByLevel: {
             "0": ["increaseSize"],
-            "1": ["increaseSize", "magnifierEnabled"],
-            "2": ["increaseSize", "magnifierEnabled", "followingElement"]
+            "1": ["magnifierEnabled"],
+            "2": ["followingElement"]
         },
         adjusterLevels: [
             ["fontSize", "cursorSize", "magnifierEnabled"],
@@ -227,8 +227,16 @@
         }));
     };
 
+    gpii.pcp.gatherUpperLevelGrades = function (requiredByLevel, deepestLevel) {
+        var gathered = [];
+        for (i = deepestLevel; i > -1; i--) {
+            gathered = gathered.concat(requiredByLevel[i]);
+        }
+        return gathered;
+    };
+
     gpii.pcp.determineAdditionalGradesByGroup = function (baseAdjusters, requiredByLevel, adjusterLevels) {
-        return requiredByLevel[gpii.pcp.deepestLevel(baseAdjusters, adjusterLevels)] || [];
+        return gpii.pcp.gatherUpperLevelGrades(requiredByLevel, gpii.pcp.deepestLevel(baseAdjusters, adjusterLevels)) || [];
     };
 
     gpii.pcp.gatherAdditionals = function (that, modelToRender, baseAdjusters, metaGradeNames, additionals) {
