@@ -234,14 +234,14 @@
     gpii.pcp.gatherAdditionals = function (that, modelToRender, baseAdjusters, metaGradeNames, additionals) {
         var arrayOfAdditionals = Array.prototype.concat.apply([], additionals);
 
-        for (i = 0; i < arrayOfAdditionals.length; i++) {
-            if ($.inArray(arrayOfAdditionals[i], baseAdjusters) < 0) {
-                baseAdjusters.push(arrayOfAdditionals[i]);  // add every additional adjuster, that has been omitted
-                if (metaGradeNames.indexOf(arrayOfAdditionals[i]) < 0) {
-                    modelToRender[that.options.commonModelPart + arrayOfAdditionals[i]] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
+        fluid.each(arrayOfAdditionals, function (grade) {
+            if ($.inArray(grade, baseAdjusters) < 0) {
+                baseAdjusters.push(grade);  // add every additional adjuster, that has been omitted
+                if (metaGradeNames.indexOf(grade) < 0) {
+                    modelToRender[that.options.commonModelPart + grade] = true; // used to update primarySchema with true values for enabling switches (if they're missed)
                 };
             };
-        };
+        });
 
         var additionalSchemaAdjusters = fluid.transform(baseAdjusters, function (adjuster) {
             return "gpii.pcp.auxiliarySchema." + adjuster;
