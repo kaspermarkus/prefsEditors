@@ -122,7 +122,6 @@
         commonModelPart: "gpii_primarySchema_",
         metaGradeNames: [
             "visualAlternatives",
-            "visualAlternativesMoreLess",
             "volumeGroup",
             "languageGroup",
             "addContrast",
