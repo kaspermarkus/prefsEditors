@@ -89,6 +89,26 @@ https://github.com/gpii/universal/LICENSE.txt
                     func: "jqUnit.assertDeepEq",
                     args: ["hold adjuster names to merge in member baseAdjusters", expectedAdjusterNames, "{starter}.baseAdjusters"]
                 }]
+            }, {
+                name: "check visual alternatives informer",
+                expect: 2,
+                sequence: [{
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up an empty list of adjusters", [], {
+                        expander: {
+                            "func": "{starter}.visualAlternatives.determineGradeNames",
+                            "args": [[]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up top level adjuster", ["visualAlternatives"], {
+                        expander: {
+                            "func": "{starter}.visualAlternatives.determineGradeNames",
+                            "args": [["speakText"]]
+                        }
+                    }]
+                }]
             }]
         }]
     });
