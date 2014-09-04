@@ -11,6 +11,9 @@ https://github.com/gpii/universal/LICENSE.txt
 (function ($) {
     fluid.registerNamespace("gpii.tests");
 
+    var exampleModelKey = "gpii_primarySchema_keyEcho";
+    var expectedAdjusterName = "keyEcho";
+
     var modelToWorkWith = {
         "http://registry.gpii.org/common/volume":[{"value":0.4}],
         "http://registry.gpii.org/common/keyEcho":[{"value":true}],
@@ -60,12 +63,23 @@ https://github.com/gpii/universal/LICENSE.txt
         modules: [{
             name: "gpii.pcp.starter tests",
             tests: [{
+                name: "starter is successfully created",
+                func: "jqUnit.assertNotUndefined",
+                args: ["starter object not undefined", "{starter}"]
+            }, {
+                expect: 1,
+                name: "check extracting adjuster name from model",
+                func: "jqUnit.assertEquals",
+                args: ["starter transformation from model key to adjuster name", expectedAdjusterName, {
+                    expander: {
+                        "func": "{starter}.extractAdjusterNameFromModel",
+                        "args": [exampleModelKey]
+                    }
+                }]
+            }, {
                 name: "check proper craetion of starter members",
-                expect: 3,
+                expect: 2,
                 sequence: [{
-                    func: "jqUnit.assertNotUndefined",
-                    args: ["starter is successfully created", "{starter}"]
-                }, {
                     func: "{starter}.renderAdjusters",
                     args: [modelToWorkWith]
                 }, {
@@ -78,12 +92,6 @@ https://github.com/gpii/universal/LICENSE.txt
             }]
         }]
     });
-
-
-
-    gpii.assertNotUndefined = function (object) {
-        jqUnit.assertNotUndefined("The pcp starter component is not undefined", object);
-    };
 
     $(document).ready(function () {
         fluid.test.runTests([
