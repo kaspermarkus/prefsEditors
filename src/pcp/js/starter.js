@@ -206,7 +206,7 @@
         },
         adjusterLevels: [
             ["fontSize", "cursorSize", "magnifierEnabled"],
-            ["magnifier", "magnifierPosition", "showCrosshairs"],
+            ["magnification", "magnificationPosition", "showCrosshairs"],
             ["tracking"]
         ]
     });
