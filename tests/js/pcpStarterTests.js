@@ -11,7 +11,7 @@ https://github.com/gpii/universal/LICENSE.txt
 (function ($) {
     fluid.registerNamespace("gpii.tests");
 
-    fluid.defaults("gpii.tests.textfieldStepper", {
+    fluid.defaults("gpii.tests.pcpStarter", {
         gradeNames: ["fluid.test.testEnvironment", "autoInit"],
         components: {
             pcpStarter: {
@@ -29,7 +29,7 @@ https://github.com/gpii/universal/LICENSE.txt
             name: "gpii.pcp.starter tests",
             tests: [{
                 expect: 1,
-                name: "not undefined",
+                name: "successfully created",
                 func: "gpii.assertNotUndefined",
                 args: ["{pcpStarter}"]
             }]
@@ -42,7 +42,7 @@ https://github.com/gpii/universal/LICENSE.txt
 
     $(document).ready(function () {
         fluid.test.runTests([
-            "gpii.tests.textfieldStepper"
+            "gpii.tests.pcpStarter"
         ]);
     });
 })(jQuery);
