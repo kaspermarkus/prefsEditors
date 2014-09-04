@@ -14,7 +14,7 @@ https://github.com/gpii/universal/LICENSE.txt
     fluid.defaults("gpii.tests.pcpStarter", {
         gradeNames: ["fluid.test.testEnvironment", "autoInit"],
         components: {
-            pcpStarter: {
+            starter: {
                 type: "gpii.pcp.starter"
             },
             pcpStarterTester: {
@@ -31,7 +31,7 @@ https://github.com/gpii/universal/LICENSE.txt
                 expect: 1,
                 name: "successfully created",
                 func: "gpii.assertNotUndefined",
-                args: ["{pcpStarter}"]
+                args: ["{starter}"]
             }]
         }]
     });
