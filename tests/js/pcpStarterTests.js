@@ -202,6 +202,42 @@ https://github.com/gpii/universal/LICENSE.txt
                         }
                     }]
                 }]
+            }, {
+                name: "check increase size informer",
+                expect: 4,
+                sequence: [{
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up an empty list of adjusters", [], {
+                        expander: {
+                            "func": "{starter}.increaseSize.determineGradeNames",
+                            "args": [[]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up top level adjuster", ["increaseSize"], {
+                        expander: {
+                            "func": "{starter}.increaseSize.determineGradeNames",
+                            "args": [["cursorSize"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up first level adjuster", ["increaseSize", "magnifierEnabled"], {
+                        expander: {
+                            "func": "{starter}.increaseSize.determineGradeNames",
+                            "args": [["showCrosshairs"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up second level adjuster", ["increaseSize", "magnifierEnabled", "followingElement"], {
+                        expander: {
+                            "func": "{starter}.increaseSize.determineGradeNames",
+                            "args": [["tracking"]]
+                        }
+                    }]
+                }]
             }]
         }]
     });
