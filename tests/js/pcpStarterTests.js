@@ -134,6 +134,46 @@ https://github.com/gpii/universal/LICENSE.txt
                         }
                     }]
                 }]
+            }, {
+                name: "check volume informer",
+                expect: 2,
+                sequence: [{
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up an empty list of adjusters", [], {
+                        expander: {
+                            "func": "{starter}.volume.determineGradeNames",
+                            "args": [[]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up first level adjuster", ["volumeGroup"], {
+                        expander: {
+                            "func": "{starter}.volume.determineGradeNames",
+                            "args": [["volume"]]
+                        }
+                    }]
+                }]
+            }, {
+                name: "check language informer",
+                expect: 2,
+                sequence: [{
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up an empty list of adjusters", [], {
+                        expander: {
+                            "func": "{starter}.language.determineGradeNames",
+                            "args": [[]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up first level adjuster", ["languageGroup"], {
+                        expander: {
+                            "func": "{starter}.language.determineGradeNames",
+                            "args": [["universalLanguage"]]
+                        }
+                    }]
+                }]
             }]
         }]
     });
