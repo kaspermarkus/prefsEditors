@@ -42,7 +42,8 @@ https://github.com/gpii/universal/LICENSE.txt
         "gpii_primarySchema_wordsSpokenPerMinute": 150
     };
 
-    var expectedAdjusterNames = ["keyEcho", "fontSize", "cursorSize", "magnification", "contrastTheme", "showCrosshairs", "universalVolume", "wordsSpokenPerMinute", "magnificationPosition", "visualAlternativesMoreLess", "speakText", "visualAlternatives", "contrastEnabled", "addContrast", "magnifierEnabled", "increaseSize"];
+    //  the adjusters taken straight from the preferences set + the additionals that have been gathered
+    var expectedAdjusterNames = ["keyEcho", "fontSize", "cursorSize", "magnification", "contrastTheme", "showCrosshairs", "universalVolume", "wordsSpokenPerMinute", "magnificationPosition"].concat(["visualAlternatives", "speakText", "visualAlternativesMoreLess", "addContrast", "contrastEnabled", "increaseSize", "magnifierEnabled"]);
 
 
 
@@ -91,7 +92,7 @@ https://github.com/gpii/universal/LICENSE.txt
                 }]
             }, {
                 name: "check visual alternatives informer",
-                expect: 2,
+                expect: 3,
                 sequence: [{
                     func: "jqUnit.assertDeepEq",
                     args: ["gathering up an empty list of adjusters", [], {
@@ -106,6 +107,14 @@ https://github.com/gpii/universal/LICENSE.txt
                         expander: {
                             "func": "{starter}.visualAlternatives.determineGradeNames",
                             "args": [["speakText"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up first level adjuster", ["visualAlternatives", "speakText"], {
+                        expander: {
+                            "func": "{starter}.visualAlternatives.determineGradeNames",
+                            "args": [["volume"]]
                         }
                     }]
                 }]

@@ -228,9 +228,9 @@
 
     gpii.pcp.gatherUpperLevelGrades = function (requiredByLevel, deepestLevel) {
         var gathered = [];
-        for (i = deepestLevel; i > -1; i--) {
+        for (i = 0; i <= deepestLevel; i++) {
             gathered = gathered.concat(requiredByLevel[i]);
-        }
+        };
         return gathered;
     };
 
