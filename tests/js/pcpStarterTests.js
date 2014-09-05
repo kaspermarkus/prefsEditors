@@ -174,6 +174,34 @@ https://github.com/gpii/universal/LICENSE.txt
                         }
                     }]
                 }]
+            }, {
+                name: "check add contrast informer",
+                expect: 3,
+                sequence: [{
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up an empty list of adjusters", [], {
+                        expander: {
+                            "func": "{starter}.addContrast.determineGradeNames",
+                            "args": [[]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up top level adjuster", ["addContrast"], {
+                        expander: {
+                            "func": "{starter}.addContrast.determineGradeNames",
+                            "args": [["contrastEnabled"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up first level adjuster", ["addContrast", "contrastEnabled"], {
+                        expander: {
+                            "func": "{starter}.addContrast.determineGradeNames",
+                            "args": [["contrastTheme"]]
+                        }
+                    }]
+                }]
             }]
         }]
     });
