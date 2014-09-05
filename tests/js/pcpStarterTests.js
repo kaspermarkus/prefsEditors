@@ -92,7 +92,7 @@ https://github.com/gpii/universal/LICENSE.txt
                 }]
             }, {
                 name: "check visual alternatives informer",
-                expect: 3,
+                expect: 5,
                 sequence: [{
                     func: "jqUnit.assertDeepEq",
                     args: ["gathering up an empty list of adjusters", [], {
@@ -115,6 +115,22 @@ https://github.com/gpii/universal/LICENSE.txt
                         expander: {
                             "func": "{starter}.visualAlternatives.determineGradeNames",
                             "args": [["volume"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up second level adjuster", ["visualAlternatives", "speakText", "visualAlternativesMoreLess"], {
+                        expander: {
+                            "func": "{starter}.visualAlternatives.determineGradeNames",
+                            "args": [["punctuationVerbosity"]]
+                        }
+                    }]
+                }, {
+                    func: "jqUnit.assertDeepEq",
+                    args: ["gathering up third level adjuster", ["visualAlternatives", "speakText", "visualAlternativesMoreLess", "followingElement"], {
+                        expander: {
+                            "func": "{starter}.visualAlternatives.determineGradeNames",
+                            "args": [["screenReaderTracking"]]
                         }
                     }]
                 }]
