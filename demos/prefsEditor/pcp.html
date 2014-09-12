@@ -113,34 +113,15 @@
     </div>
 
     <script>
-        var pcp = gpii.pcp.starter();
-        var exampleModel = {
-            "http://registry.gpii.org/common/pitch":[{"value":0.5}],
-            "http://registry.gpii.org/common/volume":[{"value":0.4}],
-            "http://registry.gpii.org/common/keyEcho":[{"value":true}],
-            "http://registry.gpii.org/common/language":[{"value":"es"}],
-            "http://registry.gpii.org/common/wordEcho":[{"value":true}],
-            "http://registry.gpii.org/common/fontSize":[{"value":21}],
-            "http://registry.gpii.org/common/tracking":[{"value":["mouse","caret","focus"]}],
-            "http://registry.gpii.org/common/volumeTTS":[{"value":1}],
-            "http://registry.gpii.org/common/speechRate":[{"value":150}],
-            "http://registry.gpii.org/common/cursorSize":[{"value":0.8400000000000001}],
-            "http://registry.gpii.org/common/readingUnit":[{"value":"Paragraph"}],
-            "http://registry.gpii.org/common/trackingTTS":[{"value":["mouse","caret","focus"]}],
-            "http://registry.gpii.org/common/magnification":[{"value":2.75}],
-            "http://registry.gpii.org/common/showCrosshairs":[{"value":true}],
-            "http://registry.gpii.org/common/announceCapitals":[{"value":true}],
-            // "http://registry.gpii.org/common/magnifierEnabled":[{"value":true}],  // the "enabled" switches have been missed on purpose here
-            "http://registry.gpii.org/common/highContrastTheme":[{"value":"white-black"}],
-            "http://registry.gpii.org/common/magnifierPosition":[{"value":"Lens"}],
-            "http://registry.gpii.org/common/auditoryOutLanguage":[{"value":"el"}],
-            // "http://registry.gpii.org/common/highContrastEnabled":[{"value":true}],
-            "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"all"}],
-            "http://registry.gpii.org/common/speakTutorialMessages":[{"value":true}],
-            // "http://registry.gpii.org/common/screenReaderTTSEnabled":[{"value":true}],
-            "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":true}]
-        };
-        pcp.renderAdjusters(exampleModel);
+        var socket = io.connect("http://localhost:8081/pcp");
+        socket.on("connect", function () {
+            socket.emit("message", {}, fluid.log);
+        });
+
+        socket.on("message", function (data) {
+            var pcp = gpii.pcp.starter();
+            pcp.renderAdjusters(data);
+        });
     </script>
 
 </body>
