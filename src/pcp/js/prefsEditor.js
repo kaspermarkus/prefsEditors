@@ -33,15 +33,25 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                         funcName: "fluid.stringTemplate",
                         args: ["{that}.options.socketConnection.urlTemplate", "{that}.options.socketConnection"]
                     }
-                }
+                },
+                messageQueue: []
             },
+            distributeOptions: [{
+                source: "{that}.options.statusMessageID",
+                target: "{that > addContrast > contrastEnabled}.options.ariaControls"
+            }, {
+                source: "{that}.options.statusMessageID",
+                target: "{that > addContrast > contrastThemeNoPreview}.options.ariaControls"
+            }, {
+                source: "{that}.options.statusMessageID",
+                target: "{that > increaseSize > magnifierEnabled}.options.ariaControls"
+            }],
             events: {
-                onLogin: null,
                 onLogout: null,
-                onAdjusterChange: null
-            },
-            model: {
-                userLoggedIn: false
+                onAdjusterChange: null,
+                onNewMessage: null,
+                onMessageUpdate: null,
+                onSettingChanged: null
             },
             listeners: {
                 "onAdjusterChange.update": {
@@ -51,30 +61,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.fullEditorLink",
                     "method": "attr",
                     "args": ["href", "{prefsEditorLoader}.options.pmtUrl"]
-                },
-                "onLogin.setUserLoggedIn": {
-                    listener: "{that}.applier.requestChange",
-                    args: ["userLoggedIn", true]
-                },
-                "onLogin.showSaveMessage": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "text",
-                    "args": ["{that}.msgLookup.preferencesModified"]
-                },
-                "onLogin.showUserStatusBar": {
-                    "listener": "{that}.showUserStatusBar"
-                },
-                "onReset.triggerLogoutEvent": {
-                    "listener": "{that}.events.onLogout.fire"
-                },
-                "onLogout.setUserLoggedIn": {
-                    listener: "{that}.applier.requestChange",
-                    args: ["userLoggedIn", false]
-                },
-                "onLogout.clearMessage": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "text",
-                    "args": [""]
                 },
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
@@ -88,6 +74,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.preventDefaultLinkEvent"]
+                },
+                "onLogout.updateStatus": {
+                    "funcName": "{that}.events.onNewMessage.fire",
+                    "args": ["{that}.msgLookup.onLogoutMessage"]
                 },
                 "onReady.setFullEditorLinkText": {
                     "this": "{that}.dom.fullEditorLink",
@@ -103,6 +93,40 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
+                },
+                "onReady.logoutLinkPreventDefault": {
+                    "this": "{that}.dom.logoutLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
+                },
+                "onReady.bindModelChangedListener": {
+                    // used instead of the declarative syntax so that
+                    // model won't "count" as updated when fetching from
+                    // the server. Thus, onSettingChanged is not fired on load.
+                    "listener": "{that}.applier.modelChanged.addListener",
+                    "args": ["", "{that}.events.onSettingChanged.fire"]
+                },
+                "onReady.setMessageButtonText": {
+                    "this": "{that}.dom.messageButton",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.messageButtonText"]
+                },
+                "onSettingChanged.updateStatus": {
+                    "funcName": "{that}.events.onNewMessage.fire",
+                    "args": ["{that}.msgLookup.onSettingChangedMessage"]
+                },
+                "onNewMessage.handleMessage": {
+                    "funcName": "gpii.pcp.handleNewMessage",
+                    "args": ["{that}", "{arguments}.0"]
+                },
+                "onMessageUpdate.showMessage": {
+                    "funcName": "gpii.pcp.showMessageDialog",
+                    "args": ["{that}"]
+                },
+                "onReady.closeMessageButton": {
+                    "this": "{that}.dom.messageButton",
+                    "method": "click",
+                    "args": ["{that}.closeMessageDialog"]
                 }
             },
             invokers: {
@@ -110,22 +134,89 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.userStatusBar",
                     "method": "slideDown"
                 },
-                saveSettings: {
-                    "func": "{gpiiStore}.set",
-                    "args": "{that}.model",
-                    "dynamic": true
-                },
                 preventDefaultLinkEvent: {
                     "funcName": "gpii.eventUtility.preventDefaultEvent"
+                },
+                closeMessageDialog: {
+                    "funcName": "gpii.pcp.closeMessageDialog",
+                    "args": ["{that}"]
                 }
             },
             selectors: {
-                messageLineLabel: ".gpiic-prefsEditor-messageLine",
+                cloudIcon: ".gpii-pcp-cloudIcon",
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
-                logoutLink: ".gpiic-prefsEditor-userLogoutLink"
-            }
+                logoutLink: ".gpiic-prefsEditor-userLogoutLink",
+                messageContainer: ".gpiic-pcp-statusMessage",
+                messageButton: ".gpiic-pcp-messageButton"
+            },
+            selectorsToIgnore: ["cloudIcon"]
         }
     });
+
+    gpii.pcp.handleNewMessage = function (that, message) {
+        that.messageQueue.push(message);
+        that.events.onMessageUpdate.fire();
+    };
+
+    // TODO: perhaps these two functions could be united with pmt's equivalent ones for dialog handling
+
+    gpii.pcp.showMessageDialog = function (that) {
+        if (that.messageQueue.length) {
+            message = that.messageQueue[0];
+            that.dom.locate("messageLineLabel").text(message);
+        };
+
+        // re-wrap jQuery 1.7 element as jQuery 1.9 version in order to support the "appendTo" param.
+        var messagejq1_7 = that.dom.locate("messageContainer");
+        var unwrappedMessage = fluid.unwrap(messagejq1_7);
+        var messagejq1_9 = $(unwrappedMessage);
+        // create and show it immediately
+        messagejq1_9.dialog({
+            autoOpen: true,
+            modal: true,
+            appendTo: ".gpii-prefsEditors-panelBottomRow",
+            dialogClass: "gpii-dialog-noTitle",
+            closeOnEscape: false,
+            width: "28em",
+            position: { my: "center", at: "center", of: ".gpii-prefsEditor-preferencesContainer" }
+        });
+    };
+
+    gpii.pcp.closeMessageDialog = function (that) {
+        var messagejq1_7 = that.dom.locate("messageContainer");
+        var unwrappedMessage = fluid.unwrap(messagejq1_7);
+        var messagejq1_9 = $(unwrappedMessage);
+        messagejq1_9.dialog("destroy");
+
+        lastMessage = that.messageQueue.shift();
+
+        if (that.messageQueue.length) {
+            if (that.messageQueue[0] === lastMessage) {
+                that.messageQueue.shift();
+            } else {
+                that.events.onMessageUpdate.fire();
+            }
+        };
+    };
+
+    gpii.applySettings = function (that) {
+        var savedSettings = that.modelTransform(that.model);
+        if (that.socket) {
+            that.socket.emit("message", savedSettings, fluid.log);
+        } else {
+            that.socket = that.socket || io.connect("http://localhost:8081/update");
+            that.socket.on("connect", function () {
+                that.socket.emit("message", savedSettings, fluid.log);
+            });
+            fluid.each(["error", "disconnect"], function (event) {
+                that.socket.on(event, function (data) {
+                    fluid.log(data);
+                    that.socket.disconnect();
+                    delete that.socket;
+                });
+            });
+        }
+    };
 
     gpii.prefsEditor.triggerEvent = function (that, targetSelector, event) {
         that.locate(targetSelector).trigger(event);

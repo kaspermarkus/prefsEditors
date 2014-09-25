@@ -44,7 +44,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "method": "text",
                 "args": ["{that}.msgLookup.colourTheme"]
             },
-            "onDomBind.style": "{that}.style"
+            "onDomBind.style": "{that}.style",
+            "onDomBind.addAriaControls": {
+                "this": "{that}.dom.themeInput",
+                "method": "attr",
+                "args": ["aria-controls", "{that}.options.ariaControls"]
+            }
         },
         stringArrayIndex: {
             theme: ["contrast-bw", "contrast-wb", "contrast-by", "contrast-yb"]
@@ -56,4 +61,5 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             label: "<span>%theme</span>"
         }
     });
+
 })(jQuery, fluid);

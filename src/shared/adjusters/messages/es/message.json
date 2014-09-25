@@ -1,8 +1,8 @@
 {
     "tooltipUnchecked": "Añadir a Mis preferencias",
     "tooltipChecked": "Eliminar de Mis preferencias",
-    "visualAlternativesPresetButtonLabel": "alternativas visuales",
-    "volumePresetButtonLabel": "volumen",
+    "visualAlternativesPresetButtonLabel": "Alternativas visuales",
+    "volumePresetButtonLabel": "Volumen",
     "languagePresetButtonLabel": "Idioma del sistema",
     "language-english": "Inglés (English)",
     "language-greek": "Griego (Ελληνικά)",
@@ -43,5 +43,7 @@
     "resetAndApply": "Limpiar y aplicar",
     "cancel": "Cancelar",
     "onText": "ON",
-    "offText": "OFF"
+    "offText": "OFF",
+    "moreSpeakTextPreferences": "Más preferencias de lector de texto",
+    "lessSpeakTextPreferences": "Menos preferencias de lector de texto"
 }
