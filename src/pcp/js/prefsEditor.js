@@ -34,6 +34,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                         args: ["{that}.options.socketConnection.urlTemplate", "{that}.options.socketConnection"]
                     }
                 },
+                browserLanguage: {
+                    expander: {
+                        funcName: "gpii.prefs.i18n.getDefaultLanguage"
+                    }
+                },
                 messageQueue: []
             },
             distributeOptions: [{
