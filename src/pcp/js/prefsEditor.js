@@ -147,6 +147,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink",
                 messageContainer: ".gpiic-pcp-statusMessage",
+                learnMore: ".gpiic-pcp-learnMore",
                 messageButton: ".gpiic-pcp-messageButton"
             },
             selectorsToIgnore: ["cloudIcon"]
@@ -173,7 +174,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             dialogClass: "gpii-dialog-noTitle",
             closeOnEscape: false,
             width: "28em",
-            position: { my: "center", at: "center", of: ".gpii-prefsEditor-preferencesContainer" }
+            position: { my: "bottom", at: "center", of: ".gpii-prefsEditor-preferencesContainer" }
         });
     };
 
