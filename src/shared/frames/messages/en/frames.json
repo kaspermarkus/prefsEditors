@@ -1,8 +1,15 @@
 {
     "messageButtonText": "Cancel",
-    "onSettingChangedMessage": "Preferences modified",
+    "onSettingChangedMessage": {
+        "type": "privateMessage",
+        "message": "Preferences modified"
+    },
     "onSaveAndApplyStatus": "Preferences saved and applied",
     "onLogoutMessage": "Logged out",
+    "onLogoutMessagePCP": {
+        "type": "privateMessage",
+        "message": "Logged out"
+    },
     "myPreferencesLabelText": "my preferences",
     "allPreferencesLabelText": "all preferences",
     "saveAndApplyText": "save & apply",

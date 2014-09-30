@@ -41,6 +41,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 },
                 messageQueue: []
             },
+            commonMessageEnding: "Message",
             distributeOptions: [{
                 source: "{that}.options.statusMessageID",
                 target: "{that > addContrast > contrastEnabled}.options.ariaControls"
@@ -56,6 +57,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onAdjusterChange: null,
                 onNewMessage: null,
                 onMessageUpdate: null,
+                onHelpMessage: null,
                 onSettingChanged: null
             },
             listeners: {
@@ -82,7 +84,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 },
                 "onLogout.updateStatus": {
                     "funcName": "{that}.events.onNewMessage.fire",
-                    "args": ["{that}.msgLookup.onLogoutMessage"]
+                    "args": ["{that}.msgLookup.onLogoutMessagePCP"]
                 },
                 "onReady.setFullEditorLinkText": {
                     "this": "{that}.dom.fullEditorLink",
@@ -159,8 +161,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    gpii.pcp.handleNewMessage = function (that, message) {
-        that.messageQueue.push(message);
+    gpii.pcp.handleNewMessage = function (that, messageReceived) {
+        var endingLength = that.options.commonMessageEnding.length;
+
+        var mes = {};
+        mes["type"] = messageReceived.type.slice(0, -endingLength);
+        mes["message"] = mes.type === "private" ? messageReceived.message : messageReceived.message[that.browserLanguage];
+
+        that.messageQueue.push(mes);
         that.events.onMessageUpdate.fire();
     };
 
@@ -168,8 +176,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     gpii.pcp.showMessageDialog = function (that, messageLabel, messageElement) {
         if (that.messageQueue.length) {
-            message = that.messageQueue[0];
-            messageLabel.text(message);
+            var messageToShow = that.messageQueue[0];
+            messageLabel.text(messageToShow.message);
+        };
+
+        if (messageToShow.type === "help") {
+            that.events.onHelpMessage.fire();
         };
 
         messageElement.dialog({
@@ -189,7 +201,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         var lastMessage = that.messageQueue.shift();
 
         if (that.messageQueue.length) {
-            while (that.messageQueue[0] === lastMessage) {
+            while (JSON.stringify(that.messageQueue[0]) === JSON.stringify(lastMessage)) {
                 that.messageQueue.shift();
             }
         };
