@@ -121,7 +121,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 },
                 "onMessageUpdate.showMessage": {
                     "funcName": "gpii.pcp.showMessageDialog",
-                    "args": ["{that}"]
+                    "args": ["{that}", "{that}.dom.messageLineLabel", "{that}.dom.messageContainer"]
                 },
                 "onReady.closeMessageButton": {
                     "this": "{that}.dom.messageButton",
@@ -139,7 +139,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 },
                 closeMessageDialog: {
                     "funcName": "gpii.pcp.closeMessageDialog",
-                    "args": ["{that}"]
+                    "args": ["{that}", "{that}.dom.messageContainer"]
                 }
             },
             selectors: {
@@ -160,18 +160,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     // TODO: perhaps these two functions could be united with pmt's equivalent ones for dialog handling
 
-    gpii.pcp.showMessageDialog = function (that) {
+    gpii.pcp.showMessageDialog = function (that, messageLabel, messageElement) {
         if (that.messageQueue.length) {
             message = that.messageQueue[0];
-            that.dom.locate("messageLineLabel").text(message);
+            messageLabel.text(message);
         };
 
-        // re-wrap jQuery 1.7 element as jQuery 1.9 version in order to support the "appendTo" param.
-        var messagejq1_7 = that.dom.locate("messageContainer");
-        var unwrappedMessage = fluid.unwrap(messagejq1_7);
-        var messagejq1_9 = $(unwrappedMessage);
-        // create and show it immediately
-        messagejq1_9.dialog({
+        messageElement.dialog({
             autoOpen: true,
             modal: true,
             appendTo: ".gpii-prefsEditors-panelBottomRow",
@@ -182,20 +177,19 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         });
     };
 
-    gpii.pcp.closeMessageDialog = function (that) {
-        var messagejq1_7 = that.dom.locate("messageContainer");
-        var unwrappedMessage = fluid.unwrap(messagejq1_7);
-        var messagejq1_9 = $(unwrappedMessage);
-        messagejq1_9.dialog("destroy");
+    gpii.pcp.closeMessageDialog = function (that, messageElement) {
+        messageElement.dialog("destroy");
 
-        lastMessage = that.messageQueue.shift();
+        var lastMessage = that.messageQueue.shift();
 
         if (that.messageQueue.length) {
-            if (that.messageQueue[0] === lastMessage) {
+            while (that.messageQueue[0] === lastMessage) {
                 that.messageQueue.shift();
-            } else {
-                that.events.onMessageUpdate.fire();
             }
+        };
+
+        if (that.messageQueue.length) {
+            that.events.onMessageUpdate.fire();
         };
     };
 
