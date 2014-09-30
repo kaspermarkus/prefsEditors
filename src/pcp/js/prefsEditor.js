@@ -130,6 +130,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "funcName": "gpii.pcp.showMessageDialog",
                     "args": ["{that}", "{that}.dom.messageLineLabel", "{that}.dom.messageContainer"]
                 },
+                "onHelpMessage.setText": {
+                    "this": "{that}.dom.learnMore",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.learnMore"]
+                },
+                "onHelpMessage.setLink": {
+                    "this": "{that}.dom.learnMore",
+                    "method": "attr",
+                    "args": ["href", "{arguments}.0"]
+                },
                 "onReady.closeMessageButton": {
                     "this": "{that}.dom.messageButton",
                     "method": "click",
@@ -166,7 +176,19 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
         var mes = {};
         mes["type"] = messageReceived.type.slice(0, -endingLength);
-        mes["message"] = mes.type === "private" ? messageReceived.message : messageReceived.message[that.browserLanguage];
+
+        switch (mes.type) {
+            case "private":
+                mes["message"] = messageReceived.message;
+                break;
+            case "info":
+                mes["message"] = messageReceived.message[that.browserLanguage];
+                break;
+            case "help":
+                mes["message"] = messageReceived.message[that.browserLanguage].message;
+                mes["learnMore"] = messageReceived.message[that.browserLanguage].learnMore
+                break;
+        };
 
         that.messageQueue.push(mes);
         that.events.onMessageUpdate.fire();
@@ -181,7 +203,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         };
 
         if (messageToShow.type === "help") {
-            that.events.onHelpMessage.fire();
+            that.events.onHelpMessage.fire(messageToShow.learnMore);
         };
 
         messageElement.dialog({

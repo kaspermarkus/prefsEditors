@@ -10,6 +10,7 @@
         "type": "privateMessage",
         "message": "Logged out"
     },
+    "learnMore": "Learn more >",
     "myPreferencesLabelText": "my preferences",
     "allPreferencesLabelText": "all preferences",
     "saveAndApplyText": "save & apply",
