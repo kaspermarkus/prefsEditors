@@ -122,7 +122,8 @@ body {
 }
 
 .gpii-prefsEditor-messageLine {
-    display: inline;
+    display: inline-block;
+    padding: 1em;
     white-space: normal;
     width: 55%;
     font-style:italic;
@@ -256,6 +257,7 @@ body {
 
 .gpii-pcp-statusMessage {
     display: none;
+    min-height: none;
     text-align: center;
     border: 0.3em solid #4D4D4D !important;
     background-color: #BDE2E9!important;
@@ -263,13 +265,15 @@ body {
     outline-color: transparent;
 }
 
-.gpii-pcp-messageLine {
-    padding-top: 7em;
+.gpii-pcp-learnMore {
+    position: relative;
+    display: inline-block;
+    padding: 1em;
 }
 
 .gpii-pcp-messageButton {
     margin:auto;
-    padding-top: 6em;
+    padding: 1em;
 }
 
 .gpii-prefsEditor-pcp-userLogout {

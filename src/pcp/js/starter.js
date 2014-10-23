@@ -71,10 +71,15 @@
             },
             "renderPCP.create": {
                 "listener": "gpii.pcp.renderPCP",
-                "args": ["{that}.primarySchema", "{arguments}.0"]
+                "args": ["{that}", "{that}.primarySchema", "{arguments}.0"]
             }
         },
         invokers: {
+            showMessage: {
+                "func": "{that}.prefsEditor.prefsEditorLoader.prefsEditor.events.onNewMessage.fire",
+                "args": ["{arguments}.0"],
+                "dynamic": true
+            },
             extractAdjusterNameFromModel: {
                 "funcName": "gpii.pcp.extractAdjusterNameFromModel",
                 "args": ["{arguments}.0", "{that}.options.commonModelPart"]
@@ -272,9 +277,9 @@
         that.events.renderPCP.fire(finalGradeNames);
     };
 
-    gpii.pcp.renderPCP = function (primarySchema, finalGradeNames) {
+    gpii.pcp.renderPCP = function (that, primarySchema, finalGradeNames) {
 
-        fluid.prefs.create("#gpiic-pcp", {
+        that.prefsEditor = fluid.prefs.create("#gpiic-pcp", {
             build: {
                 gradeNames: finalGradeNames,
                 primarySchema: primarySchema

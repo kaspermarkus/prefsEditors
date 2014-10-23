@@ -114,13 +114,20 @@
 
     <script>
         var socket = io.connect("http://localhost:8081/pcp");
+        var pcp = gpii.pcp.starter();
         socket.on("connect", function () {
             socket.emit("message", {}, fluid.log);
         });
 
         socket.on("message", function (data) {
-            var pcp = gpii.pcp.starter();
-            pcp.renderAdjusters(data);
+            if (data.preferences) {
+                pcp.renderAdjusters(data.preferences);
+            };
+            if (data.messages) {
+                fluid.each(data.messages, function (message) {
+                    pcp.showMessage(message);
+                });
+            }
         });
     </script>
 

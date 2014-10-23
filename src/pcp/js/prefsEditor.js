@@ -57,8 +57,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onAdjusterChange: null,
                 onNewMessage: null,
                 onMessageUpdate: null,
+                onTextMessage: null,
                 onHelpMessage: null,
                 onSettingChanged: null
+            },
+            modelListeners: {
+                "gpii_primarySchema_fontSize": {
+                    "listener": "{socket}.applySettings"
+                }
             },
             listeners: {
                 "onAdjusterChange.update": {
@@ -72,11 +78,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                "onReady.fullEditorLinkPreventDefault": {
-                    "this": "{that}.dom.fullEditorLink",
-                    "method": "click",
-                    "args": ["{that}.preventDefaultLinkEvent"]
-                },
+                // "onReady.fullEditorLinkPreventDefault": {
+                //     "this": "{that}.dom.fullEditorLink",
+                //     "method": "click",
+                //     "args": ["{that}.preventDefaultLinkEvent"]
+                // },
                 "onReady.logoutLinkPreventDefault": {
                     "this": "{that}.dom.logoutLink",
                     "method": "click",
@@ -130,10 +136,18 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "funcName": "gpii.pcp.showMessageDialog",
                     "args": ["{that}", "{that}.dom.messageLineLabel", "{that}.dom.messageContainer"]
                 },
+                "onTextMessage.hideLearnMoreLink": {
+                    "this": "{that}.dom.learnMore",
+                    "method": "hide"
+                },
                 "onHelpMessage.setText": {
                     "this": "{that}.dom.learnMore",
                     "method": "text",
                     "args": ["{that}.msgLookup.learnMore"]
+                },
+                "onHelpMessage.showLink": {
+                    "this": "{that}.dom.learnMore",
+                    "method": "show"
                 },
                 "onHelpMessage.setLink": {
                     "this": "{that}.dom.learnMore",
@@ -186,7 +200,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 break;
             case "help":
                 mes["message"] = messageReceived.message[that.browserLanguage].message;
-                mes["learnMore"] = messageReceived.message[that.browserLanguage].learnMore
+                mes["learnMore"] = messageReceived.message[that.browserLanguage].learnMore;
                 break;
         };
 
@@ -204,6 +218,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
         if (messageToShow.type === "help") {
             that.events.onHelpMessage.fire(messageToShow.learnMore);
+        } else {
+            that.events.onTextMessage.fire();
         };
 
         messageElement.dialog({
