@@ -123,11 +123,13 @@
             if (data.preferences) {
                 pcp.renderAdjusters(data.preferences);
             };
-            if (data.messages) {
-                fluid.each(data.messages, function (message) {
-                    pcp.showMessage(message);
-                });
-            }
+            gpii.pcp.onPrefsEditorReady = function () {
+                if (data.messages) {
+                    fluid.each(data.messages, function (message) {
+                        pcp.showMessage(message);
+                    });
+                };
+            };
         });
     </script>
 

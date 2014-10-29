@@ -277,6 +277,14 @@
         that.events.renderPCP.fire(finalGradeNames);
     };
 
+    fluid.defaults("gpii.pcp.prefsEditorReadyInformer", {
+        listeners: {
+            "onReady.announceBeingReady": {
+                "funcName": "gpii.pcp.onPrefsEditorReady"
+            }
+        }
+    });
+
     gpii.pcp.renderPCP = function (that, primarySchema, finalGradeNames) {
 
         that.prefsEditor = fluid.prefs.create("#gpiic-pcp", {
@@ -285,7 +293,7 @@
                 primarySchema: primarySchema
             },
             prefsEditor: {
-                gradeNames: ["demo.pcp"]
+                gradeNames: ["demo.pcp", "gpii.pcp.prefsEditorReadyInformer"]
             }
         });
     };
