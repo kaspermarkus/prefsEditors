@@ -249,26 +249,4 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         };
     };
 
-    gpii.applySettings = function (that) {
-        var savedSettings = that.modelTransform(that.model);
-        if (that.socket) {
-            that.socket.emit("message", savedSettings, fluid.log);
-        } else {
-            that.socket = that.socket || io.connect("http://localhost:8081/update");
-            that.socket.on("connect", function () {
-                that.socket.emit("message", savedSettings, fluid.log);
-            });
-            fluid.each(["error", "disconnect"], function (event) {
-                that.socket.on(event, function (data) {
-                    fluid.log(data);
-                    that.socket.disconnect();
-                    delete that.socket;
-                });
-            });
-        }
-    };
-
-    gpii.prefsEditor.triggerEvent = function (that, targetSelector, event) {
-        that.locate(targetSelector).trigger(event);
-    };
 })(jQuery, fluid);
