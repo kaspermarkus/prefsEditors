@@ -68,7 +68,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         },
         "http://registry\\.gpii\\.net/common/fontSize": "gpii_primarySchema_fontSize",
         "http://registry\\.gpii\\.net/common/highContrastEnabled": "gpii_primarySchema_contrastEnabled",
-        "http://registry\\.gpii\\.net/common/highContrastTheme": "gpii_primarySchema_contrast_theme",
+        "http://registry\\.gpii\\.net/common/highContrastTheme": "gpii_primarySchema_contrastTheme",
         "http://registry\\.gpii\\.net/common/cursorSize": {
             transform: {
                 type: "fluid.transforms.linearScale",

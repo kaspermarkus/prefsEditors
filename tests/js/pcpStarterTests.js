@@ -15,15 +15,15 @@ https://github.com/gpii/universal/LICENSE.txt
     var expectedAdjusterName = "keyEcho";
 
     var modelToWorkWith = {
-        "http://registry.gpii.org/common/volume":[{"value":0.4}],
-        "http://registry.gpii.org/common/keyEcho":[{"value":true}],
-        "http://registry.gpii.org/common/fontSize":[{"value":21}],
-        "http://registry.gpii.org/common/speechRate":[{"value":150}],
-        "http://registry.gpii.org/common/cursorSize":[{"value":0.8400000000000001}],
-        "http://registry.gpii.org/common/magnification":[{"value":2.75}],
-        "http://registry.gpii.org/common/showCrosshairs":[{"value":true}],
-        "http://registry.gpii.org/common/highContrastTheme":[{"value":"white-black"}],
-        "http://registry.gpii.org/common/magnifierPosition":[{"value":"Lens"}]
+        "http://registry.gpii.net/common/volume": 0.4,
+        "http://registry.gpii.net/common/keyEcho": true,
+        "http://registry.gpii.net/common/fontSize": 21,
+        "http://registry.gpii.net/common/speechRate": 150,
+        "http://registry.gpii.net/common/cursorSize": 0.8400000000000001,
+        "http://registry.gpii.net/common/magnification": 2.75,
+        "http://registry.gpii.net/common/showCrosshairs": true,
+        "http://registry.gpii.net/common/highContrastTheme": "white-black",
+        "http://registry.gpii.net/common/magnifierPosition": "Lens"
     };
 
     var expectedModelToRender = {
