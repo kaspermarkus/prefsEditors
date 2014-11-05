@@ -46,5 +46,6 @@
     "offText": "AUS",
     "moreSpeakTextPreferences": "mehr Einstellungen für die Vorlesefunktion",
     "lessSpeakTextPreferences": "weniger Einstellungen für die Vorlesefunktion",
-    "alsaVolumeLabel": "ALSA Master-Lautstärke"
+    "alsaVolumeLabel": "ALSA Master-Lautstärke",
+    "windowsHighContrastLabel": "Windows kontrastreiche"
 }

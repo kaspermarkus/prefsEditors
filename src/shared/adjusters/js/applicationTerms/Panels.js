@@ -23,7 +23,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         },
         selectors: {
-            alsaVolumeLabel: ".gpiic-speakText-alsaVolume-label",
+            alsaVolumeLabel: ".gpiic-alsaVolume-label",
             alsaVolume: ".gpiic-speakText-alsaVolume-stepper"
         },
         selectorsToIgnore: ["alsaVolume"],
@@ -48,5 +48,19 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         protoTree: {
             alsaVolumeLabel: {messagekey: "alsaVolumeLabel"}
         }
+    });
+
+    fluid.defaults("gpii.adjuster.windowsHighContrast", {
+        gradeNames: ["gpii.adjuster.onOffSwitch", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.windowsHighContrast": {
+                "model.windowsHighContrast": "default"
+            }
+        },
+        protoTree: {
+            valueCheckbox: "${windowsHighContrast}",
+            headingLabel: {messagekey: "windowsHighContrastLabel"}
+        },
+        onOffModelKey: "windowsHighContrast"
     });
 })(fluid);

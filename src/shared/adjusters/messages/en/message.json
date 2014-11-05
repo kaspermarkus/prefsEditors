@@ -46,5 +46,6 @@
     "offText": "OFF",
     "moreSpeakTextPreferences": "more speak text preferences",
     "lessSpeakTextPreferences": "less speak text preferences",
-    "alsaVolumeLabel": "ALSA master volume"
+    "alsaVolumeLabel": "ALSA master volume",
+    "windowsHighContrastLabel": "Windows high contrast"
 }

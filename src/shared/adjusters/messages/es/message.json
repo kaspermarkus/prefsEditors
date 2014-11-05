@@ -46,5 +46,6 @@
     "offText": "OFF",
     "moreSpeakTextPreferences": "Más preferencias de lector de texto",
     "lessSpeakTextPreferences": "Menos preferencias de lector de texto",
-    "alsaVolumeLabel": "Volumen principal ALSA"
+    "alsaVolumeLabel": "Volumen principal ALSA",
+    "windowsHighContrastLabel": "Windows alto contraste"
 }

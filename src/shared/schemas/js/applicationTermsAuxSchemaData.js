@@ -1,7 +1,3 @@
-/*
- * Helper file for Alex's convenience. Will be deleted once our work is merged.
- */
-
 /*!
 Cloud4all Preferences Management Tools
 
@@ -33,6 +29,27 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "type": "gpii.adjuster.alsaVolume",
                     "template": "%prefix/../applicationTerms/alsaVolumeTemplate.html",
                     "container": ".alsaVolume",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.windowsHighContrast", {
+        auxiliarySchema: {
+            groups: {
+                addContrast: {
+                    panels: {
+                        always: ["windowsHighContrast"]
+                    }
+                }
+            },
+            windowsHighContrast: {
+                "type": "gpii.primarySchema.windowsHighContrast",
+                "panel": {
+                    "type": "gpii.adjuster.windowsHighContrast",
+                    "template": "%prefix/onOffSwitchTemplate.html",
+                    "container": ".windowsHighContrast",
                     "message": "%prefix/message.json"
                 }
             }

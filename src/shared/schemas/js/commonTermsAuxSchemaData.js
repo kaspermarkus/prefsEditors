@@ -1,7 +1,3 @@
-/*
- * Helper file for Alex's convenience. Will be deleted once our work is merged.
- */
-
 /*!
 Cloud4all Preferences Management Tools
 
@@ -432,7 +428,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "addContrast": {
                     "container": ".gpii-prefsEditor-contrastPanel",
                     "template": "%prefix/addContrastTemplate.html",
-                    "message": "%prefix/message.json",
+                    "message": "%prefix/contrast.json",
                     "type": "gpii.adjuster.addContrast"
                 }
             }

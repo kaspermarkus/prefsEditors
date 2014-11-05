@@ -151,6 +151,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "minimum": 0,
             "maximum": 100,
             "divisibleBy": 10
+        },
+
+        "gpii.primarySchema.windowsHighContrast": {
+            "type": "boolean",
+            "default": false
         }
     };
 

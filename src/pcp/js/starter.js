@@ -197,7 +197,7 @@
             "1": ["contrastEnabled"]
         },
         adjusterLevels: [
-            ["contrastEnabled"],
+            ["contrastEnabled", "windowsHighContrast"],
             ["contrastTheme"]
         ]
     });
