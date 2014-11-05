@@ -21,7 +21,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     fluid.defaults("gpii.pcp.auxiliarySchema.alsaVolume", {
         auxiliarySchema: {
             groups: {
-                visualAlternatives: {
+                volume: {
                     panels: {
                         "always": ["alsaVolume"]
                     }

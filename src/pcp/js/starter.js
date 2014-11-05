@@ -163,7 +163,7 @@
             "3": ["followingElement"]
         },
         adjusterLevels: [
-            ["speakText", "screenReaderBrailleOutput", "alsaVolume"],
+            ["speakText", "screenReaderBrailleOutput"],
             ["wordsSpokenPerMinute", "volume"],
             ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting"],
             ["screenReaderTracking"]
@@ -176,7 +176,7 @@
             "0": ["volumeGroup"]
         },
         adjusterLevels: [
-            ["volume"]
+            ["volume", "alsaVolume"]
         ]
     });
 
