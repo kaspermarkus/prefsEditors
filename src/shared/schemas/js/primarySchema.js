@@ -156,6 +156,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         "gpii.primarySchema.windowsHighContrast": {
             "type": "boolean",
             "default": false
+        },
+
+        "gpii.primarySchema.gnomeMagnification": {
+            "type": "number",
+            "default": 100,
+            "minimum": 100,
+            "maximum": 10000,
+            "divisibleBy": 25
         }
     };
 

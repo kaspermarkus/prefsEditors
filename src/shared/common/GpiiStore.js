@@ -90,7 +90,14 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         // application specific ters transforamtions
 
         "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
-        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast"
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mag-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeMagnification",
+                factor: 0.01
+            }
+        }
     };
 
     gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);

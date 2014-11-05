@@ -56,5 +56,25 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.pcp.auxiliarySchema.gnomeMagnification", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        "always": ["gnomeMagnification"]
+                    }
+                }
+            },
+            gnomeMagnification: {
+                "type": "gpii.primarySchema.gnomeMagnification",
+                "panel": {
+                    "type": "gpii.adjuster.gnomeMagnification",
+                    "container": ".gnomeMagnification",
+                    "template": "%prefix/../applicationTerms/gnomeMagnificationTemplate.html",
+                    "message": "%prefix/magnifier.json"
+                }
+            }
+        }
+    });
 
 })(jQuery, fluid);

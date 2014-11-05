@@ -12,6 +12,21 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 */
 
 (function (fluid) {
+    fluid.defaults("gpii.adjuster.windowsHighContrast", {
+        gradeNames: ["gpii.adjuster.onOffSwitch", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.windowsHighContrast": {
+                "model.windowsHighContrast": "default"
+            }
+        },
+        protoTree: {
+            valueCheckbox: "${windowsHighContrast}",
+            headingLabel: {messagekey: "windowsHighContrastLabel"}
+        },
+        onOffModelKey: "windowsHighContrast"
+    });
+
+
     fluid.defaults("gpii.adjuster.alsaVolume", {
         gradeNames: ["fluid.prefs.panel", "autoInit"],
         preferenceMap: {
@@ -50,17 +65,60 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.adjuster.windowsHighContrast", {
-        gradeNames: ["gpii.adjuster.onOffSwitch", "autoInit"],
+    fluid.defaults("gpii.adjuster.gnomeMagnification", {
+        gradeNames: ["fluid.prefs.panel", "autoInit"],
         preferenceMap: {
-            "gpii.primarySchema.windowsHighContrast": {
-                "model.windowsHighContrast": "default"
+            "gpii.primarySchema.gnomeMagnification": {
+                "model.magnification": "default",
+                "magnification.range.min": "minimum",
+                "magnification.range.max": "maximum",
+                "magnification.range.step": "divisibleBy"
+            }
+        },
+        members: {
+            messageResolver: "{prefsEditorLoader}.msgResolver"
+        },
+        selectors: {
+            magnifierLabel: ".gpiic-magnifier-label",
+            magnificationLevel: ".gpiic-magnifier-magnificationLevel",
+            magnifierStepper: ".gpiic-magnifier-stepper"
+        },
+        selectorsToIgnore: ["magnifierStepper"],
+        components: {
+            magnifierStepper: {
+                type: "gpii.adjuster.textfieldStepper",
+                container: "{that}.dom.magnifierStepper",
+                createOnEvent: "afterRender",
+                options: {
+                    events: {
+                        onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+                    },
+                    modelListeners: {
+                        "*": {
+                            "listener": "{that}.events.onAdjusterChange.fire"
+                        }
+                    },
+                    sourceApplier: "{gnomeMagnification}.applier",
+                    rules: {
+                        "magnification": "value"
+                    },
+                    model: {
+                        value: "{gnomeMagnification}.model.magnification"
+                    },
+                    strings: {
+                        "unit": "{gnomeMagnification}.msgLookup.magnifierUnit"
+                    },
+                    range: "{gnomeMagnification}.options.magnification.range",
+                    labelledbyDomElement: "{gnomeMagnification}.dom.magnificationLevel"
+                }
             }
         },
         protoTree: {
-            valueCheckbox: "${windowsHighContrast}",
-            headingLabel: {messagekey: "windowsHighContrastLabel"}
-        },
-        onOffModelKey: "windowsHighContrast"
+            magnifierLabel: {messagekey: "magnifierLabel"},
+            magnificationLevel: {messagekey: "magnificationLevel"}
+        }
     });
+
+
+
 })(fluid);
