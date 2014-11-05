@@ -210,7 +210,7 @@
             "2": ["followingElement"]
         },
         adjusterLevels: [
-            ["fontSize", "cursorSize", "magnifierEnabled", "gnomeMagnification"],
+            ["fontSize", "cursorSize", "magnifierEnabled", "gnomeMagnification", "gnomeMouseTracking"],
             ["magnification", "magnificationPosition", "showCrosshairs"],
             ["tracking"]
         ]

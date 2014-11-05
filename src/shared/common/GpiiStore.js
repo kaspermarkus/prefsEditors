@@ -97,7 +97,8 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 valuePath: "gpii_primarySchema_gnomeMagnification",
                 factor: 0.01
             }
-        }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking"
     };
 
     gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);

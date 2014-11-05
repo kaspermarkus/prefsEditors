@@ -47,5 +47,10 @@
     "moreSpeakTextPreferences": "mehr Einstellungen für die Vorlesefunktion",
     "lessSpeakTextPreferences": "weniger Einstellungen für die Vorlesefunktion",
     "alsaVolumeLabel": "ALSA Master-Lautstärke",
-    "windowsHighContrastLabel": "Windows kontrastreiche"
+    "windowsHighContrastLabel": "Windows kontrastreiche",
+    "gnomeMouseTrackingLabel": "Maus-Tracking",
+    "gnomeMouseTracking-none": "keiner",
+    "gnomeMouseTracking-centered": "zentriert",
+    "gnomeMouseTracking-push": "drücken",
+    "gnomeMouseTracking-proportional": "proportional"
 }

@@ -119,6 +119,75 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.adjuster.gnomeMouseTracking", {
+        gradeNames: ["fluid.prefs.panel", "gpii.adjuster.singleSelectionWithKeyboard", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.gnomeMouseTracking": {
+                "model.gnomeMouseTracking": "default",
+                "controlValues.gnomeMouseTracking": "enum"
+            }
+        },
+        selectors: {
+            gnomeMouseTrackingContainer: ".gpiic-gnomeMouseTracking-container",
+            gnomeMouseTrackingRow: ".gpiic-speakText-gnomeMouseTracking-row",
+            gnomeMouseTrackingOptionLabel: ".gpiic-speakText-gnomeMouseTracking-option-label",
+            gnomeMouseTrackingInput: ".gpiic-speakText-gnomeMouseTracking",
+            gnomeMouseTrackingLabel: ".gpiic-speakText-gnomeMouseTracking-label",
+            singleSelectionLabels: ".gpiic-speakText-gnomeMouseTracking-option-label"
+        },
+        selectorsToIgnore: ["gnomeMouseTrackingContainer"],
+        stringArrayIndex: {
+            gnomeMouseTrackingLevel: ["gnomeMouseTracking-none", "gnomeMouseTracking-centered", "gnomeMouseTracking-push", "gnomeMouseTracking-proportional"]
+        },
+        protoTree: {
+            announceLabel: {messagekey: "announce"},
+            expander: {
+                type: "fluid.renderer.selection.inputs",
+                rowID: "gnomeMouseTrackingRow",
+                labelID: "gnomeMouseTrackingOptionLabel",
+                inputID: "gnomeMouseTrackingInput",
+                selectID: "gnomeMouseTracking-selection",
+                tree: {
+                    optionnames: "${{that}.msgLookup.gnomeMouseTrackingLevel}",
+                    optionlist: "${{that}.options.controlValues.gnomeMouseTracking}",
+                    selection: "${gnomeMouseTracking}"
+                }
+            },
+            gnomeMouseTrackingLabel: {messagekey: "gnomeMouseTrackingLabel"}
+        },
+        repeatingSelectors: ["gnomeMouseTrackingRow"],
+        listeners: {
+            "onDomBind.style": "{that}.style"
+        },
+        invokers: {
+            style: {
+                funcName: "gpii.adjuster.gnomeMouseTracking.gnomeMouseTrackingStyle",
+                args: [
+                    "{that}.dom.gnomeMouseTrackingOptionLabel",
+                    "{that}.options.controlValues.gnomeMouseTracking",
+                    "{that}.options.classnameMap.gnomeMouseTracking",
+                    "{that}.dom.gnomeMouseTrackingContainer",
+                    "{that}.dom.gnomeMouseTrackingLabel",
+                    "{that}.dom.announceLabel"
+                ],
+                "dynamic": true
+            }
+        }
+    });
+
+    // TODO: This function should be united with punctuationVerbosity's one.
+    // Generally, a component for creating radio button styled adjusters should be created.
+
+    gpii.adjuster.gnomeMouseTracking.gnomeMouseTrackingStyle = function (labels, values, classes, container, titleLabel, announceLabel) {
+        fluid.each(labels, function (label, index) {
+            label = $(label);
+            label.addClass(classes[values[index]]);
+            label.prepend('<span></span>');
+        });
+        container.attr("aria-labelledby", gpii.ariaUtility.getLabelId(titleLabel));
+        container.attr("aria-describedby", gpii.ariaUtility.getLabelId(announceLabel));
+    };
+
 
 
 })(fluid);

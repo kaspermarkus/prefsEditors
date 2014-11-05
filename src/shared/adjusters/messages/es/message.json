@@ -47,5 +47,10 @@
     "moreSpeakTextPreferences": "Más preferencias de lector de texto",
     "lessSpeakTextPreferences": "Menos preferencias de lector de texto",
     "alsaVolumeLabel": "Volumen principal ALSA",
-    "windowsHighContrastLabel": "Windows alto contraste"
+    "windowsHighContrastLabel": "Windows alto contraste",
+    "gnomeMouseTrackingLabel": "Seguimiento del ratón",
+    "gnomeMouseTracking-none": "ninguno",
+    "gnomeMouseTracking-centered": "centrado",
+    "gnomeMouseTracking-push": "empujar",
+    "gnomeMouseTracking-proportional": "proporcional"
 }

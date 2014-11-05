@@ -47,5 +47,10 @@
     "moreSpeakTextPreferences": "περισσότερες ρυθμίσεις για ανάγνωση κειμένου",
     "lessSpeakTextPreferences": "λιγότερες ρυθμίσεις για ανάγνωση κειμένου",
     "alsaVolumeLabel": "ALSA κύριο όγκο",
-    "windowsHighContrastLabel": "Windows υψηλή αντίθεση"
+    "windowsHighContrastLabel": "Windows υψηλή αντίθεση",
+    "gnomeMouseTrackingLabel": "παρακολούθηση του ποντικιού",
+    "gnomeMouseTracking-none": "κανένας",
+    "gnomeMouseTracking-centered": "στο κέντρο",
+    "gnomeMouseTracking-push": "ώθηση",
+    "gnomeMouseTracking-proportional": "αναλογικά"
 }

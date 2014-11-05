@@ -77,4 +77,32 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.pcp.auxiliarySchema.gnomeMouseTracking", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        always: ["gnomeMouseTracking"]
+                    }
+                }
+            },
+            gnomeMouseTracking: {
+                "type": "gpii.primarySchema.gnomeMouseTracking",
+                "panel": {
+                    "type": "gpii.adjuster.gnomeMouseTracking",
+                    "template": "%prefix/../applicationTerms/gnomeMouseTrackingTemplate.html",
+                    "container": ".gnomeMouseTracking",
+                    "message": "%prefix/message.json",
+                    "classnameMap": {"gnomeMouseTracking": "@gnomeMouseTracking.classes"}
+                },
+                "classes": {
+                    "none": "radioButton-left",
+                    "centered": "radioButton-middle radioButton-second",
+                    "push": "radioButton-middle radioButton-third",
+                    "proportional": "radioButton-right"
+                }
+            }
+        }
+    });
+
 })(jQuery, fluid);

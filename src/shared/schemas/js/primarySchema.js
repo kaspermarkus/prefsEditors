@@ -145,6 +145,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
         //  Data for application specific terms
 
+        "gpii.primarySchema.windowsHighContrast": {
+            "type": "boolean",
+            "default": false
+        },
+
         "gpii.primarySchema.alsaVolume": {
             "type": "number",
             "default": 50,
@@ -153,18 +158,19 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "divisibleBy": 10
         },
 
-        "gpii.primarySchema.windowsHighContrast": {
-            "type": "boolean",
-            "default": false
-        },
-
         "gpii.primarySchema.gnomeMagnification": {
             "type": "number",
             "default": 100,
             "minimum": 100,
             "maximum": 10000,
             "divisibleBy": 25
-        }
+        },
+
+        "gpii.primarySchema.gnomeMouseTracking": {
+            "type": "string",
+            "default": "none",
+            "enum": ["none", "centered", "push", "proportional"]
+        },
     };
 
 })(fluid);
