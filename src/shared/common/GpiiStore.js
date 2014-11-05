@@ -26,7 +26,12 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
     fluid.registerNamespace("gpii.prefs");
 
-    gpii.prefs.commonTermsTransformationRules = {
+    // containing both common & application specific terms transformations
+
+    gpii.prefs.termsTransformationRules = {
+
+        // common terms transformations
+
         "http://registry\\.gpii\\.net/common/announceCapitals": "gpii_primarySchema_announceCapitals",
         "http://registry\\.gpii\\.net/common/keyEcho": "gpii_primarySchema_keyEcho",
         "http://registry\\.gpii\\.net/common/punctuationVerbosity": "gpii_primarySchema_punctuationVerbosity",
@@ -80,10 +85,15 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         "http://registry\\.gpii\\.net/common/tracking": "gpii_primarySchema_tracking",
         "http://registry\\.gpii\\.net/common/trackingTTS": "gpii_primarySchema_screenReaderTracking",
         "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
-        "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs"
+        "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
+
+        // application specific ters transforamtions
+
+        "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume"
+
     };
 
-    gpii.prefs.commonTermsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.commonTermsTransformationRules);
+    gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);
 
     fluid.registerNamespace("gpii.prefs.gpiiStore");
 
@@ -145,11 +155,11 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             },
             modelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsTransformationRules]
             },
             inverseModelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsInverseTransformationRules]
             }
         }
     });

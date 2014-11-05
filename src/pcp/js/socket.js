@@ -42,7 +42,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             emit: {
                 "funcName": "gpii.pcp.emitMessage",
-                "args": ["{that}", "{prefsEditor}.model", "{gpiiStore}.modelTransform", "gpii.prefs.commonTermsTransformationRules"],
+                "args": ["{that}", "{prefsEditor}.model", "{gpiiStore}.modelTransform", "gpii.prefs.termsTransformationRules"],
                 "dynamic": true
             }
         }

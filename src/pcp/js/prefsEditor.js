@@ -78,11 +78,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                // "onReady.fullEditorLinkPreventDefault": {
-                //     "this": "{that}.dom.fullEditorLink",
-                //     "method": "click",
-                //     "args": ["{that}.preventDefaultLinkEvent"]
-                // },
                 "onReady.logoutLinkPreventDefault": {
                     "this": "{that}.dom.logoutLink",
                     "method": "click",

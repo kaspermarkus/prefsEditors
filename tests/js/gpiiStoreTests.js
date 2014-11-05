@@ -125,13 +125,13 @@ https://github.com/gpii/universal/LICENSE.txt
     };
 
     gpii.prefs.gpiiStore.tests.assertModeflTransofrmation = function () {
-        var transformedExampleModel = store.modelTransform(exampleModel, gpii.prefs.commonTermsTransformationRules);
+        var transformedExampleModel = store.modelTransform(exampleModel, gpii.prefs.termsTransformationRules);
 
         jqUnit.assertDeepEq("Transforming the model from schema to http://registry.gpii.org/common/...", transformedExampleModel, convertedExampleModel);
     };
 
     gpii.prefs.gpiiStore.tests.assertInvertedModeflTransofrmation = function () {
-        var inverseTransformedExampleModel = store.inverseModelTransform(convertedExampleModel, gpii.prefs.commonTermsInverseTransformationRules);
+        var inverseTransformedExampleModel = store.inverseModelTransform(convertedExampleModel, gpii.prefs.termsInverseTransformationRules);
 
         jqUnit.assertDeepEq("Transforming the model from http://registry.gpii.org/common/... to schema-like", inverseTransformedExampleModel, exampleModel);
     };

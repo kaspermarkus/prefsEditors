@@ -141,6 +141,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "type": "string",
             "default": "en",
             "enum": ["en", "el", "de", "es"]
+        },
+
+        //  Data for application specific terms
+
+        "gpii.primarySchema.alsaVolume": {
+            "type": "number",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 100,
+            "divisibleBy": 10
         }
     };
 

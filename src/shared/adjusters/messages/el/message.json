@@ -45,5 +45,6 @@
     "onText": "ON",
     "offText": "OFF",
     "moreSpeakTextPreferences": "περισσότερες ρυθμίσεις για ανάγνωση κειμένου",
-    "lessSpeakTextPreferences": "λιγότερες ρυθμίσεις για ανάγνωση κειμένου"
+    "lessSpeakTextPreferences": "λιγότερες ρυθμίσεις για ανάγνωση κειμένου",
+    "alsaVolumeLabel": "ALSA κύριο όγκο"
 }

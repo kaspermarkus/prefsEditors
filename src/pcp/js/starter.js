@@ -36,7 +36,7 @@
                 "args": ["{that}", "modelToRender", {
                     expander: {
                         "funcName": "fluid.model.transform",
-                        "args": ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                        "args": ["{arguments}.0", gpii.prefs.termsInverseTransformationRules]
                     }
                 }]
             },
@@ -163,7 +163,7 @@
             "3": ["followingElement"]
         },
         adjusterLevels: [
-            ["speakText", "screenReaderBrailleOutput"],
+            ["speakText", "screenReaderBrailleOutput", "alsaVolume"],
             ["wordsSpokenPerMinute", "volume"],
             ["voicePitch", "screenReaderLanguage", "punctuationVerbosity", "announceCapitals", "speakTutorialMessages", "keyEcho", "wordEcho", "textHighlighting"],
             ["screenReaderTracking"]
