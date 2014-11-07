@@ -52,5 +52,6 @@
     "gnomeMouseTracking-none": "keiner",
     "gnomeMouseTracking-centered": "zentriert",
     "gnomeMouseTracking-push": "drücken",
-    "gnomeMouseTracking-proportional": "proportional"
+    "gnomeMouseTracking-proportional": "proportional",
+    "gnomeTextScalingLabel": "Textskalierung"
 }

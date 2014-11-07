@@ -52,5 +52,6 @@
     "gnomeMouseTracking-none": "κανένας",
     "gnomeMouseTracking-centered": "στο κέντρο",
     "gnomeMouseTracking-push": "ώθηση",
-    "gnomeMouseTracking-proportional": "αναλογικά"
+    "gnomeMouseTracking-proportional": "αναλογικά",
+    "gnomeTextScalingLabel": "κλιμάκωση κείμενο"
 }

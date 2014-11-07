@@ -19,7 +19,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             groups: {
                 volume: {
                     panels: {
-                        "always": ["alsaVolume"]
+                        always: ["alsaVolume"]
                     }
                 }
             },
@@ -61,7 +61,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             groups: {
                 increaseSize: {
                     panels: {
-                        "always": ["gnomeMagnification"]
+                        always: ["gnomeMagnification"]
                     }
                 }
             },
@@ -100,6 +100,27 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "centered": "radioButton-middle radioButton-second",
                     "push": "radioButton-middle radioButton-third",
                     "proportional": "radioButton-right"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.gnomeTextScaling", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        always: ["gnomeTextScaling"]
+                    }
+                }
+            },
+            gnomeTextScaling: {
+                "type": "gpii.primarySchema.gnomeTextScaling",
+                "panel": {
+                    "type": "gpii.adjuster.gnomeTextScaling",
+                    "template": "%prefix/../applicationTerms/gnomeTextScalingTemplate.html",
+                    "container": ".gnomeTextScaling",
+                    "message": "%prefix/message.json"
                 }
             }
         }

@@ -98,7 +98,14 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 factor: 0.01
             }
         },
-        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking"
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/text-scaling-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeTextScaling",
+                factor: 0.01
+            }
+        }
     };
 
     gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);

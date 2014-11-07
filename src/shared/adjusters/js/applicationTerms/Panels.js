@@ -188,6 +188,43 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         container.attr("aria-describedby", gpii.ariaUtility.getLabelId(announceLabel));
     };
 
+    fluid.defaults("gpii.adjuster.gnomeTextScaling", {
+        gradeNames: ["fluid.prefs.panel", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.gnomeTextScaling": {
+                "model.value": "default",
+                "controlValues.gnomeTextScaling.min": "minimum",
+                "controlValues.gnomeTextScaling.max": "maximum",
+                "controlValues.gnomeTextScaling.step": "divisibleBy"
+            }
+        },
+        selectors: {
+            gnomeTextScalingLabel: ".gpiic-gnomeTextScaling-label",
+            gnomeTextScaling: ".gpiic-speakText-gnomeTextScaling-stepper"
+        },
+        selectorsToIgnore: ["gnomeTextScaling"],
+        components: {
+            textfieldStepper: {
+                type: "gpii.adjuster.textfieldStepper",
+                container: "{that}.dom.gnomeTextScaling",
+                createOnEvent: "afterRender",
+                options: {
+                    sourceApplier: "{gnomeTextScaling}.applier",
+                    rules: {
+                        "value": "value"
+                    },
+                    model: {
+                        value: "{gnomeTextScaling}.model.value"
+                    },
+                    range: "{gnomeTextScaling}.options.controlValues.gnomeTextScaling",
+                    labelledbyDomElement: "{gnomeTextScaling}.dom.gnomeTextScalingLabel"
+                }
+            }
+        },
+        protoTree: {
+            gnomeTextScalingLabel: {messagekey: "gnomeTextScalingLabel"}
+        }
+    });
 
 
 })(fluid);

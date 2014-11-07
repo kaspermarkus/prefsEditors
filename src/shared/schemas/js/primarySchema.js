@@ -171,6 +171,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "default": "none",
             "enum": ["none", "centered", "push", "proportional"]
         },
+
+        "gpii.primarySchema.gnomeTextScaling": {
+            "type": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 10000,
+            "divisibleBy": 25
+        }
     };
 
 })(fluid);
