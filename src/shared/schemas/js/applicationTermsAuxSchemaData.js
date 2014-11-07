@@ -126,4 +126,32 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.pcp.auxiliarySchema.gnomeCursorSize", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        always: ["gnomeCursorSize"]
+                    }
+                }
+            },
+            gnomeCursorSize: {
+                "type": "gpii.primarySchema.gnomeCursorSize",
+                "panel": {
+                    "type": "gpii.adjuster.gnomeCursorSize",
+                    "template": "%prefix/../applicationTerms/gnomeCursorSizeTemplate.html",
+                    "container": ".gnomeCursorSize",
+                    "message": "%prefix/message.json",
+                    "classnameMap": {"gnomeCursorSize": "@gnomeCursorSize.classes"}
+                },
+                "classes": {
+                    "-1": "radioButton-left",
+                    "20": "radioButton-middle radioButton-second",
+                    "29": "radioButton-middle radioButton-third",
+                    "41": "radioButton-right"
+                }
+            }
+        }
+    });
+
 })(jQuery, fluid);

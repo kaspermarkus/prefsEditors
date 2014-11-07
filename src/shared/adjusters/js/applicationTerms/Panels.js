@@ -140,7 +140,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             gnomeMouseTrackingLevel: ["gnomeMouseTracking-none", "gnomeMouseTracking-centered", "gnomeMouseTracking-push", "gnomeMouseTracking-proportional"]
         },
         protoTree: {
-            announceLabel: {messagekey: "announce"},
             expander: {
                 type: "fluid.renderer.selection.inputs",
                 rowID: "gnomeMouseTrackingRow",
@@ -161,32 +160,19 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         },
         invokers: {
             style: {
-                funcName: "gpii.adjuster.gnomeMouseTracking.gnomeMouseTrackingStyle",
+                funcName: "gpii.adjuster.radioButtonAdjusterStyle",
                 args: [
                     "{that}.dom.gnomeMouseTrackingOptionLabel",
                     "{that}.options.controlValues.gnomeMouseTracking",
                     "{that}.options.classnameMap.gnomeMouseTracking",
                     "{that}.dom.gnomeMouseTrackingContainer",
-                    "{that}.dom.gnomeMouseTrackingLabel",
-                    "{that}.dom.announceLabel"
+                    "{that}.dom.gnomeMouseTrackingLabel"
                 ],
                 "dynamic": true
             }
         }
     });
 
-    // TODO: This function should be united with punctuationVerbosity's one.
-    // Generally, a component for creating radio button styled adjusters should be created.
-
-    gpii.adjuster.gnomeMouseTracking.gnomeMouseTrackingStyle = function (labels, values, classes, container, titleLabel, announceLabel) {
-        fluid.each(labels, function (label, index) {
-            label = $(label);
-            label.addClass(classes[values[index]]);
-            label.prepend('<span></span>');
-        });
-        container.attr("aria-labelledby", gpii.ariaUtility.getLabelId(titleLabel));
-        container.attr("aria-describedby", gpii.ariaUtility.getLabelId(announceLabel));
-    };
 
     fluid.defaults("gpii.adjuster.gnomeTextScaling", {
         gradeNames: ["fluid.prefs.panel", "autoInit"],
@@ -226,5 +212,66 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    fluid.defaults("gpii.adjuster.gnomeCursorSize", {
+        gradeNames: ["fluid.prefs.panel", "gpii.adjuster.singleSelectionWithKeyboard", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.gnomeCursorSize": {
+                "model.gnomeCursorSize": "default",
+                "controlValues.gnomeCursorSize": "enum"
+            }
+        },
+        selectors: {
+            gnomeCursorSizeContainer: ".gpiic-gnomeCursorSize-container",
+            gnomeCursorSizeRow: ".gpiic-speakText-gnomeCursorSize-row",
+            gnomeCursorSizeOptionLabel: ".gpiic-speakText-gnomeCursorSize-option-label",
+            gnomeCursorSizeInput: ".gpiic-speakText-gnomeCursorSize",
+            gnomeCursorSizeLabel: ".gpiic-speakText-gnomeCursorSize-label",
+            singleSelectionLabels: ".gpiic-speakText-gnomeCursorSize-option-label"
+        },
+        selectorsToIgnore: ["gnomeCursorSizeContainer"],
+        stringArrayIndex: {
+            gnomeCursorSizeLevel: ["gnomeCursorSize--1", "gnomeCursorSize-20", "gnomeCursorSize-29", "gnomeCursorSize-41"]
+        },
+        protoTree: {
+            expander: {
+                type: "fluid.renderer.selection.inputs",
+                rowID: "gnomeCursorSizeRow",
+                labelID: "gnomeCursorSizeOptionLabel",
+                inputID: "gnomeCursorSizeInput",
+                selectID: "gnomeCursorSize-selection",
+                tree: {
+                    optionnames: "${{that}.msgLookup.gnomeCursorSizeLevel}",
+                    optionlist: "${{that}.options.controlValues.gnomeCursorSize}",
+                    selection: "${gnomeCursorSize}"
+                }
+            },
+            gnomeCursorSizeLabel: {messagekey: "gnomeCursorSizeLabel"}
+        },
+        repeatingSelectors: ["gnomeCursorSizeRow"],
+        listeners: {
+            "onDomBind.style": "{that}.style"
+        },
+        invokers: {
+            style: {
+                funcName: "gpii.adjuster.radioButtonAdjusterStyle",
+                args: [
+                    "{that}.dom.gnomeCursorSizeOptionLabel",
+                    "{that}.options.controlValues.gnomeCursorSize",
+                    "{that}.options.classnameMap.gnomeCursorSize",
+                    "{that}.dom.gnomeCursorSizeContainer",
+                    "{that}.dom.gnomeCursorSizeLabel"
+                ],
+                "dynamic": true
+            }
+        }
+    });
 
+    gpii.adjuster.radioButtonAdjusterStyle = function (labels, values, classes, container, titleLabel) {
+        fluid.each(labels, function (label, index) {
+            label = $(label);
+            label.addClass(classes[values[index]]);
+            label.prepend('<span></span>');
+        });
+        container.attr("aria-labelledby", gpii.ariaUtility.getLabelId(titleLabel));
+    };
 })(fluid);

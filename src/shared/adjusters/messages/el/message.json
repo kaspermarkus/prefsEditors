@@ -53,5 +53,10 @@
     "gnomeMouseTracking-centered": "στο κέντρο",
     "gnomeMouseTracking-push": "ώθηση",
     "gnomeMouseTracking-proportional": "αναλογικά",
-    "gnomeTextScalingLabel": "κλιμάκωση κείμενο"
+    "gnomeTextScalingLabel": "κλιμάκωση κείμενο",
+    "gnomeCursorSizeLabel": "Tamaño del cursor",
+    "gnomeCursorSize--1": "διατήρηση",
+    "gnomeCursorSize-20": "κανονικός",
+    "gnomeCursorSize-29": "μεγάλο",
+    "gnomeCursorSize-41": "πολύ μεγάλο"
 }

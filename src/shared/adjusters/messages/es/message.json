@@ -53,5 +53,10 @@
     "gnomeMouseTracking-centered": "centrado",
     "gnomeMouseTracking-push": "empujar",
     "gnomeMouseTracking-proportional": "proporcional",
-    "gnomeTextScalingLabel": "Escala de texto"
+    "gnomeTextScalingLabel": "Escala de texto",
+    "gnomeCursorSizeLabel": "Tamaño del cursor",
+    "gnomeCursorSize--1": "mantener",
+    "gnomeCursorSize-20": "normal",
+    "gnomeCursorSize-29": "grande",
+    "gnomeCursorSize-41": "extra large"
 }

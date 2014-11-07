@@ -178,6 +178,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "minimum": 1,
             "maximum": 10000,
             "divisibleBy": 25
+        },
+
+        "gpii.primarySchema.gnomeCursorSize": {
+            "type": "number",
+            "default": 20,
+            "enum": ["-1", "20", "29", "41"]
         }
     };
 

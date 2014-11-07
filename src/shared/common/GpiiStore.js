@@ -105,7 +105,8 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 valuePath: "gpii_primarySchema_gnomeTextScaling",
                 factor: 0.01
             }
-        }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/cursor-size": "gpii_primarySchema_gnomeCursorSize"
     };
 
     gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);
