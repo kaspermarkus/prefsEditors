@@ -39,7 +39,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         },
         selectors: {
             alsaVolumeLabel: ".gpiic-alsaVolume-label",
-            alsaVolume: ".gpiic-speakText-alsaVolume-stepper"
+            alsaVolume: ".gpiic-alsaVolume-stepper"
         },
         selectorsToIgnore: ["alsaVolume"],
         components: {

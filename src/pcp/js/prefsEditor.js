@@ -61,11 +61,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onHelpMessage: null,
                 onSettingChanged: null
             },
-            modelListeners: {
-                "gpii_primarySchema_fontSize": {
-                    "listener": "{socket}.applySettings"
-                }
-            },
             listeners: {
                 "onAdjusterChange.update": {
                     "listener": "{socket}.applySettings"
