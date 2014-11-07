@@ -14,16 +14,21 @@ https://github.com/gpii/universal/LICENSE.txt
     var exampleModelKey = "gpii_primarySchema_keyEcho";
     var expectedAdjusterName = "keyEcho";
 
-    var modelToWorkWith = {
-        "http://registry.gpii.net/common/volume": 0.4,
-        "http://registry.gpii.net/common/keyEcho": true,
-        "http://registry.gpii.net/common/fontSize": 21,
-        "http://registry.gpii.net/common/speechRate": 150,
-        "http://registry.gpii.net/common/cursorSize": 0.8400000000000001,
-        "http://registry.gpii.net/common/magnification": 2.75,
-        "http://registry.gpii.net/common/showCrosshairs": true,
-        "http://registry.gpii.net/common/highContrastTheme": "white-black",
-        "http://registry.gpii.net/common/magnifierPosition": "Lens"
+    var payloadToWorkWith = {
+        "gpii-default": {
+            "name": "Default preferences",
+            "settings": {
+                "http://registry.gpii.net/common/volume": 0.4,
+                "http://registry.gpii.net/common/keyEcho": true,
+                "http://registry.gpii.net/common/fontSize": 21,
+                "http://registry.gpii.net/common/speechRate": 150,
+                "http://registry.gpii.net/common/cursorSize": 0.8400000000000001,
+                "http://registry.gpii.net/common/magnification": 2.75,
+                "http://registry.gpii.net/common/showCrosshairs": true,
+                "http://registry.gpii.net/common/highContrastTheme": "white-black",
+                "http://registry.gpii.net/common/magnifierPosition": "Lens"
+            }
+        }
     };
 
     var expectedModelToRender = {
@@ -82,7 +87,7 @@ https://github.com/gpii/universal/LICENSE.txt
                 expect: 2,
                 sequence: [{
                     func: "{starter}.renderAdjusters",
-                    args: [modelToWorkWith]
+                    args: [payloadToWorkWith]
                 }, {
                     func: "jqUnit.assertDeepEq",
                     args: ["create modelToRender member according to given data", expectedModelToRender, "{starter}.modelToRender"]
