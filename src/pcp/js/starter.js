@@ -26,6 +26,7 @@
             }
         },
         members: {
+            termsToRender: {},
             modelToRender: {},
             baseAdjusters: [],
             primarySchema: gpii.primarySchema
@@ -36,7 +37,7 @@
                 "args": ["{that}", "modelToRender", {
                     expander: {
                         "funcName": "fluid.model.transform",
-                        "args": ["{arguments}.0", gpii.prefs.termsInverseTransformationRules]
+                        "args": ["{that}.termsToRender", gpii.prefs.termsInverseTransformationRules]
                     }
                 }]
             },
@@ -59,7 +60,7 @@
             },
             "onRenderRquest.gatherAdditionals": {
                 "listener": "{that}.gather",
-                "args": ["{arguments}.0"]
+                "args": ["{that}.termsToRender"]
             },
             "updatePrimarySchema.update": {
                 "funcName": "gpii.pcp.updatePrimarySchema",
@@ -80,13 +81,13 @@
                 "args": ["{arguments}.0"],
                 "dynamic": true
             },
+            renderAdjusters: {
+                "funcName": "gpii.pcp.getTermsFromPayload",
+                "args": ["{that}", "{arguments}.0"]
+            },
             extractAdjusterNameFromModel: {
                 "funcName": "gpii.pcp.extractAdjusterNameFromModel",
                 "args": ["{arguments}.0", "{that}.options.commonModelPart"]
-            },
-            renderAdjusters: {
-                "func": "{that}.events.onRenderRquest.fire",
-                "args": ["{arguments}.0"]
             },
             gather: {
                 "funcName": "gpii.pcp.gatherAdditionals",
@@ -215,6 +216,16 @@
             ["tracking"]
         ]
     });
+
+    gpii.pcp.getTermsFromPayload = function (that, payload) {
+        fluid.each(payload, function (application) {
+            fluid.each(application.settings, function (value, setting) {
+                that.termsToRender[setting] = value;
+            })
+        });
+
+        that.events.onRenderRquest.fire();
+    };
 
     gpii.pcp.levelOfAdjuster = function (adjuster, groupLevels) {
         for (i = 0; i < groupLevels.length; i++) {

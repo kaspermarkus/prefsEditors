@@ -123,8 +123,8 @@
         });
 
         socket.on("message", function (data) {
-            if (data.preferences) {
-                pcp.renderAdjusters(data.preferences);
+            if (data.settings) {
+                pcp.renderAdjusters(data.settings);
             };
             gpii.pcp.onPrefsEditorReady = function () {
                 if (data.messages) {
