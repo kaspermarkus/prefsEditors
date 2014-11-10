@@ -61,10 +61,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onHelpMessage: null,
                 onSettingChanged: null
             },
-            listeners: {
-                "onAdjusterChange.update": {
+            modelListeners: {
+                "*": {
                     "listener": "{socket}.applySettings"
-                },
+                }
+            },
+            listeners: {
                 "onReady.setFullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "attr",
@@ -72,11 +74,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 },
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
-                },
-                "onReady.logoutLinkPreventDefault": {
-                    "this": "{that}.dom.logoutLink",
-                    "method": "click",
-                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onLogout.updateStatus": {
                     "funcName": "{that}.events.onNewMessage.fire",
