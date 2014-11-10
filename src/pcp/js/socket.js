@@ -54,7 +54,23 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     gpii.pcp.emitMessage = function (that, model, transformFunc, transformRules) {
         var savedSettings = transformFunc(model, transformRules);
-        that.socket.emit("message", savedSettings, fluid.log);
+
+        var finalPayload = {};
+
+        // Formatting the payload as discussed
+
+        fluid.each(savedSettings, function (value, term) {
+            var application = term.split('/').slice(-2)[0];
+
+            var setting = {};
+            setting[term] = value;
+
+            var settingObject = {"settings": setting};
+
+            finalPayload[application] = settingObject;
+        });
+
+        that.socket.emit("message", finalPayload, fluid.log);
     };
 
     gpii.pcp.connectSocket = function (that, url) {
