@@ -26,6 +26,43 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         onOffModelKey: "windowsHighContrast"
     });
 
+    fluid.defaults("gpii.adjuster.windowsMouseTrails", {
+        gradeNames: ["fluid.prefs.panel", "autoInit"],
+        preferenceMap: {
+            "gpii.primarySchema.windowsMouseTrails": {
+                "model.value": "default",
+                "controlValues.windowsMouseTrails.min": "minimum",
+                "controlValues.windowsMouseTrails.max": "maximum",
+                "controlValues.windowsMouseTrails.step": "divisibleBy"
+            }
+        },
+        selectors: {
+            windowsMouseTrailsLabel: ".gpiic-windowsMouseTrails-label",
+            windowsMouseTrails: ".gpiic-speakText-windowsMouseTrails-stepper"
+        },
+        selectorsToIgnore: ["windowsMouseTrails"],
+        components: {
+            textfieldStepper: {
+                type: "gpii.adjuster.textfieldStepper",
+                container: "{that}.dom.windowsMouseTrails",
+                createOnEvent: "afterRender",
+                options: {
+                    sourceApplier: "{windowsMouseTrails}.applier",
+                    rules: {
+                        "value": "value"
+                    },
+                    model: {
+                        value: "{windowsMouseTrails}.model.value"
+                    },
+                    range: "{windowsMouseTrails}.options.controlValues.windowsMouseTrails",
+                    labelledbyDomElement: "{windowsMouseTrails}.dom.windowsMouseTrailsLabel"
+                }
+            }
+        },
+        protoTree: {
+            windowsMouseTrailsLabel: {messagekey: "windowsMouseTrailsLabel"}
+        }
+    });
 
     fluid.defaults("gpii.adjuster.alsaVolume", {
         gradeNames: ["fluid.prefs.panel", "autoInit"],

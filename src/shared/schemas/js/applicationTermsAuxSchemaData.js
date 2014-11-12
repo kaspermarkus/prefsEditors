@@ -14,27 +14,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 (function ($, fluid) {
     fluid.registerNamespace("gpii.pcp");
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.alsaVolume", {
-        auxiliarySchema: {
-            groups: {
-                volume: {
-                    panels: {
-                        always: ["alsaVolume"]
-                    }
-                }
-            },
-            alsaVolume: {
-                "type": "gpii.primarySchema.alsaVolume",
-                "panel": {
-                    "type": "gpii.adjuster.alsaVolume",
-                    "template": "%prefix/../applicationTerms/alsaVolumeTemplate.html",
-                    "container": ".alsaVolume",
-                    "message": "%prefix/message.json"
-                }
-            }
-        }
-    });
-
     fluid.defaults("gpii.pcp.auxiliarySchema.windowsHighContrast", {
         auxiliarySchema: {
             groups: {
@@ -50,6 +29,48 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "type": "gpii.adjuster.windowsHighContrast",
                     "template": "%prefix/onOffSwitchTemplate.html",
                     "container": ".windowsHighContrast",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.windowsMouseTrails", {
+        auxiliarySchema: {
+            groups: {
+                increaseSize: {
+                    panels: {
+                        always: ["windowsMouseTrails"]
+                    }
+                }
+            },
+            windowsMouseTrails: {
+                "type": "gpii.primarySchema.windowsMouseTrails",
+                "panel": {
+                    "type": "gpii.adjuster.windowsMouseTrails",
+                    "template": "%prefix/../applicationTerms/windowsMouseTrailsTemplate.html",
+                    "container": ".windowsMouseTrails",
+                    "message": "%prefix/message.json"
+                }
+            }
+        }
+    });
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.alsaVolume", {
+        auxiliarySchema: {
+            groups: {
+                volume: {
+                    panels: {
+                        always: ["alsaVolume"]
+                    }
+                }
+            },
+            alsaVolume: {
+                "type": "gpii.primarySchema.alsaVolume",
+                "panel": {
+                    "type": "gpii.adjuster.alsaVolume",
+                    "template": "%prefix/../applicationTerms/alsaVolumeTemplate.html",
+                    "container": ".alsaVolume",
                     "message": "%prefix/message.json"
                 }
             }

@@ -87,10 +87,16 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
         "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
 
+
         // application specific ters transforamtions
 
-        "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
+
+        // Windows
         "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast",
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.mouseTrailing/MouseTrails": "gpii_primarySchema_windowsMouseTrails",
+
+        // Linux
+        "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
         "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mag-factor": {
             transform: {
                 type: "fluid.transforms.linearScale",

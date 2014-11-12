@@ -143,12 +143,26 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "enum": ["en", "el", "de", "es"]
         },
 
+        
         //  Data for application specific terms
+
+
+        // Windows
 
         "gpii.primarySchema.windowsHighContrast": {
             "type": "boolean",
             "default": false
         },
+
+        "gpii.primarySchema.windowsMouseTrails": {
+            "type": "number",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 10,
+            "divisibleBy": 1
+        },
+
+        // Linux
 
         "gpii.primarySchema.alsaVolume": {
             "type": "number",
