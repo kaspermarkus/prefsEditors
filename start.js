@@ -11,8 +11,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 // Declare dependencies
 /* global require, __dirname */
 
-var util = require("util"),
-    connect = require("kettle/node_modules/express/node_modules/connect"),
+var util = require('util'),
+    connect = require('kettle/node_modules/express/node_modules/connect'),
     port = 8888;
 
 connect.createServer(connect["static"](__dirname)).listen(port);

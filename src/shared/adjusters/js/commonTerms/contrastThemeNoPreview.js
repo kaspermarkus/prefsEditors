@@ -20,8 +20,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "stringArrayIndex.theme": gpii.prefs.merging.arrayOverridePolicy
         },
         preferenceMap: {
-            "gpii.primarySchema.contrast.theme": {
+            "gpii.primarySchema.contrastTheme": {
                 "model.value": "default"
+            }
+        },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "value": {
+                "listener": "{that}.events.onAdjusterChange.fire"
             }
         },
         selectors: {
@@ -34,7 +42,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "method": "text",
                 "args": ["{that}.msgLookup.colourTheme"]
             },
-            "onDomBind.style": "{that}.style"
+            "onDomBind.style": "{that}.style",
+            "onDomBind.addAriaControls": {
+                "this": "{that}.dom.themeInput",
+                "method": "attr",
+                "args": ["aria-controls", "{that}.options.ariaControls"]
+            }
         },
         stringArrayIndex: {
             theme: ["contrast-bw", "contrast-wb", "contrast-by", "contrast-yb"]
@@ -46,4 +59,5 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             label: "<span>%theme</span>"
         }
     });
+
 })(jQuery, fluid);

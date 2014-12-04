@@ -45,5 +45,19 @@
     "onText": "ON",
     "offText": "OFF",
     "moreSpeakTextPreferences": "more speak text preferences",
-    "lessSpeakTextPreferences": "less speak text preferences"
+    "lessSpeakTextPreferences": "less speak text preferences",
+    "alsaVolumeLabel": "ALSA master volume",
+    "windowsHighContrastLabel": "High contrast",
+    "windowsMouseTrailsLabel": "Mouse trails",
+    "gnomeMouseTrackingLabel": "Mouse tracking",
+    "gnomeMouseTracking-none": "none",
+    "gnomeMouseTracking-centered": "centered",
+    "gnomeMouseTracking-push": "push",
+    "gnomeMouseTracking-proportional": "proportional",
+    "gnomeTextScalingLabel": "Text scaling",
+    "gnomeCursorSizeLabel": "Cursor size",
+    "gnomeCursorSize--1": "keep",
+    "gnomeCursorSize-20": "normal",
+    "gnomeCursorSize-29": "large",
+    "gnomeCursorSize-41": "extra large"
 }

@@ -21,107 +21,96 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
     fluid.registerNamespace("gpii.prefs");
 
-    gpii.prefs.commonTermsTransformationRules = {
-        "http://registry\\.gpii\\.org/common/announceCapitals": [{
-            value: "gpii_primarySchema_announceCapitals"
-        }],
-        "http://registry\\.gpii\\.org/common/keyEcho": [{
-            value: "gpii_primarySchema_keyEcho"
-        }],
-        "http://registry\\.gpii\\.org/common/punctuationVerbosity": [{
-            value: "gpii_primarySchema_punctuationVerbosity"
-        }],
-        "http://registry\\.gpii\\.org/common/screenReaderBrailleOutput": [{
-            value: "gpii_primarySchema_screenReaderBrailleOutput"
-        }],
-        "http://registry\\.gpii\\.org/common/auditoryOutLanguage": [{
-            value: "gpii_primarySchema_screenReaderLanguage"
-        }],
-        "http://registry\\.gpii\\.org/common/screenReaderTTSEnabled": [{
-            value: "gpii_primarySchema_speakText"
-        }],
-        "http://registry\\.gpii\\.org/common/speakTutorialMessages": [{
-            value: "gpii_primarySchema_speakTutorialMessages"
-        }],
-        "http://registry\\.gpii\\.org/common/readingUnit": [{
-            value: "gpii_primarySchema_textHighlighting"
-        }],
-        "http://registry\\.gpii\\.org/common/language": [{
-            value: "gpii_primarySchema_universalLanguage"
-        }],
-        "http://registry\\.gpii\\.org/common/volume": [{
+    // containing both common & application specific terms transformations
+
+    gpii.prefs.termsTransformationRules = {
+
+        // common terms transformations
+
+        "http://registry\\.gpii\\.net/common/announceCapitals": "gpii_primarySchema_announceCapitals",
+        "http://registry\\.gpii\\.net/common/keyEcho": "gpii_primarySchema_keyEcho",
+        "http://registry\\.gpii\\.net/common/punctuationVerbosity": "gpii_primarySchema_punctuationVerbosity",
+        "http://registry\\.gpii\\.net/common/screenReaderBrailleOutput": "gpii_primarySchema_screenReaderBrailleOutput",
+        "http://registry\\.gpii\\.net/common/auditoryOutLanguage": "gpii_primarySchema_screenReaderLanguage",
+        "http://registry\\.gpii\\.net/common/screenReaderTTSEnabled": "gpii_primarySchema_speakText",
+        "http://registry\\.gpii\\.net/common/speakTutorialMessages": "gpii_primarySchema_speakTutorialMessages",
+        "http://registry\\.gpii\\.net/common/readingUnit": "gpii_primarySchema_textHighlighting",
+        "http://registry\\.gpii\\.net/common/language": "gpii_primarySchema_universalLanguage",
+        "http://registry\\.gpii\\.net/common/volume": {
             transform: {
                 type: "fluid.transforms.linearScale",
                 valuePath: "gpii_primarySchema_universalVolume",
-                factor: 0.01,
-                outputPath: "value"
+                factor: 0.01
             }
-        }],
-        "http://registry\\.gpii\\.org/common/pitch": [{
+        },
+        "http://registry\\.gpii\\.net/common/pitch": {
             transform: {
                 type: "fluid.transforms.linearScale",
                 valuePath: "gpii_primarySchema_voicePitch",
-                factor: 0.01,
-                outputPath: "value"
+                factor: 0.01
             }
-        }],
-        "http://registry\\.gpii\\.org/common/volumeTTS": [{
+        },
+        "http://registry\\.gpii\\.net/common/volumeTTS": {
             transform: {
                 type: "fluid.transforms.linearScale",
                 valuePath: "gpii_primarySchema_volume",
-                factor: 0.01,
-                outputPath: "value"
+                factor: 0.01
             }
-        }],
-        "http://registry\\.gpii\\.org/common/wordEcho": [{
-            value: "gpii_primarySchema_wordEcho"
-        }],
-        "http://registry\\.gpii\\.org/common/speechRate": [{
-            value: "gpii_primarySchema_wordsSpokenPerMinute"
-        }],
-        "http://registry\\.gpii\\.org/common/magnification": [{
+        },
+        "http://registry\\.gpii\\.net/common/wordEcho": "gpii_primarySchema_wordEcho",
+        "http://registry\\.gpii\\.net/common/speechRate": "gpii_primarySchema_wordsSpokenPerMinute",
+        "http://registry\\.gpii\\.net/common/magnification": {
             transform: {
                 type: "fluid.transforms.linearScale",
                 valuePath: "gpii_primarySchema_magnification",
-                factor: 0.01,
-                outputPath: "value"
+                factor: 0.01
             }
-        }],
-        "http://registry\\.gpii\\.org/common/fontSize": [{
-            value: "gpii_primarySchema_fontSize"
-        }],
-        "http://registry\\.gpii\\.org/common/highContrastEnabled": [{
-            value: "gpii_primarySchema_contrastEnabled"
-        }],
-        "http://registry\\.gpii\\.org/common/highContrastTheme": [{
-            value: "gpii_primarySchema_contrast_theme"
-        }],
-        "http://registry\\.gpii\\.org/common/cursorSize": [{
+        },
+        "http://registry\\.gpii\\.net/common/fontSize": "gpii_primarySchema_fontSize",
+        "http://registry\\.gpii\\.net/common/highContrastEnabled": "gpii_primarySchema_contrastEnabled",
+        "http://registry\\.gpii\\.net/common/highContrastTheme": "gpii_primarySchema_contrastTheme",
+        "http://registry\\.gpii\\.net/common/cursorSize": {
             transform: {
                 type: "fluid.transforms.linearScale",
                 valuePath: "gpii_primarySchema_cursorSize",
-                factor: 0.2,
-                outputPath: "value"
+                factor: 0.2
             }
-        }],
-        "http://registry\\.gpii\\.org/common/magnifierEnabled": [{
-            value: "gpii_primarySchema_magnifierEnabled"
-        }],
-        "http://registry\\.gpii\\.org/common/tracking": [{
-            value: "gpii_primarySchema_tracking"
-        }],
-        "http://registry\\.gpii\\.org/common/trackingTTS": [{
-            value: "gpii_primarySchema_screenReaderTracking"
-        }],
-        "http://registry\\.gpii\\.org/common/magnifierPosition": [{
-            value: "gpii_primarySchema_magnificationPosition"
-        }],
-        "http://registry\\.gpii\\.org/common/showCrosshairs": [{
-            value: "gpii_primarySchema_showCrosshairs"
-        }]
+        },
+        "http://registry\\.gpii\\.net/common/magnifierEnabled": "gpii_primarySchema_magnifierEnabled",
+        "http://registry\\.gpii\\.net/common/tracking": "gpii_primarySchema_tracking",
+        "http://registry\\.gpii\\.net/common/trackingTTS": "gpii_primarySchema_screenReaderTracking",
+        "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
+        "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
+
+
+        // application specific ters transforamtions
+
+
+        // Windows
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast",
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.mouseTrailing/MouseTrails": "gpii_primarySchema_windowsMouseTrails",
+
+        // Linux
+        "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mag-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeMagnification",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/text-scaling-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeTextScaling",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/cursor-size": "gpii_primarySchema_gnomeCursorSize"
     };
 
-    gpii.prefs.commonTermsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.commonTermsTransformationRules);
+    gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);
 
     fluid.registerNamespace("gpii.prefs.gpiiStore");
 
@@ -169,7 +158,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         listeners: {
             "onSetSuccess.loginUser": "gpii.prefs.gpiiStore.onSuccessfulSet"
         },
-        gpiiEntry: "http://registry.gpii.org/applications/gpii.prefs",
+        gpiiEntry: "http://registry.gpii.net/applications/gpii.prefs",
         invokers: {
             get: {
                 funcName: "gpii.prefs.gpiiStore.get",
@@ -183,11 +172,11 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             },
             modelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsTransformationRules]
             },
             inverseModelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsInverseTransformationRules]
             }
         }
     });
@@ -197,7 +186,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
         if (sessionSettings.loggedUser !== null) {
 
-            var urlToPost = sessionSettings.loggedUser ? (settings.url + "user/" + sessionSettings.loggedUser) : (settings.url + "user/");
+            var urlToPost = sessionSettings.loggedUser ? (settings.url + "preferences/" + sessionSettings.loggedUser) : (settings.url + "preferences/");
 
             $.ajax({
                 url: urlToPost,
@@ -205,7 +194,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    gpiiModel = modelTransformFunc(fluid.get(data, ["preferences"]));
+                    gpiiModel = modelTransformFunc(fluid.get(data, ["contexts", "gpii-default", "preferences"]));
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     fluid.log("GET: Error at retrieving from GPII! Test status: " + textStatus);
@@ -219,15 +208,32 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
     gpii.prefs.gpiiStore.set = function (model, settings, session, modelTransformFunc, onSuccessfulSetFunction) {
         var transformedModel = modelTransformFunc(model);
+        var dataToPost = {
+            "contexts": {
+                "gpii-default": {
+                    "name": "Default preferences",
+                    "preferences": transformedModel
+                }
+            }
+        };
 
-        var urlToPost = session.options.loggedUser ? (settings.url + "user/" + session.options.loggedUser) : (settings.url + "user/");
+        var urlToPost, requestType;
+
+        if (session.options.loggedUser) {
+            urlToPost = settings.url + "preferences/" + session.options.loggedUser;
+            requestType = "PUT";
+        } else {
+            urlToPost = settings.url + "preferences/";
+            requestType = "POST";
+        };
+
         $.ajax({
             url: urlToPost,
-            type: "POST",
+            type: requestType,
             dataType: "json",
             async: false,
             contentType: "application/json",
-            data: JSON.stringify(transformedModel),
+            data: JSON.stringify(dataToPost),
             success: function (data) {
                 onSuccessfulSetFunction(session, data);
             },

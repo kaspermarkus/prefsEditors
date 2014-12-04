@@ -39,6 +39,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 container: "{that}.dom.magnifierStepper",
                 createOnEvent: "afterRender",
                 options: {
+                    events: {
+                        onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+                    },
+                    modelListeners: {
+                        "*": {
+                            "listener": "{that}.events.onAdjusterChange.fire"
+                        }
+                    },
                     sourceApplier: "{magnifierPCP}.applier",
                     rules: {
                         "magnification": "value"

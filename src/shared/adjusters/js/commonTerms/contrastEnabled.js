@@ -21,10 +21,25 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "model.contrast": "default"
             }
         },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "*": {
+                "listener": "{that}.events.onAdjusterChange.fire"
+            }
+        },
         protoTree: {
             headingLabel: {messagekey: "contrast"},
             valueCheckbox: "${contrast}"
         },
-        onOffModelKey: "contrast"
+        onOffModelKey: "contrast",
+        listeners: {
+            "onDomBind.addAriaControls": {
+                "this": "{that}.dom.valueCheckbox",
+                "method": "attr",
+                "args": ["aria-controls", "{that}.options.ariaControls"]
+            }
+        }
     });
 })(jQuery, fluid);

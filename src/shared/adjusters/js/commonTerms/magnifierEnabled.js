@@ -24,11 +24,26 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "model.value": "default"
             }
         },
+        events: {
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+        },
+        modelListeners: {
+            "*": {
+                "listener": "{that}.events.onAdjusterChange.fire"
+            }
+        },
         protoTree: {
             headingLabel: {messagekey: "magnifierLabel"},
             valueCheckbox: "${value}"
         },
-        onOffModelKey: "value"
+        onOffModelKey: "value",
+        listeners: {
+            "onDomBind.addAriaControls": {
+                "this": "{that}.dom.valueCheckbox",
+                "method": "attr",
+                "args": ["aria-controls", "{that}.options.ariaControls"]
+            }
+        }
     });
 
 })(jQuery, fluid);

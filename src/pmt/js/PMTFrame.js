@@ -22,13 +22,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             events: {
                 onLogin: null,
-                onLogout: null
+                onLogout: null,
+                onAdjusterChange: null
             },
             selectors: {
                 myPreferencesLabel: ".gpiic-pmt-preferenceSetSelectionButtonMyPreferencesLabel",
                 allPreferencesLabel: ".gpiic-pmt-preferenceSetSelectionButtonAllPreferencesLabel",
                 saveAndApplyButtonLabel: ".flc-prefsEditor-save",
-                messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 notification: ".gpiic-prefsEditor-notification",
                 confirmButton: ".gpiic-prefsEditor-notificationConfirmButton",
                 notificationMessagePart1: ".gpiic-prefsEditor-notificationMessagePart1",
@@ -85,21 +85,17 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.userStatusBar",
                     "method": "slideUp"
                 },
-                "onLogout.clearMessage": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "text",
-                    "args": [""]
-                },
-                "onLogout.hideMessageLine": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "hide"
-                },
                 // clear href of quick editor link when we log the user out
                 "onLogout.clearQuickEditorLinkHref": {
                     "listener": "{that}.clearQuickEditorLinkHref"
                 },
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
+                },
+                "onLogout.updateStatus": {
+                    "this": "{that}.dom.messageLineLabel",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.onLogoutMessage"]
                 },
                 // set texts
                 "onReady.setMyPreferencesLabelText": {
@@ -117,13 +113,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.saveAndApplyText"]
                 },
-
                 "onReady.setSaveAndApplyButtonAriaLabel": {
                     "this": "{that}.dom.saveAndApplyButtonLabel",
                     "method": "attr",
                     "args": ["aria-label", "{that}.msgLookup.saveAndApplyText"]
                 },
-
                 "onReady.setNotificationMessagePart1": {
                     "this": "{that}.dom.notificationMessagePart1",
                     "method": "text",
@@ -169,10 +163,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.notification",
                     "method": "hide"
                 },
-                "onReady.hideMessageLine": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "hide"
-                },
                 // hide the logout link if a user is not logged in
                 "onReady.hideUserStatusBarIfNotLoggedIn": {
                     "listener": "{that}.hideUserStatusBarIfNotLoggedIn"
@@ -184,6 +174,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onReady.addHidingListener": {
                     "listener": "{that}.applier.modelChanged.addListener",
                     "args": ["{that}.options.strings.mainVisibilitySwitch", "{that}.foldExpandedViewWhenOff"]
+                },
+                "onReady.addAriaControlsForSaveButton": {
+                    "this": "{that}.dom.saveAndApplyButtonLabel",
+                    "method": "attr",
+                    "args": ["aria-controls", "{that}.options.statusMessageID"]
                 }
             },
             invokers: {
@@ -208,7 +203,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 showSaveMessage: {
                     "this": "{that}.dom.messageLineLabel",
                     "method": "text",
-                    "args": ["{that}.msgLookup.preferencesSavedToUSB"]
+                    "args": ["{that}.msgLookup.onSaveAndApplyStatus"]
                 },
                 showUserStatusBar: {
                     "this": "{that}.dom.userStatusBar",
@@ -279,6 +274,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             appendTo: ".gpiic-pmt-bottomRow",
             dialogClass: "gpii-dialog-noTitle",
             closeOnEscape: false,
+            width: "28em",
             position: { my: "bottom", at: "bottom", of: ".gpii-prefsEditor-preferencesContainer" }
         });
         // also set the token text

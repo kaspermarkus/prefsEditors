@@ -18,7 +18,6 @@ For more background about these tools, see
 git clone https://github.com/GPII/prefsEditors
 ```
 
-
 ## Running the preferences editors ##
 
 In the new subdirectory "prefsEditors" you will find this README.md file,
