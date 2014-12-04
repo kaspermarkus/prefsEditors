@@ -59,6 +59,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onMessageUpdate: null,
                 onTextMessage: null,
                 onHelpMessage: null,
+                onApply: null,
                 onSettingChanged: null
             },
             modelListeners: {
@@ -67,22 +68,58 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             listeners: {
+                "onReady.setATTRapplyButton": {
+                    "this": "{that}.dom.applyButton",
+                    "method": "attr",
+                    "args": ["value", "{that}.msgLookup.applyText"]
+                },
+                "onApply.hideApplyButton": {
+                    "this": "{that}.dom.applyButtonContainer",
+                    "method": "hide",
+                    "args": []
+                },
+                "onApply.applySettings": {
+                    "listener": "{socket}.applySettings"
+                },
+                "onReady.bindApply": {
+                    "this": "{that}.dom.applyButton",
+                    "method": "click",
+                    "args": ["{that}.events.onApply.fire"]
+                },
                 "onReady.setFullEditorLink": {
                     "this": "{that}.dom.fullEditorLink",
                     "method": "attr",
                     "args": ["href", "{prefsEditorLoader}.options.pmtUrl"]
                 },
+                "onReset.triggerLogoutEvent": {
+                    "listener": "{that}.events.onLogout.fire"
+                },
+                "onLogout.setUserLoggedIn": {
+                    listener: "{that}.applier.requestChange",
+                    args: ["userLoggedIn", false]
+                },
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
-                "onLogout.updateStatus": {
-                    "funcName": "{that}.events.onNewMessage.fire",
-                    "args": ["{that}.msgLookup.onLogoutMessagePCP"]
+                "onLogout.disableApplyButton": {
+                    "this": "{that}.dom.applyButton",
+                    "method": "prop",
+                    "args": ["disabled", "true"]
                 },
-                "onReady.setFullEditorLinkText": {
-                    "this": "{that}.dom.fullEditorLink",
-                    "method": "text",
-                    "args": ["{that}.msgLookup.fullEditorText"]
+                "onLogout.disableCloudIcon": {
+                    "this": "{that}.dom.cloudIcon",
+                    "method": "addClass",
+                    "args": ["gpii-disabled"]
+                },
+                "onReady.setApplyButtonButtonText": {
+                    "this": "{that}.dom.applyButton",
+                    "method": "attr",
+                    "args": ["value", "{that}.msgLookup.applyText"]
+                },
+                "onReady.logoutLinkPreventDefault": {
+                    "this": "{that}.dom.logoutLink",
+                    "method": "click",
+                    "args": ["{that}.preventDefaultLinkEvent"]
                 },
                 "onReady.setLogoutLinkText": {
                     "this": "{that}.dom.logoutLink",
@@ -94,10 +131,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "click",
                     "args": ["{that}.events.onLogout.fire"]
                 },
-                "onReady.logoutLinkPreventDefault": {
-                    "this": "{that}.dom.logoutLink",
-                    "method": "click",
-                    "args": ["{that}.preventDefaultLinkEvent"]
+                "onReady.setFullEditorLinkText": {
+                    "this": "{that}.dom.fullEditorLink",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.fullEditorText"]
                 },
                 "onReady.bindModelChangedListener": {
                     // used instead of the declarative syntax so that
@@ -148,10 +185,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 }
             },
             invokers: {
-                showUserStatusBar: {
-                    "this": "{that}.dom.userStatusBar",
-                    "method": "slideDown"
-                },
+// TODO KASPER
+//<<<<<<< HEAD
+//                 showUserStatusBar: {
+//                     "this": "{that}.dom.userStatusBar",
+//                     "method": "slideDown"
+//                 },
                 preventDefaultLinkEvent: {
                     "funcName": "gpii.eventUtility.preventDefaultEvent"
                 },
@@ -235,5 +274,4 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             that.events.onMessageUpdate.fire();
         };
     };
-
 })(jQuery, fluid);
