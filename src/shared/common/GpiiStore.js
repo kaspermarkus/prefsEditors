@@ -21,6 +21,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
     fluid.registerNamespace("gpii.prefs");
 
+<<<<<<< HEAD
     // containing both common & application specific terms transformations
 
     gpii.prefs.termsTransformationRules = {
@@ -227,6 +228,8 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             requestType = "POST";
         };
 
+        //var urlToPost = session.options.loggedUser ? (settings.url + "user/" + session.options.loggedUser) : (settings.url + "user/"); //Before Fireball
+        // var urlToPost = session.options.loggedUser ? (settings.url + "user/preferences/" + session.options.loggedUser) : (settings.url + "user/preferences/"); // Not working !!!
         $.ajax({
             url: urlToPost,
             type: requestType,
