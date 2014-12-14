@@ -21,7 +21,6 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
     fluid.registerNamespace("gpii.prefs");
 
-<<<<<<< HEAD
     // containing both common & application specific terms transformations
 
     gpii.prefs.termsTransformationRules = {
@@ -122,15 +121,15 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
          * will we have GPIISession caching it and getting it from there? Relevant JIRA:
          *      http://issues.gpii.net/browse/GPII-623
          */
-        if (session.options.loggedUser !== data.token) {
+        if (session.options.loggedUser !== data.userToken) {
             // new user, trigger accountCreated event
-            session.events.accountCreated.fire(data.token);
+            session.events.accountCreated.fire(data.userToken);
         } else {
             // already logged in, refresh AT applications
             // log user out
             session.logout();
             // and log user in again
-            session.login(data.token);
+            session.login(data.userToken);
             /* TODO: The above procedure should normally be happening on the GPII side.
              * Preference management tools should not have session management responsibilities.
              * This is a work-around for the pilot2 tests.

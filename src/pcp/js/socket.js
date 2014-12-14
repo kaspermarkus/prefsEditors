@@ -53,6 +53,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     };
 
     gpii.pcp.emitMessage = function (that, model, transformFunc, transformRules) {
+        console.log("emitMessage called");
         var savedSettings = transformFunc(model, transformRules);
 
         var finalPayload = {};
@@ -74,9 +75,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     };
 
     gpii.pcp.connectSocket = function (that, url) {
+        console.log("Connecting to socket at "+url);
         that.socket = io.connect(url);
 
         that.socket.on("connect", function () {
+            console.log("Socket successfully onnected");
             that.socketConnected = true;
             that.events.onEmitRequest.fire();
         });
@@ -86,7 +89,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         fluid.each(events, function (event) {
             that.socket.on(event, function (data) {
                 that.socketConnected = false;
-                fluid.log(data);
+                fluid.log("DATA: "+data);
                 delete that.socket;
             });
         });
