@@ -212,6 +212,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     });
 
     gpii.pcp.handleNewMessage = function (that, messageReceived) {
+        console.log("RECEIVED MESSAGE");
         var endingLength = that.options.commonMessageEnding.length;
 
         var mes = {};
