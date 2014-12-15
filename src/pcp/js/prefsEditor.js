@@ -73,11 +73,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.applyText"]
                 },
-                "onApply.hideApplyButton": {
-                    "this": "{that}.dom.applyButtonContainer",
-                    "method": "hide",
-                    "args": []
-                },
                 "onApply.applySettings": {
                     "listener": "{socket}.applySettings"
                 },
@@ -212,7 +207,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     });
 
     gpii.pcp.handleNewMessage = function (that, messageReceived) {
-        console.log("RECEIVED MESSAGE");
         var endingLength = that.options.commonMessageEnding.length;
 
         var mes = {};

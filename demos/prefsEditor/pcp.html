@@ -127,13 +127,15 @@
             if (data.settings) {
                 pcp.renderAdjusters(data.settings);
             };
-            // gpii.pcp.onPrefsEditorReady = function () {
-            //     if (data.messages) {
-            //         fluid.each(data.messages, function (message) {
-            //             pcp.showMessage(message);
-            //         });
-            //     };
-            // };
+            gpii.pcp.onPrefsEditorReady = function () {
+                console.log("the prefs editor becomes ready")
+                if (data.messages) {
+                    console.log("there are some messages");
+                    fluid.each(data.messages, function (message) {
+                        pcp.showMessage(message);
+                    });
+                };
+            };
             //QUESTIONS FOR ALEX:
             // what is gpii.pcp.onPrefsEditorReady for?
             // why dont I get a cancel link?
