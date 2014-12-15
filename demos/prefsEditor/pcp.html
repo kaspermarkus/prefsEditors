@@ -110,7 +110,6 @@
 
 </head>
 <body>
-
     <!-- This is the div that will contain the UI Options component -->
     <div id="gpiic-pcp">
     </div>
@@ -125,6 +124,7 @@
         socket.on("message", function (data) {
             console.log("RECEIVED MESSAGE2 "+JSON.stringify(data));
             if (data.settings) {
+                document.getElementById("gpiic-pcp").innerHTML = "";
                 pcp.renderAdjusters(data.settings);
             };
             gpii.pcp.onPrefsEditorReady = function () {
@@ -143,11 +143,6 @@
             // does this just update the adjuster: pcp.renderAdjusters?
             // Is there no top-level indicator for the application specific settings?
             // Where is things submitted back to the flowmanager?
-            if (data.messages) {
-                fluid.each(data.messages, function (message) {
-                    pcp.showMessage(message);
-                });
-            };
         });
     </script>
 
