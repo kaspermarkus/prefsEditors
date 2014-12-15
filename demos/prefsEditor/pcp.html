@@ -124,6 +124,7 @@
         socket.on("message", function (data) {
             console.log("RECEIVED MESSAGE2 "+JSON.stringify(data));
             if (data.settings) {
+                var pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = "";
                 pcp.renderAdjusters(data.settings);
             };
@@ -136,13 +137,6 @@
                     });
                 };
             };
-            //QUESTIONS FOR ALEX:
-            // what is gpii.pcp.onPrefsEditorReady for?
-            // why dont I get a cancel link?
-            // why is the cancel link disappearing?
-            // does this just update the adjuster: pcp.renderAdjusters?
-            // Is there no top-level indicator for the application specific settings?
-            // Where is things submitted back to the flowmanager?
         });
     </script>
 
