@@ -23,6 +23,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             prefsEditor: {
                 container: "{that}.container",
                 options: {
+                    statusMessageID: "gpiic-prefsEditor-messageLine",
                     listeners: {
                         onReset: [{
                             listener: "{that}.applyChanges"
@@ -30,7 +31,20 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                         onReady: {
                             listener: "{GPIIEditor}.events.onReady",
                             args: "{GPIIEditor}"
+                        },
+                        "onReady.addAriaControlsForLogoutLink": {
+                            "this": "{that}.dom.logoutLink",
+                            "method": "attr",
+                            "args": ["aria-controls", "{that}.options.statusMessageID"]
+                        },
+                        "onReady.addStatusMessageID": {
+                            "this": "{that}.dom.messageLineLabel",
+                            "method": "attr",
+                            "args": ["id", "{that}.options.statusMessageID"]
                         }
+                    },
+                    selectors: {
+                        messageLineLabel: ".gpiic-prefsEditor-messageLine"
                     }
                 }
             }

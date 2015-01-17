@@ -59,7 +59,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "type": "boolean",
             "default": false
         },
-        "gpii.primarySchema.contrast.theme": {
+        "gpii.primarySchema.contrastTheme": {
             "type": "string",
             "default": "black-white",
             "enum": ["black-white", "white-black", "black-yellow", "yellow-black"]
@@ -143,6 +143,63 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "type": "string",
             "default": "en",
             "enum": ["en", "el", "de", "es"]
+        },
+
+        
+        //  Data for application specific terms
+
+
+        // Windows
+
+        "gpii.primarySchema.windowsHighContrast": {
+            "type": "boolean",
+            "default": false
+        },
+
+        "gpii.primarySchema.windowsMouseTrails": {
+            "type": "number",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 10,
+            "divisibleBy": 1
+        },
+
+        // Linux
+
+        "gpii.primarySchema.alsaVolume": {
+            "type": "number",
+            "default": 50,
+            "minimum": 0,
+            "maximum": 100,
+            "divisibleBy": 10
+        },
+
+        "gpii.primarySchema.gnomeMagnification": {
+            "type": "number",
+            "default": 100,
+            "minimum": 100,
+            "maximum": 10000,
+            "divisibleBy": 25
+        },
+
+        "gpii.primarySchema.gnomeMouseTracking": {
+            "type": "string",
+            "default": "none",
+            "enum": ["none", "centered", "push", "proportional"]
+        },
+
+        "gpii.primarySchema.gnomeTextScaling": {
+            "type": "number",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 10000,
+            "divisibleBy": 25
+        },
+
+        "gpii.primarySchema.gnomeCursorSize": {
+            "type": "number",
+            "default": 20,
+            "enum": ["-1", "20", "29", "41"]
         }
     };
 

@@ -1,8 +1,21 @@
 {
+    "messageButtonText": "Cancel",
+    "onSettingChangedMessage": {
+        "type": "privateMessage",
+        "message": "Preferences modified"
+    },
+    "onSaveAndApplyStatus": "Preferences saved and applied",
+    "onLogoutMessage": "Logged out",
+    "onLogoutMessagePCP": {
+        "type": "privateMessage",
+        "message": "Logged out"
+    },
+    "learnMore": "Learn more >",
     "myPreferencesLabelText": "my preferences",
     "allPreferencesLabelText": "all preferences",
-    "saveAndApplyText": "save",
-    "preferencesSavedToUSB": "preferences saved",
+    "saveAndApplyText": "save & apply",
+    "applyText": "apply",
+    "preferencesSavedToUSB": "preferences saved to usb",
     "preferencesModified": "preferences modified",
     "notificationMessagePart1": "To apply preferences on other devices, save this token:",
     "notificationMessagePart2": "TOKEN NUMBER",

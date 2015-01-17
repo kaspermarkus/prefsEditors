@@ -48,66 +48,65 @@ https://github.com/gpii/universal/LICENSE.txt
     };
 
     var convertedExampleModel = {
-        "http://registry.gpii.org/common/pitch":[{"value":0.8}],
-        "http://registry.gpii.org/common/volume":[{"value":0.8}],
-        "http://registry.gpii.org/common/keyEcho":[{"value":false}],
-        "http://registry.gpii.org/common/language":[{"value":"en"}],
-        "http://registry.gpii.org/common/wordEcho":[{"value":false}],
-        "http://registry.gpii.org/common/fontSize":[{"value":12}],
-        "http://registry.gpii.org/common/volumeTTS":[{"value":0.8}],
-        "http://registry.gpii.org/common/speechRate":[{"value":130}],
-        "http://registry.gpii.org/common/cursorSize":[{"value":0.2}],
-        "http://registry.gpii.org/common/readingUnit":[{"value":"Word"}],
-        "http://registry.gpii.org/common/magnification":[{"value":1}],
-        "http://registry.gpii.org/common/showCrosshairs":[{"value":false}],
-        "http://registry.gpii.org/common/announceCapitals":[{"value":false}],
-        "http://registry.gpii.org/common/magnifierEnabled":[{"value":false}],
-        "http://registry.gpii.org/common/highContrastTheme":[{"value":"black-white"}],
-        "http://registry.gpii.org/common/magnifierPosition":[{"value":"TopHalf"}],
-        "http://registry.gpii.org/common/auditoryOutLanguage":[{"value":"en"}],
-        "http://registry.gpii.org/common/highContrastEnabled":[{"value":false}],
-        "http://registry.gpii.org/common/punctuationVerbosity":[{"value":"none"}],
-        "http://registry.gpii.org/common/speakTutorialMessages":[{"value":false}],
-        "http://registry.gpii.org/common/screenReaderTTSEnabled":[{"value":false}],
-        "http://registry.gpii.org/common/screenReaderBrailleOutput":[{"value":false}]
+        "http://registry.gpii.net/common/pitch": 0.8,
+        "http://registry.gpii.net/common/volume": 0.8,
+        "http://registry.gpii.net/common/keyEcho": false,
+        "http://registry.gpii.net/common/language": "en",
+        "http://registry.gpii.net/common/wordEcho": false,
+        "http://registry.gpii.net/common/fontSize": 12,
+        "http://registry.gpii.net/common/volumeTTS": 0.8,
+        "http://registry.gpii.net/common/speechRate": 130,
+        "http://registry.gpii.net/common/cursorSize": 0.2,
+        "http://registry.gpii.net/common/readingUnit": "Word",
+        "http://registry.gpii.net/common/magnification": 1,
+        "http://registry.gpii.net/common/showCrosshairs": false,
+        "http://registry.gpii.net/common/announceCapitals": false,
+        "http://registry.gpii.net/common/magnifierEnabled": false,
+        "http://registry.gpii.net/common/highContrastTheme": "black-white",
+        "http://registry.gpii.net/common/magnifierPosition": "TopHalf",
+        "http://registry.gpii.net/common/auditoryOutLanguage": "en",
+        "http://registry.gpii.net/common/highContrastEnabled": false,
+        "http://registry.gpii.net/common/punctuationVerbosity": "none",
+        "http://registry.gpii.net/common/speakTutorialMessages": false,
+        "http://registry.gpii.net/common/screenReaderTTSEnabled": false,
+        "http://registry.gpii.net/common/screenReaderBrailleOutput": false
     };
 
     /*
      * Mock settings used in the various test scenarios.
      */
-    var loginSuccessMockSettings =
-    {
+    var loginSuccessMockSettings = {
         url: store.gpiiSession.options.url + "user/" + userToWorkWith + "/login",
         responseText: "User with token " + userToWorkWith + " was successfully logged in."
     };
 
-    var loginSuccessNewUserMockSettings =
-    {
+    var loginSuccessNewUserMockSettings = {
         url: store.gpiiSession.options.url + "user/" + userToBeCreated + "/login",
         responseText: "User with token " + userToBeCreated + " was successfully logged in."
     };
 
-    var getRequestMockSettings =
-    {
-        url: store.gpiiSession.options.url + "user/" + userToWorkWith,
+    var getRequestMockSettings = {
+        url: store.gpiiSession.options.url + "preferences/" + userToWorkWith,
         dataType: "json",
         responseText: {
-            "preferences": convertedExampleModel
+            "contexts": {
+                "gpii-default": {
+                    "preferences": convertedExampleModel
+                }
+            }
         }
     };
 
-    var setRequestNoUserMockSettings =
-    {
-        url: store.gpiiSession.options.url + "user/",
+    var setRequestNoUserMockSettings = {
+        url: store.gpiiSession.options.url + "preferences/",
         dataType: "json",
         responseText: {
             "token": userToBeCreated
         }
     };
 
-    var setRequestUserLoggedMockSettings =
-    {
-        url: store.gpiiSession.options.url + "user/" + userToWorkWith,
+    var setRequestUserLoggedMockSettings = {
+        url: store.gpiiSession.options.url + "preferences/" + userToWorkWith,
         dataType: "json",
         responseText: {
             "token": userToWorkWith
@@ -122,13 +121,13 @@ https://github.com/gpii/universal/LICENSE.txt
     };
 
     gpii.prefs.gpiiStore.tests.assertModeflTransofrmation = function () {
-        var transformedExampleModel = store.modelTransform(exampleModel, gpii.prefs.commonTermsTransformationRules);
+        var transformedExampleModel = store.modelTransform(exampleModel, gpii.prefs.termsTransformationRules);
 
         jqUnit.assertDeepEq("Transforming the model from schema to http://registry.gpii.org/common/...", transformedExampleModel, convertedExampleModel);
     };
 
     gpii.prefs.gpiiStore.tests.assertInvertedModeflTransofrmation = function () {
-        var inverseTransformedExampleModel = store.inverseModelTransform(convertedExampleModel, gpii.prefs.commonTermsInverseTransformationRules);
+        var inverseTransformedExampleModel = store.inverseModelTransform(convertedExampleModel, gpii.prefs.termsInverseTransformationRules);
 
         jqUnit.assertDeepEq("Transforming the model from http://registry.gpii.org/common/... to schema-like", inverseTransformedExampleModel, exampleModel);
     };
@@ -158,7 +157,6 @@ https://github.com/gpii/universal/LICENSE.txt
         jqUnit.assertValue("Set creates token.", store.gpiiSession.options.loggedUser);
     };
 
-
     gpii.prefs.gpiiStore.tests.assertSetInvokerUserLogged = function () {
         store.gpiiSession.login(userToWorkWith);
         store.set();
@@ -176,4 +174,9 @@ https://github.com/gpii/universal/LICENSE.txt
     gpii.tests.mockTest("Get when user is logged.", gpii.prefs.gpiiStore.tests.assertGetSettingsFromLoggedUser, [loginSuccessMockSettings, getRequestMockSettings]);
 
 
+// <<<<<<< HEAD
 })();
+//TODO KASPER
+// =======
+// })(jQuery);
+// >>>>>>> radmanovi4/gpii-941

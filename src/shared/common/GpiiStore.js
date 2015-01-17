@@ -20,65 +20,95 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
     "use strict";
 
     fluid.registerNamespace("gpii.prefs");
+    // containing both common & application specific terms transformations
 
-    gpii.prefs.commonTermsTransformationRules = {
-            "http://registry\\.gpii\\.net/common/announceCapitals": "gpii_primarySchema_announceCapitals",
-            "http://registry\\.gpii\\.net/common/keyEcho": "gpii_primarySchema_keyEcho",
-            "http://registry\\.gpii\\.net/common/punctuationVerbosity": "gpii_primarySchema_punctuationVerbosity",
-            "http://registry\\.gpii\\.net/common/screenReaderBrailleOutput": "gpii_primarySchema_screenReaderBrailleOutput",
-            "http://registry\\.gpii\\.net/common/auditoryOutLanguage": "gpii_primarySchema_screenReaderLanguage",
-            "http://registry\\.gpii\\.net/common/screenReaderTTSEnabled": "gpii_primarySchema_speakText",
-            "http://registry\\.gpii\\.net/common/speakTutorialMessages": "gpii_primarySchema_speakTutorialMessages",
-            "http://registry\\.gpii\\.net/common/readingUnit": "gpii_primarySchema_textHighlighting",
-            "http://registry\\.gpii\\.net/common/language": "gpii_primarySchema_universalLanguage",
-            "http://registry\\.gpii\\.net/common/volume": {
-                transform: {
-                    type: "fluid.transforms.linearScale",
-                    valuePath: "gpii_primarySchema_universalVolume",
-                    factor: 0.01
-                }
-            },
-            "http://registry\\.gpii\\.net/common/pitch": {
-                transform: {
-                    type: "fluid.transforms.linearScale",
-                    valuePath: "gpii_primarySchema_voicePitch",
-                    factor: 0.01
-                }
-            },
-            "http://registry\\.gpii\\.net/common/volumeTTS": {
-                transform: {
-                    type: "fluid.transforms.linearScale",
-                    valuePath: "gpii_primarySchema_volume",
-                    factor: 0.01
-                }
-            },
-            "http://registry\\.gpii\\.net/common/wordEcho": "gpii_primarySchema_wordEcho",
-            "http://registry\\.gpii\\.net/common/speechRate": "gpii_primarySchema_wordsSpokenPerMinute",
-            "http://registry\\.gpii\\.net/common/magnification": {
-                transform: {
-                    type: "fluid.transforms.linearScale",
-                    valuePath: "gpii_primarySchema_magnification",
-                    factor: 0.01
-                }
-            },
-            "http://registry\\.gpii\\.net/common/fontSize": "gpii_primarySchema_fontSize",
-            "http://registry\\.gpii\\.net/common/highContrastEnabled": "gpii_primarySchema_contrastEnabled",
-            "http://registry\\.gpii\\.net/common/highContrastTheme": "gpii_primarySchema_contrast_theme",
-            "http://registry\\.gpii\\.net/common/cursorSize": {
-                transform: {
-                    type: "fluid.transforms.linearScale",
-                    valuePath: "gpii_primarySchema_cursorSize",
-                    factor: 0.2
-                }
-            },
-            "http://registry\\.gpii\\.net/common/magnifierEnabled": "gpii_primarySchema_magnifierEnabled",
-            "http://registry\\.gpii\\.net/common/tracking": "gpii_primarySchema_tracking",
-            "http://registry\\.gpii\\.net/common/trackingTTS": "gpii_primarySchema_screenReaderTracking",
-            "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
-            "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs"
-        };
+    gpii.prefs.termsTransformationRules = {
 
-    gpii.prefs.commonTermsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.commonTermsTransformationRules);
+        // common terms transformations
+        "http://registry\\.gpii\\.net/common/announceCapitals": "gpii_primarySchema_announceCapitals",
+        "http://registry\\.gpii\\.net/common/keyEcho": "gpii_primarySchema_keyEcho",
+        "http://registry\\.gpii\\.net/common/punctuationVerbosity": "gpii_primarySchema_punctuationVerbosity",
+        "http://registry\\.gpii\\.net/common/screenReaderBrailleOutput": "gpii_primarySchema_screenReaderBrailleOutput",
+        "http://registry\\.gpii\\.net/common/auditoryOutLanguage": "gpii_primarySchema_screenReaderLanguage",
+        "http://registry\\.gpii\\.net/common/screenReaderTTSEnabled": "gpii_primarySchema_speakText",
+        "http://registry\\.gpii\\.net/common/speakTutorialMessages": "gpii_primarySchema_speakTutorialMessages",
+        "http://registry\\.gpii\\.net/common/readingUnit": "gpii_primarySchema_textHighlighting",
+        "http://registry\\.gpii\\.net/common/language": "gpii_primarySchema_universalLanguage",
+        "http://registry\\.gpii\\.net/common/volume": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_universalVolume",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/common/pitch": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_voicePitch",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/common/volumeTTS": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_volume",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/common/wordEcho": "gpii_primarySchema_wordEcho",
+        "http://registry\\.gpii\\.net/common/speechRate": "gpii_primarySchema_wordsSpokenPerMinute",
+        "http://registry\\.gpii\\.net/common/magnification": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_magnification",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/common/fontSize": "gpii_primarySchema_fontSize",
+        "http://registry\\.gpii\\.net/common/highContrastEnabled": "gpii_primarySchema_contrastEnabled",
+        "http://registry\\.gpii\\.net/common/highContrastTheme": "gpii_primarySchema_contrastTheme",
+        "http://registry\\.gpii\\.net/common/cursorSize": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_cursorSize",
+                factor: 0.2
+            }
+        },
+        "http://registry\\.gpii\\.net/common/magnifierEnabled": "gpii_primarySchema_magnifierEnabled",
+        "http://registry\\.gpii\\.net/common/tracking": "gpii_primarySchema_tracking",
+        "http://registry\\.gpii\\.net/common/trackingTTS": "gpii_primarySchema_screenReaderTracking",
+        "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
+        "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
+
+
+        // application specific ters transforamtions
+
+
+        // Windows
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast",
+        "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.mouseTrailing/MouseTrails": "gpii_primarySchema_windowsMouseTrails",
+
+        // Linux
+        "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mag-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeMagnification",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking",
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/text-scaling-factor": {
+            transform: {
+                type: "fluid.transforms.linearScale",
+                valuePath: "gpii_primarySchema_gnomeTextScaling",
+                factor: 0.01
+            }
+        },
+        "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/cursor-size": "gpii_primarySchema_gnomeCursorSize"
+    };
+
+    gpii.prefs.termsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.termsTransformationRules);
 
     fluid.registerNamespace("gpii.prefs.gpiiStore");
 
@@ -140,11 +170,11 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             },
             modelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsTransformationRules]
             },
             inverseModelTransform: {
                 funcName: "fluid.model.transform",
-                args: ["{arguments}.0", gpii.prefs.commonTermsInverseTransformationRules]
+                args: ["{arguments}.0", gpii.prefs.termsInverseTransformationRules]
             }
         }
     });
@@ -216,12 +246,12 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 $.extend(dataToSend.contexts, newSet);
             }
         });
-        
+
         var urlToPost, requestType;
         if (session.options.loggedUser) {
             urlToPost = settings.url + "preferences/" + session.options.loggedUser;
             requestType = "PUT";
-        } 
+        }
         else {
             urlToPost = settings.url + "preferences/";
             requestType = "POST";

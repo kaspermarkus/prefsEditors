@@ -33,6 +33,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 container: "{textSizePCP}.dom.textSizeStepper",
                 createOnEvent: "afterRender",
                 options: {
+                    // events: {
+                    //     onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
+                    // },
+                    // modelListeners: {
+                    //     "*": {
+                    //         "listener": "{that}.events.onAdjusterChange.fire"
+                    //     }
+                    // },
                     sourceApplier: "{textSizePCP}.applier",
                     rules: {
                         "fontSize": "value"
@@ -53,4 +61,5 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             textSizeLabel: {messagekey: "textSizeLabel"}
         }
     });
+
 })(jQuery, fluid);

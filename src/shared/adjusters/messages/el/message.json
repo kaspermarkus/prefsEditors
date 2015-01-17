@@ -45,5 +45,19 @@
     "onText": "ON",
     "offText": "OFF",
     "moreSpeakTextPreferences": "περισσότερες ρυθμίσεις για ανάγνωση κειμένου",
-    "lessSpeakTextPreferences": "λιγότερες ρυθμίσεις για ανάγνωση κειμένου"
+    "lessSpeakTextPreferences": "λιγότερες ρυθμίσεις για ανάγνωση κειμένου",
+    "alsaVolumeLabel": "ALSA κύριο όγκο",
+    "windowsHighContrastLabel": "υψηλή αντίθεση",
+    "windowsMouseTrailsLabel": "μονοπάτια του ποντικιού",
+    "gnomeMouseTrackingLabel": "παρακολούθηση του ποντικιού",
+    "gnomeMouseTracking-none": "κανένας",
+    "gnomeMouseTracking-centered": "στο κέντρο",
+    "gnomeMouseTracking-push": "ώθηση",
+    "gnomeMouseTracking-proportional": "αναλογικά",
+    "gnomeTextScalingLabel": "κλιμάκωση κείμενο",
+    "gnomeCursorSizeLabel": "Tamaño del cursor",
+    "gnomeCursorSize--1": "διατήρηση",
+    "gnomeCursorSize-20": "κανονικός",
+    "gnomeCursorSize-29": "μεγάλο",
+    "gnomeCursorSize-41": "πολύ μεγάλο"
 }

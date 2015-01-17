@@ -30564,7 +30564,8 @@ var fluid_1_5 = fluid_1_5 || {};
             thumb: ".ui-slider-handle"
         },
         events: {
-            modelChanged: null
+            modelChanged: null,
+            onAdjusterChange: "{prefsEditor}.events.onAdjusterChange"
         },
         listeners: {
             onCreate: {
@@ -30586,6 +30587,7 @@ var fluid_1_5 = fluid_1_5 || {};
         thumb.attr(ariaDefaults);
     };
 
+
     fluid.textfieldSlider.slider.init = function (that) {
         // To support backwards compatability, the range data can still be store in the model.
         var sliderOptions = $.extend(true, {}, that.options.sliderOptions, that.model, that.options.range);
@@ -30603,6 +30605,10 @@ var fluid_1_5 = fluid_1_5 || {};
 
         that.slider.bind("slide", function (e, ui) {
             that.applier.requestChange("value", ui.value);
+        });
+
+        that.slider.bind("slidechange", function (e, ui) {
+            that.events.onAdjusterChange.fire();
         });
 
         that.applier.modelChanged.addListener("value", function (newModel) {

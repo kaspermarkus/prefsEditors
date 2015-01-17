@@ -28,7 +28,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         dataToSend: null,
         preferenceSet: [],
         context: [],
-        contextElements: { 
+        contextElements: {
             "setName": null,
             "enabled": null,
             "device": null,

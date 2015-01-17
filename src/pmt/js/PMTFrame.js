@@ -22,13 +22,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             events: {
                 onLogin: null,
-                onLogout: null
+                onLogout: null,
+                onAdjusterChange: null
             },
             selectors: {
                 myPreferencesLabel: ".gpiic-pmt-preferenceSetSelectionButtonMyPreferencesLabel",
                 allPreferencesLabel: ".gpiic-pmt-preferenceSetSelectionButtonAllPreferencesLabel",
                 saveAndApplyButtonLabel: ".flc-prefsEditor-save",
-                messageLineLabel: ".gpiic-prefsEditor-messageLine",
                 notification: ".gpiic-prefsEditor-notification",
                 confirmButton: ".gpiic-prefsEditor-notificationConfirmButton",
                 notificationMessagePart1: ".gpiic-prefsEditor-notificationMessagePart1",
@@ -117,9 +117,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "   <span id='alertHeading' class='gpiic-prefsEditor-untitledLabel gpii-prefsEditor-contextFrame-setLabel'></span>" +
                     "   <span id='alertText' class='gpiic-prefsEditor-untitledDescLabel gpii-prefsEditor-contextFrame-setLabelDescription'></span>" +
                     "</div>",
-                selectedIcon: 
+                selectedIcon:
                     "   <span class='gpiic-prefsEditor-context-leftArrowIcon gpii-prefsEditor-adjusterIcons gpii-prefsEditor-context-leftArrowIcon'></span>",
-                pencilIcon: 
+                pencilIcon:
                     "   <input id='editButton' onclick='gpii.pmt.onEditClick($(\"#overlay\"), $(\"#modal\"))' type='button' value='' aria-label='' class='gpiic-prefsEditor-context-edit-button gpii-prefsEditor-context-edit-button' tabindex='0'></input>" +
                     "   <label for='editButton' class='gpiic-prefsEditor-context-pencilIcon gpii-prefsEditor-adjusterIcons gpii-prefsEditor-pencil-icon'></span>"
             },
@@ -249,21 +249,17 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.userStatusBar",
                     "method": "slideUp"
                 },
-                "onLogout.clearMessage": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "text",
-                    "args": [""]
-                },
-                "onLogout.hideMessageLine": {
-                    "this": "{that}.dom.messageLineLabel",
-                    "method": "hide"
-                },
                 // clear href of quick editor link when we log the user out
                 "onLogout.clearQuickEditorLinkHref": {
                     "listener": "{that}.clearQuickEditorLinkHref"
                 },
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
+                },
+                "onLogout.updateStatus": {
+                    "this": "{that}.dom.messageLineLabel",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.onLogoutMessage"]
                 },
                 // set texts
                 "onReady.setMyPreferencesLabelText": {
@@ -389,10 +385,6 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 // simply hide notification onReady
                 "onReady.prepareSaveNotification": {
                     "this": "{that}.dom.notification",
-                    "method": "hide"
-                },
-                "onReady.hideMessageLine": {
-                    "this": "{that}.dom.messageLineLabel",
                     "method": "hide"
                 },
                 // hide the logout link if a user is not logged in
@@ -601,6 +593,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "this": "{that}.dom.timeToMinute",
                     "method": "keyup",
                     "args": ["{that}.populateToMinute"]
+                // "onReady.addAriaControlsForSaveButton": {
+                //     "this": "{that}.dom.saveAndApplyButtonLabel",
+                //     "method": "attr",
+                //     "args": ["aria-controls", "{that}.options.statusMessageID"]
                 }
             },
             invokers: {
@@ -625,7 +621,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 showSaveMessage: {
                     "this": "{that}.dom.messageLineLabel",
                     "method": "text",
-                    "args": ["{that}.msgLookup.preferencesSavedToUSB"]
+                    "args": ["{that}.msgLookup.onSaveAndApplyStatus"]
                 },
                 showUserStatusBar: {
                     "this": "{that}.dom.userStatusBar",
@@ -767,7 +763,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     gpii.pmt.clickAccount = function (that) {
         window.open('http://205.211.169.224:8081/authorized-services','_blank');
     }
-    
+
     gpii.pmt.enterShareTab = function (enterMessageLabelObj, enterMessageLabelTxt, session, that) {
         if (session.options.contextElements.setName == null){
             enterMessageLabelObj.text(enterMessageLabelTxt);
@@ -783,9 +779,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             var contexts = session.options.context;
             var transformedModel = [];
             fluid.each(preferences, function (preference, index) {
-                transformedModel.push(fluid.model.transform(JSON.parse(preference), gpii.prefs.commonTermsTransformationRules));
+                transformedModel.push(fluid.model.transform(JSON.parse(preference), gpii.prefs.termsTransformationRules));
             });
-            transformedModel.push(fluid.model.transform(savedSelections, gpii.prefs.commonTermsTransformationRules));
+            transformedModel.push(fluid.model.transform(savedSelections, gpii.prefs.termsTransformationRules));
 
             var emailBody = {
                 "contexts": {
@@ -833,7 +829,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         toHour.val("");
         toMin.val("");
         fromHour.focus();
-        
+
         recordLine.removeClass(that.options.styles.visible);
         recordLine.addClass(that.options.styles.invisible);
         notAppliedAtAnyTimesLabelObj.text(notAppliedAtAnyTimesLabelMsg);
@@ -869,10 +865,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         var value = appliesToLabel + sDeviceSelector.val() + devicesTextLabel;
         notAppliedToAnyDevicesLabel.text(value);
     };
-    
+
     gpii.pmt.clickEmailCopyButton = function (to, body, subject) {
         gpii.pmt.sendWithGmail({
-            to: to.val(), 
+            to: to.val(),
             subject: subject,
             body: body.val()//,
             //attachment : "sharing.js"
@@ -894,7 +890,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         }
     };
-    
+
     gpii.pmt.validateEmail = function (emailaddress) {
         var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (filter.test(emailaddress)) {
@@ -921,7 +917,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                   '&ui=1';
         location.href = str;
     };
-    
+
     gpii.pmt.enableTabConditions = function (that) {
         var tabCondition = that.dom.locate("tabConditions");
         var tabSharing = that.dom.locate("tabShare");
@@ -986,14 +982,14 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         untitledLabel.text(contextUntitled.val());
         untitledDescLabel.text(contextDevice.text()+", "+contextTime.text());
         setLabel.text(contextUntitled.val());
-        
+
         var timeTemp = contextTime.text().split(toLabel);
         var deviceTemp = contextDevice.text().split(appliesToLabel);
         deviceTemp = deviceTemp[1].toString().split(devicesTextLabel);
 
         overlayPanel.hide();
         modalPanel.hide();
-        
+
         if ((timeTemp[0].length === 5) && (timeTemp[1].length === 5)) {
             session.options.contextElements.fromTime = timeTemp[0];
             session.options.contextElements.toTime = timeTemp[1];
@@ -1013,7 +1009,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         var untitledHeader = that.dom.locate("untitledText");
         var baseSet = that.dom.locate("baseSetDescription");
         var deleteSet = that.dom.locate("deleteSetLabel");
-        
+
         untitledHeader.addClass(that.options.styles.bgHeader);
         baseSet.addClass(that.options.styles.visible);
         deleteSet.addClass(that.options.styles.visible);
@@ -1044,7 +1040,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             contextRow.addClass(that.options.styles.unSelected);
             cRow = contextRow;
         });
-        
+
         cRow.removeClass(that.options.styles.unSelected);
         cRow.addClass(that.options.styles.selected);
         cRow.append(that.options.markup.selectedIcon);
@@ -1067,7 +1063,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         untitledLabel.text(label);
         untitledDescLabel.text(desc);
         setLabel.text(label);
-        
+
         // Store preferences so far
         var savedSelections = fluid.copy(that.model);
         fluid.each(savedSelections, function (value, key) {
@@ -1151,6 +1147,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             appendTo: ".gpiic-pmt-bottomRow",
             dialogClass: "gpii-dialog-noTitle",
             closeOnEscape: false,
+            width: "28em",
             position: { my: "bottom", at: "bottom", of: ".gpii-prefsEditor-preferencesContainer" }
         });
         // also set the token text
@@ -1172,5 +1169,5 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         outerPreviewEnhancerOptions: "{originalEnhancerOptions}.options.originalUserOptions",
         emptyComponentType: "fluid.emptySubcomponent"
     });
-    
+
 })(fluid);

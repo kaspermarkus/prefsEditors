@@ -19,7 +19,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     gpii.pmt.auxiliarySchema = {
         // The global values:
         "namespace": "gpii.constructedPMT",
-        "templatePrefix": "../../src/shared/adjusters/html/", // The common path to settings panel templates
+        "templatePrefix": "../../src/shared/adjusters/html/commonTerms/", // The common path to settings panel templates
         "template": "../../src/pmt/html/PrefsEditorTemplate-PMT.html",
         "messagePrefix": "../../src/shared/adjusters/messages/en/",
         // FIXME: Ideally we wouldn't have any function calls in the schema, which would make it easier to pass around.
@@ -94,7 +94,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             }
         },
         "contrastTheme": {
-            "type": "gpii.primarySchema.contrast.theme",
+            "type": "gpii.primarySchema.contrastTheme",
             "classes": {
                 "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
                 "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",

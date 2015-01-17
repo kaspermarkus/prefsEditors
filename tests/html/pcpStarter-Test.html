@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Preferences Editors tests</title>
+
+        <link rel="stylesheet" media="screen" href="../lib/qunit/qunit/css/qunit.css" />
+
+        <script src="../lib/qunit/qunit/js/qunit.js"></script>
+        <script src="../../src/shared/lib/infusion/infusion-prefsFramework.js"></script>
+        <script src="../lib/infusion/jqUnit/js/jqUnit.js"></script>
+        <script src="../lib/infusion/utils/js/IoCTestUtils.js"></script>
+
+        <!-- Preferences Editors specific files go here: -->
+
+        <script type="text/javascript" src="../../src/shared/common/ariaUtility.js"></script>
+        <script type="text/javascript" src="../../src/shared/common/eventUtility.js"></script>
+        <script type="text/javascript" src="../../src/shared/common/merging.js"></script>
+        <script type="text/javascript" src="../../src/shared/common/OSDetection.js"></script>
+
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/activatableLabelsClickOnActivate.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/singleSelectionWithKeyboard.js"></script>
+
+        <script type="text/javascript" src="../../src/shared/frames/js/GPIIPrefsEditor.js"></script>
+
+        <!-- The custom adjusters JS files -->
+        <script type="text/javascript" src="../../src/shared/components/preview/js/preview.js"></script>
+        <script type="text/javascript" src="../../src/shared/components/textfieldStepper/js/textfieldStepper.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/expandingAdjusters.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/textfieldStepper.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/onOffSwitch.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/iconCheck.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/addContrast.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/contrastThemeNoPreview.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/contrastEnabled.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/increaseSizePCP.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/increaseSizePMT.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/textSizePCP.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/textSizePMT.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/cursorSizePCP.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/cursorSizePMT.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierEnabled.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierPCP.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierPMT.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierInvertColours.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierPosition.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/followingElement.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/magnifierFollowsFollowingElement.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/screenReaderFollowsFollowingElement.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/showCrosshairs.js"></script>
+
+        <!-- The JS files of the enactors of my custom adjusters -->
+        <script type="text/javascript" src="../../src/shared/enactors/js/contrastThemeNoPreview.js"></script>
+        <script type="text/javascript" src="../../src/shared/enactors/js/textSize.js"></script>
+        <script type="text/javascript" src="../../src/shared/enactors/js/cursorSize.js"></script>
+        <script type="text/javascript" src="../../src/shared/enactors/js/magnifier.js"></script>
+        <script type="text/javascript" src="../../src/shared/i18n/js/i18n.js"></script>
+        <script type="text/javascript" src="../../src/shared/adjusters/js/commonTerms/Panels.js"></script>
+        <script type="text/javascript" src="../../src/shared/schemas/js/primarySchema.js"></script>
+        <script type="text/javascript" src="../../src/shared/common/GpiiSession.js"></script>
+        <script type="text/javascript" src="../../src/shared/common/GpiiStore.js"></script>
+        <script type="text/javascript" src="../../src/shared/schemas/js/pcpSchema.js"></script>
+        <script src="../../src/pcp/js/starter.js"></script>
+        <script type="text/javascript" src="../../demos/prefsEditor/demo.js"></script>
+        <!-- Test specific files go here: -->
+        <script src="../js/pcpStarterTests.js"></script>
+    </head>
+
+    <body id="body">
+        <h1 id="qunit-header">Preferences Editors tests</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+    </body>
+
+        <div id="gpiic-pcp"></div>
+</html>
