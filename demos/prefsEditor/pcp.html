@@ -120,16 +120,18 @@
         socket.on("connect", function () {
             socket.emit("message", {}, fluid.log);
         });
+
         var isReady = false;
         socket.on("message", function (data) {
-            console.log("RECEIVED MESSAGE2 "+JSON.stringify(data));
+            console.log("Socket received message "+JSON.stringify(data, null, 2));
             if (data.settings) {
-                var pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
+                pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = "";
                 pcp.renderAdjusters(data.settings);
             };
+
             gpii.pcp.onPrefsEditorReady = function () {
-                console.log("the prefs editor becomes ready")
+                console.log("The prefs editor is now ready")
                 isReady = true;
                 if (data.messages) {
                     console.log("there are some messages 1");
@@ -138,12 +140,12 @@
                     });
                 };
             };
-            if (data.messages && isReady) {
-                console.log("there are some messages 2");
-                fluid.each(data.messages, function (message) {
-                    pcp.showMessage(message);
-                });
-            };
+            // if (data.messages && isReady) {
+            //     console.log("there are some messages 2");
+            //     fluid.each(data.messages, function (message) {
+            //         pcp.showMessage(message);
+            //     });
+            // };
         });
     </script>
 
