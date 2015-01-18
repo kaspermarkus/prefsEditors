@@ -116,36 +116,45 @@
 
     <script>
         var socket = io.connect("http://localhost:8081/pcp");
-        var pcp = gpii.pcp.starter();
+        // var pcp = gpii.pcp.starter();
         socket.on("connect", function () {
             socket.emit("message", {}, fluid.log);
         });
 
         var isReady = false;
-        socket.on("message", function (data) {
-            console.log("Socket received message "+JSON.stringify(data, null, 2));
-            if (data.settings) {
+        var messageQueue = [];
+
+        socket.on("setAdjusters", function (adjusters) {
+            console.log("Socket received adjusters "+JSON.stringify(adjusters, null, 2));
+            if (adjusters) {
+                // pcp.destroy();
+                isReady = false;
                 pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = "";
-                pcp.renderAdjusters(data.settings);
+                pcp.renderAdjusters(adjusters);
             };
 
             gpii.pcp.onPrefsEditorReady = function () {
                 console.log("The prefs editor is now ready")
                 isReady = true;
-                if (data.messages) {
-                    console.log("there are some messages 1");
-                    fluid.each(data.messages, function (message) {
-                        pcp.showMessage(message);
-                    });
-                };
+                fluid.each(messageQueue, function (message) {
+                    pcp.showMessage(message);
+                });
+                messageQueue = [];
             };
-            // if (data.messages && isReady) {
-            //     console.log("there are some messages 2");
-            //     fluid.each(data.messages, function (message) {
-            //         pcp.showMessage(message);
-            //     });
-            // };
+        });
+
+        socket.on("message", function (message) {
+            console.log("Socket received message "+JSON.stringify(message, null, 2));
+            messageQueue = messageQueue.concat([message]);
+            console.log("Queue is now: "+JSON.stringify(messageQueue, null, 2));
+            if (isReady) {
+                console.log("PCP ready to display messages");
+                fluid.each(messageQueue, function (msg) {
+                    pcp.showMessage(msg);
+                });
+                messageQueue = [];
+            }
         });
     </script>
 

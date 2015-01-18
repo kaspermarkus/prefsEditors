@@ -79,7 +79,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         that.socket = io.connect(url);
 
         that.socket.on("connect", function () {
-            console.log("Socket successfully connected");
+            console.log("Socket to " + url + " successfully connected");
             that.socketConnected = true;
             that.events.onEmitRequest.fire();
         });

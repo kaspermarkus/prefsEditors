@@ -143,10 +143,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "text",
                     "args": ["{that}.msgLookup.messageButtonText"]
                 },
-                "onSettingChanged.updateStatus": {
-                    "funcName": "{that}.events.onNewMessage.fire",
-                    "args": ["{that}.msgLookup.onSettingChangedMessage"]
-                },
+                // "onSettingChanged.updateStatus": {
+                //     "funcName": "{that}.events.onNewMessage.fire",
+                //     "args": ["{that}.msgLookup.onSettingChangedMessage"]
+                // },
                 "onNewMessage.handleMessage": {
                     "funcName": "gpii.pcp.handleNewMessage",
                     "args": ["{that}", "{arguments}.0"]
