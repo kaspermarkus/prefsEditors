@@ -115,8 +115,9 @@
     </div>
 
     <script>
-        var socket = io.connect("http://localhost:8081/pcp");
+         var socket = io.connect("http://localhost:8081/pcp");
         // var pcp = gpii.pcp.starter();
+        var pcp = null;
         socket.on("connect", function () {
             socket.emit("message", {}, fluid.log);
         });
@@ -127,7 +128,10 @@
         socket.on("setAdjusters", function (adjusters) {
             console.log("Socket received adjusters "+JSON.stringify(adjusters, null, 2));
             if (adjusters) {
-                // pcp.destroy();
+                if (pcp) {
+                    console.log("EXISTING PCP FOUND - destroying");
+                    pcp.destroy();
+                }
                 isReady = false;
                 pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = "";

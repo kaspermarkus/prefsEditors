@@ -32,7 +32,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             "onEmitRequest.emit": {
                 "func": "{that}.emit"
-            }
+            },
+            "onDestroy": "gpii.pcp.destroySocket" //TODO KASPER
         },
         invokers: {
             applySettings: {
@@ -48,11 +49,20 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    gpii.pcp.destroySocket = function (that) { //TODO kasper
+        console.log("SOCKET GOT DESTROY SIGNAL, so closing");
+        if (that.socket) {
+            that.socket.disconnect();
+        }
+    };
+
     gpii.pcp.callFuncDependingOnFlag = function (condition, trueFunc, falseFunc) {
         condition ? trueFunc() : falseFunc();
+        // trueFunc();
     };
 
     gpii.pcp.emitMessage = function (that, model, transformFunc, transformRules) {
+        console.log("socket called for applySettings - component: "+ that.typeName +" with ID " +that.id);
         console.log("emitMessage called");
         var savedSettings = transformFunc(model, transformRules);
 
@@ -75,11 +85,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     };
 
     gpii.pcp.connectSocket = function (that, url) {
-        console.log("Connecting to socket at "+url);
+        console.log("Connecting to socket at "+url+" for component: "+ that.typeName +" with ID " +that.id);
+
         that.socket = io.connect(url);
 
         that.socket.on("connect", function () {
-            console.log("Socket to " + url + " successfully connected");
+            console.log("Socket to " + url + " successfully connected for component: "+ that.typeName +" with ID " +that.id);
             that.socketConnected = true;
             that.events.onEmitRequest.fire();
         });
@@ -88,9 +99,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     gpii.pcp.bindErrorHandlers = function (that, events) {
         fluid.each(events, function (event) {
             that.socket.on(event, function (data) {
-                that.socketConnected = false;
                 fluid.log("DATA: "+data);
-                delete that.socket;
+                console.log("ERROREOROROROREOEROEROREOOER: "+JSON.stringify(data, null, 2));
+                if (event === "disconnect") {
+                    console.log("Retrieved disconnect signal so deleting socket");
+                    delete that.socket;
+                    that.socketConnected = false;
+                }
             });
         });
     };
