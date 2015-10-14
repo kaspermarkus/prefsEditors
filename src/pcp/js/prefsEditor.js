@@ -207,6 +207,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     });
 
     gpii.pcp.handleNewMessage = function (that, messageReceived) {
+        console.log("gpii.pcp.handleNewMessage called");
         var endingLength = that.options.commonMessageEnding.length;
 
         var mes = {};
@@ -232,6 +233,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     // TODO: perhaps these two functions could be united with pmt's equivalent ones for dialog handling
 
     gpii.pcp.showMessageDialog = function (that, messageLabel, messageElement) {
+        console.log("gpii.pcp.showMessageDialog called");
         if (that.messageQueue.length) {
             var messageToShow = that.messageQueue[0];
             messageLabel.text(messageToShow.message);
@@ -255,6 +257,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     };
 
     gpii.pcp.closeMessageDialog = function (that, messageElement) {
+        console.log("gpii.pcp.closeMessageDialog called");
         messageElement.dialog("destroy");
 
         var lastMessage = that.messageQueue.shift();

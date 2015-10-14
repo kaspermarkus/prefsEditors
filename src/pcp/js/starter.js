@@ -297,7 +297,6 @@
     });
 
     gpii.pcp.renderPCP = function (that, primarySchema, finalGradeNames) {
-
         that.prefsEditor = fluid.prefs.create("#gpiic-pcp", {
             build: {
                 gradeNames: finalGradeNames,

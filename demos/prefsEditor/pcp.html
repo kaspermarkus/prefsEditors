@@ -115,27 +115,28 @@
     </div>
 
     <script>
-         var socket = io.connect("http://localhost:8081/pcp");
+         var socket = io.connect("http://localhost:8081/pcpChannel");
         // var pcp = gpii.pcp.starter();
         var pcp = null;
         socket.on("connect", function () {
-            socket.emit("message", {}, fluid.log);
+            socket.emit("message", {}, fluid.log); // complete connection
+            console.log("Connected to the core architecture");
         });
 
         var isReady = false;
         var messageQueue = [];
 
-        socket.on("setAdjusters", function (adjusters) {
-            console.log("Socket received adjusters "+JSON.stringify(adjusters, null, 2));
-            if (adjusters) {
-                if (pcp) {
+        socket.on("login", function (body) {
+            console.log("User logged in: " + JSON.stringify(body, null, 2));
+            if (body && body.settings) {
+                if (pcp) { // TODO  -- this probably needs fixing
                     console.log("EXISTING PCP FOUND - destroying");
                     pcp.destroy();
                 }
                 isReady = false;
                 pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
-                document.getElementById("gpiic-pcp").innerHTML = "";
-                pcp.renderAdjusters(adjusters);
+                document.getElementById("gpiic-pcp").innerHTML = ""; // TODO - this probably needs fixing
+                pcp.renderAdjusters(body.settings);
             };
 
             gpii.pcp.onPrefsEditorReady = function () {
@@ -146,6 +147,10 @@
                 });
                 messageQueue = [];
             };
+        });
+
+        socket.on("logout", function () {
+            console.log("User logged out..");
         });
 
         socket.on("message", function (message) {
