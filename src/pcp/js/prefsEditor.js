@@ -218,11 +218,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 mes["message"] = messageReceived.message;
                 break;
             case "info":
-                mes["message"] = messageReceived.message[that.browserLanguage];
+                mes["message"] = messageReceived.message;
                 break;
             case "help":
-                mes["message"] = messageReceived.message[that.browserLanguage].message;
-                mes["learnMore"] = messageReceived.message[that.browserLanguage].learnMore;
+                mes["message"] = messageReceived.message;
+                mes["learnMore"] = messageReceived.learnMore;
                 break;
         };
 
