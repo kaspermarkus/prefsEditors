@@ -58,14 +58,19 @@
     <script type="text/javascript" src="../../src/shared/adjusters/js/contrastThemeNoPreview.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/contrastEnabled.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/increaseSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/increaseSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/textSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/textSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/cursorSizePCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/cursorSizePMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierEnabled.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPCP.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPMT.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierInvertColours.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierPosition.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/followingElement.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/magnifierFollowsFollowingElement.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/screenReaderFollowsFollowingElement.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/showCrosshairs.js"></script>
 
     <!-- The JS files of the enactors of my custom adjusters -->
@@ -78,9 +83,12 @@
     <script type="text/javascript" src="../../src/shared/i18n/js/i18n.js"></script>
 
     <script type="text/javascript" src="../../src/shared/adjusters/js/Panels.js"></script>
+    <script type="text/javascript" src="../../src/shared/adjusters/js/applicationTerms/Panels.js"></script>
 
     <!-- PMT-specific files -->
     <script type="text/javascript" src="../../src/shared/schemas/js/primarySchema.js"></script>
+    <script type="text/javascript" src="../../src/shared/schemas/js/commonTermsAuxSchemaData.js"></script>
+    <script type="text/javascript" src="../../src/shared/schemas/js/applicationTermsAuxSchemaData.js"></script>
     <script type="text/javascript" src="../../src/shared/schemas/js/pcpSchema.js"></script>
     <script type="text/javascript" src="../../src/shared/common/GpiiSession.js"></script>
     <script type="text/javascript" src="../../src/shared/common/GpiiStore.js"></script>
@@ -89,29 +97,72 @@
     <script type="text/javascript" src="../../src/shared/lib/socket.io/socket.io.js"></script>
 
     <!-- PCPteam-specific files -->
-    <script type="text/javascript" src="../../src/shared/adjusters/js/prefsEditor.js"></script>
+    <script type="text/javascript" src="../../src/pcp/js/prefsEditor.js"></script>
+    <script type="text/javascript" src="../../src/pcp/js/socket.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/languageCollectivePanel.js"></script>
     <script type="text/javascript" src="../../src/pcp/js/visualAlternativesCollectivePanel.js"></script>
     <script type="text/javascript" src="../../src/shared/adjusters/js/volumeCollectivePanel.js"></script>
+
+    <script type="text/javascript" src="../../src/pcp/js/starter.js"></script>
 
     <!-- The demo script -->
     <script type="text/javascript" src="demo.js"></script>
 
 </head>
 <body>
-
     <!-- This is the div that will contain the UI Options component -->
     <div id="gpiic-pcp">
     </div>
 
     <script>
-        fluid.prefs.create("#gpiic-pcp", {
-            build: {
-                gradeNames: ["gpii.pcp.progressiveEnhancement", "gpii.pcp.auxiliarySchema.common"],
-                primarySchema: gpii.primarySchema
-            },
-            prefsEditor: {
-                gradeNames: ["demo.pcp"]
+         var socket = io.connect("http://localhost:8081/pcpChannel");
+        // var pcp = gpii.pcp.starter();
+        var pcp = null;
+        socket.on("connect", function () {
+            socket.emit("message", {}, fluid.log); // complete connection
+            console.log("Connected to the core architecture");
+        });
+
+        var isReady = false;
+        var messageQueue = [];
+
+        socket.on("login", function (body) {
+            console.log("User logged in: " + JSON.stringify(body, null, 2));
+            if (body && body.settings) {
+                if (pcp) { // TODO  -- this probably needs fixing
+                    console.log("EXISTING PCP FOUND - destroying");
+                    pcp.destroy();
+                }
+                isReady = false;
+                pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
+                document.getElementById("gpiic-pcp").innerHTML = ""; // TODO - this probably needs fixing
+                pcp.renderAdjusters(body.settings);
+            };
+
+            gpii.pcp.onPrefsEditorReady = function () {
+                console.log("The prefs editor is now ready")
+                isReady = true;
+                fluid.each(messageQueue, function (message) {
+                    pcp.showMessage(message);
+                });
+                messageQueue = [];
+            };
+        });
+
+        socket.on("logout", function () {
+            console.log("User logged out..");
+        });
+
+        socket.on("message", function (message) {
+            console.log("Socket received message "+JSON.stringify(message, null, 2));
+            messageQueue = messageQueue.concat([message]);
+            console.log("Queue is now: "+JSON.stringify(messageQueue, null, 2));
+            if (isReady) {
+                console.log("PCP ready to display messages");
+                fluid.each(messageQueue, function (msg) {
+                    pcp.showMessage(msg);
+                });
+                messageQueue = [];
             }
         });
     </script>

@@ -85,7 +85,7 @@ h2 > label {
 
 .gpii-prefsEditor-headerImage {
     -webkit-font-smoothing: antialiased;
-    width: calc(17% - 2px);
+    width: calc(17% - 2px); /* TODO KASPER consider removing this */
     margin: 0px !important;
     color: #566374;
     background-color: #FFFFFF;
