@@ -45,5 +45,19 @@
     "onText": "AN",
     "offText": "AUS",
     "moreSpeakTextPreferences": "mehr Einstellungen für die Vorlesefunktion",
-    "lessSpeakTextPreferences": "weniger Einstellungen für die Vorlesefunktion"
+    "lessSpeakTextPreferences": "weniger Einstellungen für die Vorlesefunktion",
+    "alsaVolumeLabel": "ALSA Master-Lautstärke",
+    "windowsHighContrastLabel": "Kontrastreiche",
+    "windowsMouseTrailsLabel": "Mausspuren",
+    "gnomeMouseTrackingLabel": "Maus-Tracking",
+    "gnomeMouseTracking-none": "keiner",
+    "gnomeMouseTracking-centered": "zentriert",
+    "gnomeMouseTracking-push": "drücken",
+    "gnomeMouseTracking-proportional": "proportional",
+    "gnomeTextScalingLabel": "Textskalierung",
+    "gnomeCursorSizeLabel": "Cursorgröße",
+    "gnomeCursorSize--1": "halten",
+    "gnomeCursorSize-20": "normal",
+    "gnomeCursorSize-29": "groß",
+    "gnomeCursorSize-41": "sehr groß"
 }

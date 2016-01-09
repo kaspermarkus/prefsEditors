@@ -77,6 +77,33 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
             "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
             "http://registry\\.gpii\\.net/common/autoAdjustToContextChange": "gpii_primarySchema_autoAdjust"
+
+            // application specific ters transforamtions
+
+
+            // Windows
+            "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.highContrast/HighContrastOn": "gpii_primarySchema_windowsHighContrast",
+            "http://registry\\.gpii\\.net/applications/com\\.microsoft\\.windows\\.mouseTrailing/MouseTrails": "gpii_primarySchema_windowsMouseTrails",
+
+            // Linux
+            "http://registry\\.gpii\\.net/applications/org\\.alsa-project/masterVolume": "gpii_primarySchema_alsaVolume",
+            "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mag-factor": {
+                transform: {
+                    type: "fluid.transforms.linearScale",
+                    valuePath: "gpii_primarySchema_gnomeMagnification",
+                    factor: 0.01
+                }
+            },
+            "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.a11y\\.magnifier/mouse-tracking": "gpii_primarySchema_gnomeMouseTracking",
+            "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/text-scaling-factor": {
+                transform: {
+                    type: "fluid.transforms.linearScale",
+                    valuePath: "gpii_primarySchema_gnomeTextScaling",
+                    factor: 0.01
+                }
+            },
+            "http://registry\\.gpii\\.net/applications/org\\.gnome\\.desktop\\.interface/cursor-size": "gpii_primarySchema_gnomeCursorSize"
+
         };
 
     gpii.prefs.commonTermsInverseTransformationRules = fluid.model.transform.invertConfiguration(gpii.prefs.commonTermsTransformationRules);
@@ -210,19 +237,19 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                     "from": context.fromTime,
                     "to": context.toTime,
                     "inputPath": "http://registry\\.gpii\\.net/common/environment/temporal\\.time"
-                } : {}; 
+                } : {};
                 var noiseObj = (context.noise!=="any") ? {
                     "type": "http://registry.gpii.net/conditions/inRange",
                     "min": context.noise,
                     "max": context.noise,
                     "inputPath": "http://registry\\.gpii\\.net/common/environment/auditory\\.noise"
-                } : {}; 
+                } : {};
                 var brightnessObj = (context.brightness!=="any") ? {
                     "type": "http://registry.gpii.net/conditions/inRange",
                     "min": context.brightness,
                     "max": context.brightness,
                     "inputPath": "http://registry\\.gpii\\.net/common/environment/visual\\.luminance"
-                } : {}; 
+                } : {};
                 var newSet = {
                     "newSet": {
                         "name": context.setName,
@@ -230,7 +257,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                         "preferences": transformedModel[index+1],
                         "conditions": [
                             timeObj
-                            , 
+                            ,
                             noiseObj
                             ,
                             brightnessObj
@@ -243,7 +270,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
                 $.extend(dataToSend.contexts, newSet);
             }
         });
-        
+
         var urlToPost, requestType;
         if (session.options.loggedUser) {
             urlToPost = settings.url + "preferences/" + session.options.loggedUser;

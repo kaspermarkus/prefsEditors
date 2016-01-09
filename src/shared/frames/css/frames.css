@@ -233,7 +233,7 @@ body {
     border-radius: 4px;
     padding: 4px;
     text-decoration: none;
-    
+
 }
 
 .gpii-prefsEditor-pmt-userLogoutLink {
@@ -253,6 +253,27 @@ body {
     display: inline-block;
     width: 100%;
 }
+
+.gpii-pcp-statusMessage {
+    display: none;
+    min-height: none;
+    text-align: center;
+    border: 0.3em solid #4D4D4D !important;
+    background-color: #BDE2E9!important;
+    border-radius: 2%;
+    outline-color: transparent;
+}
+
+.gpii-pcp-learnMore {
+    position: relative;
+    display: inline-block;
+    padding: 1em;
+}
+
+.gpii-pcp-messageButton {
+    margin:auto;
+    padding: 1em;
+ }
 
 .gpii-prefsEditor-pcp-userLogout {
     float: right;

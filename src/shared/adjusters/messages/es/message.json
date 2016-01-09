@@ -45,5 +45,19 @@
     "onText": "ON",
     "offText": "OFF",
     "moreSpeakTextPreferences": "Más preferencias de lector de texto",
-    "lessSpeakTextPreferences": "Menos preferencias de lector de texto"
+    "lessSpeakTextPreferences": "Menos preferencias de lector de texto",
+    "alsaVolumeLabel": "Volumen principal ALSA",
+    "windowsHighContrastLabel": "Alto contraste",
+    "windowsMouseTrailsLabel": "Rastros del mouse",
+    "gnomeMouseTrackingLabel": "Seguimiento del ratón",
+    "gnomeMouseTracking-none": "ninguno",
+    "gnomeMouseTracking-centered": "centrado",
+    "gnomeMouseTracking-push": "empujar",
+    "gnomeMouseTracking-proportional": "proporcional",
+    "gnomeTextScalingLabel": "Escala de texto",
+    "gnomeCursorSizeLabel": "Tamaño del cursor",
+    "gnomeCursorSize--1": "mantener",
+    "gnomeCursorSize-20": "normal",
+    "gnomeCursorSize-29": "grande",
+    "gnomeCursorSize-41": "extra large"
 }
