@@ -76,7 +76,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
             "http://registry\\.gpii\\.net/common/trackingTTS": "gpii_primarySchema_screenReaderTracking",
             "http://registry\\.gpii\\.net/common/magnifierPosition": "gpii_primarySchema_magnificationPosition",
             "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
-            "http://registry\\.gpii\\.net/common/autoAdjustToContextChange": "gpii_primarySchema_autoAdjust"
+            "http://registry\\.gpii\\.net/common/autoAdjustToContextChange": "gpii_primarySchema_autoAdjust",
 
             // application specific ters transforamtions
 

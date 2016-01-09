@@ -17,8 +17,26 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
 (function ($, fluid) {
     "use strict";
-    
+
     fluid.registerNamespace("gpii.pcp");
+
+    // This function is used to surround FLUID-5381
+
+    fluid.limitedArrayConcatPolicy = function (target, source) {
+        var target = target || {};
+        var paths = [["gpii.primarySchema.speakText"], ["always"], ["gpii.primarySchema.visualAlternativesMoreLess"], ["gpii.primarySchema.magnifierEnabled"]];
+
+        fluid.each(paths, function (path) {
+            var targetElement = fluid.get(target, path);
+            var sourceElement = fluid.get(source, path);
+            if (targetElement || sourceElement) {
+                var mergedElement = fluid.makeArray(targetElement).concat(fluid.makeArray(sourceElement));
+                fluid.set(target, path, mergedElement);
+            }
+        });
+
+        return target;
+    };
 
     fluid.defaults("gpii.pcp.auxiliarySchema.common", {
         auxiliarySchema: {
@@ -31,135 +49,145 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.windows", {
-        auxiliarySchema: {
-            // The preference-specific information:
-            "groups": {
-                "addContrast": {
-                    "container": ".gpii-prefsEditor-contrastPanel",
-                    "template": "%prefix/addContrastTemplate.html",
-                    "message": "%prefix/message.json",
-                    "type": "gpii.adjuster.addContrast",
-                    "panels": {
-                        "always": ["contrastEnabled"],
-                        "gpii.primarySchema.contrastEnabled": ["contrastTheme"]
-                    }
-                }
-            },
-            "contrastEnabled": {
-                "type": "gpii.primarySchema.contrastEnabled",
-                "panel": {
-                    "type": "gpii.adjuster.contrastEnabled",
-                    "container": ".gpiic-contrastEnabled",
-                    "template": "%prefix/onOffSwitchTemplate.html",
-                    "message": "%prefix/contrast.json"
-                }
-            },
-            "contrastTheme": {
-                "type": "gpii.primarySchema.contrast.theme",
-                "classes": {
-                    "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
-                    "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
-                    "black-yellow": "fl-theme-prefsEditor-by gpii-prefsEditor-theme-by fl-theme-by",
-                    "yellow-black": "fl-theme-prefsEditor-yb gpii-prefsEditor-theme-yb fl-theme-yb"
-                },
-                "panel": {
-                    "type": "gpii.adjuster.contrastThemeNoPreview",
-                    "container": ".gpiic-contrastTheme",
-                    "template": "%prefix/contrastThemeNoPreviewTemplate.html",
-                    "message": "%prefix/contrast.json",
-                    "classnameMap": {"theme": "@contrastTheme.classes"}
-                }
-            }
+// TODO KASPER
+// <<<<<<< HEAD
+//     fluid.defaults("gpii.pcp.auxiliarySchema.windows", {
+//         auxiliarySchema: {
+//             // The preference-specific information:
+//             "groups": {
+//                 "addContrast": {
+//                     "container": ".gpii-prefsEditor-contrastPanel",
+//                     "template": "%prefix/addContrastTemplate.html",
+//                     "message": "%prefix/message.json",
+//                     "type": "gpii.adjuster.addContrast",
+//                     "panels": {
+//                         "always": ["contrastEnabled"],
+//                         "gpii.primarySchema.contrastEnabled": ["contrastTheme"]
+//                     }
+//                 }
+//             },
+//             "contrastEnabled": {
+//                 "type": "gpii.primarySchema.contrastEnabled",
+//                 "panel": {
+//                     "type": "gpii.adjuster.contrastEnabled",
+//                     "container": ".gpiic-contrastEnabled",
+//                     "template": "%prefix/onOffSwitchTemplate.html",
+//                     "message": "%prefix/contrast.json"
+//                 }
+//             },
+//             "contrastTheme": {
+//                 "type": "gpii.primarySchema.contrast.theme",
+//                 "classes": {
+//                     "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
+//                     "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
+//                     "black-yellow": "fl-theme-prefsEditor-by gpii-prefsEditor-theme-by fl-theme-by",
+//                     "yellow-black": "fl-theme-prefsEditor-yb gpii-prefsEditor-theme-yb fl-theme-yb"
+//                 },
+//                 "panel": {
+//                     "type": "gpii.adjuster.contrastThemeNoPreview",
+//                     "container": ".gpiic-contrastTheme",
+//                     "template": "%prefix/contrastThemeNoPreviewTemplate.html",
+//                     "message": "%prefix/contrast.json",
+//                     "classnameMap": {"theme": "@contrastTheme.classes"}
+//                 }
+//             }
+//         }
+//     });
+
+//     fluid.defaults("gpii.pcp.auxiliarySchema.linux", {
+//         auxiliarySchema: {
+//             // The preference-specific information:
+//             "groups": {
+//                 "addContrast": {
+//                     "container": ".gpii-prefsEditor-contrastPanel",
+//                     "template": "%prefix/addContrastTemplate.html",
+//                     "message": "%prefix/message.json",
+//                     "type": "gpii.adjuster.addContrast",
+//                     "panels": {
+//                         "always": ["contrastEnabled"],
+//                         "gpii.primarySchema.contrastEnabled": ["contrastTheme"]
+//                     }
+//                 },
+//                 "increaseSize": {
+//                     "type": "gpii.panel.increaseSizePCP",
+//                     "container": ".gpiic-prefsEditor-increaseSizePanel",
+//                     "template": "%prefix/increaseSizeTemplatePCP.html",
+//                     "message": "%prefix/increaseSize.json",
+//                     "panels": {
+//                         "always": ["textSize", "cursorSize", "magnifierEnabled"],
+//                         "gpii.primarySchema.magnifierEnabled": ["magnifier"]
+//                     }
+//                 }
+//             },
+//             "contrastEnabled": {
+//                 "type": "gpii.primarySchema.contrastEnabled",
+//                 "panel": {
+//                     "type": "gpii.adjuster.contrastEnabled",
+//                     "container": ".gpiic-contrastEnabled",
+//                     "template": "%prefix/onOffSwitchTemplate.html",
+//                     "message": "%prefix/contrast.json"
+//                 }
+//             },
+//             "contrastTheme": {
+//                 "type": "gpii.primarySchema.contrast.theme",
+//                 "classes": {
+//                     "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
+//                     "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
+//                     "black-yellow": "fl-theme-prefsEditor-by gpii-prefsEditor-theme-by fl-theme-by",
+//                     "yellow-black": "fl-theme-prefsEditor-yb gpii-prefsEditor-theme-yb fl-theme-yb"
+//                 },
+//                 "panel": {
+//                     "type": "gpii.adjuster.contrastThemeNoPreview",
+//                     "container": ".gpiic-contrastTheme",
+//                     "template": "%prefix/contrastThemeNoPreviewTemplate.html",
+//                     "message": "%prefix/contrast.json",
+//                     "classnameMap": {"theme": "@contrastTheme.classes"}
+//                 }
+//             },
+//             "textSize": {
+//                 "type": "gpii.primarySchema.fontSize",
+//                 "panel": {
+//                     "type": "gpii.adjuster.textSizePCP",
+//                     "container": ".gpiic-prefsEditor-textSize",
+//                     "template": "%prefix/textSizeTemplatePCP.html",
+//                     "message": "%prefix/textSize.json"
+//                 }
+//             },
+//             "cursorSize": {
+//                 "type": "gpii.primarySchema.cursorSize",
+//                 "panel": {
+//                     "type": "gpii.adjuster.cursorSizePCP",
+//                     "container": ".gpiic-prefsEditor-cursorSize",
+//                     "template": "%prefix/cursorSizeTemplatePCP.html",
+//                     "message": "%prefix/cursorSize.json"
+//                 }
+//             },
+//             "magnifierEnabled": {
+//                 "type": "gpii.primarySchema.magnifierEnabled",
+//                 "panel": {
+//                     "type": "gpii.adjuster.magnifierEnabled",
+//                     "container": ".gpiic-prefsEditor-magnifierEnabled",
+//                     "template": "%prefix/onOffSwitchTemplate.html",
+//                     "message": "%prefix/magnifier.json"
+//                 }
+//             },
+//             "magnifier": {
+//                 "type": "gpii.primarySchema.magnification",
+//                 "panel": {
+//                     "type": "gpii.adjuster.magnifierPCP",
+//                     "container": ".gpiic-prefsEditor-magnifier",
+//                     "template": "%prefix/magnifierTemplatePCP.html",
+//                     "message": "%prefix/magnifier.json"
+//                 }
+//             }
+// =======
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.mergePolicy", {
+        mergePolicy: {
+            "auxiliarySchema.groups.visualAlternatives.panels": fluid.limitedArrayConcatPolicy,
+            "auxiliarySchema.groups.increaseSize.panels": fluid.limitedArrayConcatPolicy
+// >>>>>>> radmanovi4/gpii-941
         }
     });
 
-    fluid.defaults("gpii.pcp.auxiliarySchema.linux", {
-        auxiliarySchema: {
-            // The preference-specific information:
-            "groups": {
-                "addContrast": {
-                    "container": ".gpii-prefsEditor-contrastPanel",
-                    "template": "%prefix/addContrastTemplate.html",
-                    "message": "%prefix/message.json",
-                    "type": "gpii.adjuster.addContrast",
-                    "panels": {
-                        "always": ["contrastEnabled"],
-                        "gpii.primarySchema.contrastEnabled": ["contrastTheme"]
-                    }
-                },
-                "increaseSize": {
-                    "type": "gpii.panel.increaseSizePCP",
-                    "container": ".gpiic-prefsEditor-increaseSizePanel",
-                    "template": "%prefix/increaseSizeTemplatePCP.html",
-                    "message": "%prefix/increaseSize.json",
-                    "panels": {
-                        "always": ["textSize", "cursorSize", "magnifierEnabled"],
-                        "gpii.primarySchema.magnifierEnabled": ["magnifier"]
-                    }
-                }
-            },
-            "contrastEnabled": {
-                "type": "gpii.primarySchema.contrastEnabled",
-                "panel": {
-                    "type": "gpii.adjuster.contrastEnabled",
-                    "container": ".gpiic-contrastEnabled",
-                    "template": "%prefix/onOffSwitchTemplate.html",
-                    "message": "%prefix/contrast.json"
-                }
-            },
-            "contrastTheme": {
-                "type": "gpii.primarySchema.contrast.theme",
-                "classes": {
-                    "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
-                    "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
-                    "black-yellow": "fl-theme-prefsEditor-by gpii-prefsEditor-theme-by fl-theme-by",
-                    "yellow-black": "fl-theme-prefsEditor-yb gpii-prefsEditor-theme-yb fl-theme-yb"
-                },
-                "panel": {
-                    "type": "gpii.adjuster.contrastThemeNoPreview",
-                    "container": ".gpiic-contrastTheme",
-                    "template": "%prefix/contrastThemeNoPreviewTemplate.html",
-                    "message": "%prefix/contrast.json",
-                    "classnameMap": {"theme": "@contrastTheme.classes"}
-                }
-            },
-            "textSize": {
-                "type": "gpii.primarySchema.fontSize",
-                "panel": {
-                    "type": "gpii.adjuster.textSizePCP",
-                    "container": ".gpiic-prefsEditor-textSize",
-                    "template": "%prefix/textSizeTemplatePCP.html",
-                    "message": "%prefix/textSize.json"
-                }
-            },
-            "cursorSize": {
-                "type": "gpii.primarySchema.cursorSize",
-                "panel": {
-                    "type": "gpii.adjuster.cursorSizePCP",
-                    "container": ".gpiic-prefsEditor-cursorSize",
-                    "template": "%prefix/cursorSizeTemplatePCP.html",
-                    "message": "%prefix/cursorSize.json"
-                }
-            },
-            "magnifierEnabled": {
-                "type": "gpii.primarySchema.magnifierEnabled",
-                "panel": {
-                    "type": "gpii.adjuster.magnifierEnabled",
-                    "container": ".gpiic-prefsEditor-magnifierEnabled",
-                    "template": "%prefix/onOffSwitchTemplate.html",
-                    "message": "%prefix/magnifier.json"
-                }
-            },
-            "magnifier": {
-                "type": "gpii.primarySchema.magnification",
-                "panel": {
-                    "type": "gpii.adjuster.magnifierPCP",
-                    "container": ".gpiic-prefsEditor-magnifier",
-                    "template": "%prefix/magnifierTemplatePCP.html",
-                    "message": "%prefix/magnifier.json"
-                }
-            }
-        }
-    });
 })(jQuery, fluid);
