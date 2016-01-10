@@ -275,7 +275,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     gpii.pcp.triggerTryDifferent = function (that, socket) {
         console.log("TRY DIFFERENT");
         that.closeTryDifferentDialog();
-        socket.emitTryDifferent();
+        $.ajax({
+            url: "http://localhost:8081/tryDifferent"
+        }).done(function() {
+            console.log("submitted try different request")
+        });
     };
 
     gpii.pcp.handleNewMessage = function (that, messageReceived) {
