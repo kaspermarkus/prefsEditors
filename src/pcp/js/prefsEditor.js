@@ -73,9 +73,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "attr",
                     "args": ["value", "{that}.msgLookup.applyText"]
                 },
-                "onApply.applySettings": {
-                    "listener": "{socket}.applySettings"
-                },
+                // "onApply.applySettings": { // this seems to call applySettings multiple time.. The modelListener above seems to be sufficient
+                //     "listener": "{socket}.applySettings"
+                // },
                 "onReady.bindApply": {
                     "this": "{that}.dom.applyButton",
                     "method": "click",

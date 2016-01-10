@@ -136,7 +136,7 @@
                 isReady = false;
                 pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = ""; // TODO - this probably needs fixing
-                pcp.renderAdjusters(body.settings);
+                pcp.renderAdjusters(body);
             };
 
             gpii.pcp.onPrefsEditorReady = function () {

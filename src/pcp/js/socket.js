@@ -43,7 +43,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             },
             emit: {
                 "funcName": "gpii.pcp.emitMessage",
-                "args": ["{that}", "{prefsEditor}.model", "{gpiiStore}.modelTransform", "gpii.prefs.termsTransformationRules"],
+                "args": ["{that}", "{prefsEditor}.model", "{gpiiStore}.modelTransform", "gpii.prefs.commonTermsTransformationRules"],
                 "dynamic": true
             }
         }
@@ -70,16 +70,18 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
         // Formatting the payload as discussed
 
-        fluid.each(savedSettings, function (value, term) {
-            var application = term.split('/').slice(-2)[0];
+        // fluid.each(savedSettings, function (value, term) {
+        //     var application = term.split('/').slice(-2)[0];
 
-            var setting = {};
-            setting[term] = value;
+        //     var setting = {};
+        //     setting[term] = value;
 
-            var settingObject = {"settings": setting};
+        //     var settingObject = {"settings": setting};
 
-            finalPayload[application] = settingObject;
-        });
+        //     finalPayload[application] = settingObject;
+        // });
+
+        finalPayload = savedSettings;
 
         that.socket.emit("message", finalPayload, fluid.log);
     };

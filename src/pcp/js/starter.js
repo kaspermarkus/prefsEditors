@@ -37,7 +37,7 @@
                 "args": ["{that}", "modelToRender", {
                     expander: {
                         "funcName": "fluid.model.transform",
-                        "args": ["{that}.termsToRender", gpii.prefs.termsInverseTransformationRules]
+                        "args": ["{that}.termsToRender", gpii.prefs.commonTermsInverseTransformationRules]
                     }
                 }]
             },
@@ -218,11 +218,11 @@
     });
 
     gpii.pcp.getTermsFromPayload = function (that, payload) {
-        fluid.each(payload, function (application) {
-            fluid.each(application.settings, function (value, setting) {
+        // fluid.each(payload, function (application) {
+            fluid.each(payload.settings, function (value, setting) {
                 that.termsToRender[setting] = value;
             })
-        });
+        // });
 
         that.events.onRenderRquest.fire();
     };
