@@ -332,3 +332,61 @@ label.gpii-preset-button-label {
 .gpii-prefsEditor-headerTitle {
     padding-right: 230px !important;
 }
+
+.gpii-pcp-tryDifferent {
+    display: none;
+    min-height: none;
+    text-align: center;
+    border: 0.3em solid #4D4D4D !important;
+    background-color: #BDE2E9!important;
+    border-radius: 2%;
+    outline-color: transparent;
+}
+
+.gpii-pcp-tryDifferentButton {
+    /*margin:auto;*/
+    /*padding: 1em;*/
+    font-weight: bold;
+    font-family: "Roboto Slab",serif !important;
+    font-size: 1.8em;
+    padding: 5px 10px;
+    margin: 0.3em;
+    background-color: #0AA;
+    color: #FFF;
+    border: 0px none;
+    border-radius: 0.3em;
+    line-height: 1.5em;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+ }
+
+ .gpii-pcp-tryDifferentOKButton {
+    float: left;
+ }
+
+.gpii-pcp-tryDifferentTryButton {
+    float: right;
+ }
+
+.gpii-prefsEditor-tryDifferentMessageLine {
+    display: block;
+    white-space: normal;
+    vertical-align: middle;
+    font-size: 1.6em;
+    padding: 15px;
+/*    display: table-cell;
+    white-space: normal;
+    width: 55%;
+    font-style:italic;
+    vertical-align: middle;
+    font-size: 1.2em;
+    background-color: #CED7D9;*/
+/*
+    display: inline-block;
+    width: auto;
+    min-height: 128px;
+    max-height: none;
+    height: auto;*/
+}
+

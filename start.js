@@ -26,7 +26,7 @@ function startServer(port) {
     connect.createServer(connect["static"](__dirname)).listen(port);
     console.log("Preferences Management Tool server running...");
     console.log("Visit http://"+ host + ":" + port + "/demos/prefsEditor/index.html");
-    open("http://"+ host + ":" + port + "/demos/prefsEditor/index.html");
+    // open("http://"+ host + ":" + port + "/demos/prefsEditor/index.html");
 }
 
 startServer(port);

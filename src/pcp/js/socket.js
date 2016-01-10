@@ -45,6 +45,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "funcName": "gpii.pcp.emitMessage",
                 "args": ["{that}", "{prefsEditor}.model", "{gpiiStore}.modelTransform", "gpii.prefs.commonTermsTransformationRules"],
                 "dynamic": true
+            },
+            emitTryDifferent: {
+                "funcName": "gpii.pcp.emitTryDifferent",
+                "args": ["{that}"],
+                "dynamic": true
             }
         }
     });
@@ -84,6 +89,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         finalPayload = savedSettings;
 
         that.socket.emit("message", finalPayload, fluid.log);
+    };
+
+    gpii.pcp.emitTryDifferent = function (that) {
+        console.log("Emitting try different signal from PCP")
+        if (that.socket) {
+            that.socket.emit("tryDifferent", fluid.log);
+        }
     };
 
     gpii.pcp.connectSocket = function (that, url) {

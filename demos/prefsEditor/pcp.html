@@ -134,7 +134,21 @@
                     pcp.destroy();
                 }
                 isReady = false;
-                pcp = gpii.pcp.starter(); // new starter in order to refresh member fields
+                pcp = gpii.pcp.starter(
+                {
+                    // members: {
+                    //     kasper: 1
+                    // }
+                    // members: {
+                        // pcpChannelSocket: socket
+                    // },
+                    // options: {
+                    //     members: {
+                    //         pcpChannelSocket2: socket
+                    //     },
+                        // pcpChannelSocket3: socket
+                    // }
+                }); // new starter in order to refresh member fields
                 document.getElementById("gpiic-pcp").innerHTML = ""; // TODO - this probably needs fixing
                 pcp.renderAdjusters(body);
             };
@@ -146,6 +160,8 @@
                     pcp.showMessage(message);
                 });
                 messageQueue = [];
+                // trigger login event:
+                pcp.triggerLoginEvent(body.userToken);
             };
         });
 
@@ -155,6 +171,8 @@
 
         socket.on("message", function (message) {
             console.log("Socket received message "+JSON.stringify(message, null, 2));
+            // TODO KASPER
+            return;
             messageQueue = messageQueue.concat([message]);
             console.log("Queue is now: "+JSON.stringify(messageQueue, null, 2));
             if (isReady) {

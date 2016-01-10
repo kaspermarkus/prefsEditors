@@ -41,10 +41,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                             "this": "{that}.dom.messageLineLabel",
                             "method": "attr",
                             "args": ["id", "{that}.options.statusMessageID"]
-                         }
+                        }
                     },
                     selectors: {
-                        messageLineLabel: ".gpiic-prefsEditor-messageLine"
+                        messageLineLabel: ".gpiic-prefsEditor-messageLine",
+                        tryDifferentMessageLineLabel: ".gpiic-prefsEditor-tryDifferentMessageLine"
                     }
                 }
             }

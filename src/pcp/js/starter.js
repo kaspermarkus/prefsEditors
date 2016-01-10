@@ -81,6 +81,11 @@
                 "args": ["{arguments}.0"],
                 "dynamic": true
             },
+            triggerLoginEvent: {
+                "func": "{that}.prefsEditor.prefsEditorLoader.prefsEditor.events.onLogin.fire",
+                "args": ["{arguments}.0"],
+                "dynamic": true
+            },
             renderAdjusters: {
                 "funcName": "gpii.pcp.getTermsFromPayload",
                 "args": ["{that}", "{arguments}.0"]

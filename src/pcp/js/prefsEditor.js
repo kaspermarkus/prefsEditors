@@ -60,7 +60,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 onTextMessage: null,
                 onHelpMessage: null,
                 onApply: null,
-                onSettingChanged: null
+                onSettingChanged: null,
+                onLogin: null
             },
             modelListeners: {
                 "*": {
@@ -143,10 +144,34 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                     "method": "text",
                     "args": ["{that}.msgLookup.messageButtonText"]
                 },
+                "onReady.setTryDifferentTryButtonText": {
+                    "this": "{that}.dom.tryDifferentTryButton",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.tryDifferentTryText"]
+                },
+                "onReady.setTryDifferentOKButtonText": {
+                    "this": "{that}.dom.tryDifferentOKButton",
+                    "method": "text",
+                    "args": ["{that}.msgLookup.tryDifferentOKText"]
+                },
+                "onReady.addTryDifferentOKButtonClickHandler": {
+                    "this": "{that}.dom.tryDifferentOKButton",
+                    "method": "click",
+                    "args": ["{that}.closeTryDifferentDialog"]
+                },
+                "onReady.addTryDifferentTryButtonClickHandler": {
+                    "this": "{that}.dom.tryDifferentTryButton",
+                    "method": "click",
+                    "args": ["{that}.triggerTryDifferent"]
+                },
                 // "onSettingChanged.updateStatus": {
                 //     "funcName": "{that}.events.onNewMessage.fire",
                 //     "args": ["{that}.msgLookup.onSettingChangedMessage"]
                 // },
+                "onLogin.handleLoginEvent": {
+                    "funcName": "gpii.pcp.handleLoginEvent",
+                    "args": ["{that}", "{arguments}.0"]
+                },
                 "onNewMessage.handleMessage": {
                     "funcName": "gpii.pcp.handleNewMessage",
                     "args": ["{that}", "{arguments}.0"]
@@ -186,12 +211,24 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 //                     "this": "{that}.dom.userStatusBar",
 //                     "method": "slideDown"
 //                 },
+                showTryDifferentDialog: {
+                    "funcName": "gpii.pcp.showTryDifferentDialog",
+                    "args": ["{that}", "{arguments}.0", "{that}.dom.tryDifferentMessageLineLabel", "{that}.dom.tryDifferentMessageContainer"]
+                },
                 preventDefaultLinkEvent: {
                     "funcName": "gpii.eventUtility.preventDefaultEvent"
                 },
                 closeMessageDialog: {
                     "funcName": "gpii.pcp.closeMessageDialog",
                     "args": ["{that}", "{that}.dom.messageContainer"]
+                },
+                closeTryDifferentDialog: {
+                    "funcName": "gpii.pcp.closeTryDifferentDialog",
+                    "args": ["{that}", "{that}.dom.tryDifferentMessageContainer"]
+                },
+                triggerTryDifferent: {
+                    "funcName": "gpii.pcp.triggerTryDifferent",
+                    "args": ["{that}", "{socket}"]
                 }
             },
             selectors: {
@@ -199,12 +236,47 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 fullEditorLink: ".gpiic-prefsEditor-fullEditorLink",
                 logoutLink: ".gpiic-prefsEditor-userLogoutLink",
                 messageContainer: ".gpiic-pcp-statusMessage",
+                tryDifferentMessageContainer: ".gpiic-pcp-tryDifferent",
+                // TODO KASPER: consider moving trydifferentMessage over here
                 learnMore: ".gpiic-pcp-learnMore",
-                messageButton: ".gpiic-pcp-messageButton"
+                messageButton: ".gpiic-pcp-messageButton",
+                tryDifferentOKButton: ".gpiic-pcp-tryDifferentOKButton",
+                tryDifferentTryButton: ".gpiic-pcp-tryDifferentTryButton"
             },
             selectorsToIgnore: ["cloudIcon"]
         }
     });
+
+    gpii.pcp.handleLoginEvent = function (that, token) {
+        console.log("handling login event for user "+token);
+        that.showTryDifferentDialog(token);
+    },
+
+    gpii.pcp.showTryDifferentDialog = function (that, userToken, messageLabel, messageElement) {
+        messageLabel.html("<p><b>The system has been configured for the user with the userToken " + userToken +
+            ".</b></p><p>Press <i>'OK'</i> to continue or <i>'Try Different'</i> to get a different configuration of the system.</p>");
+
+        messageElement.dialog({
+            autoOpen: true,
+            modal: true,
+            appendTo: ".gpii-prefsEditors-panelBottomRow",
+            dialogClass: "gpii-dialog-noTitle",
+            closeOnEscape: true,
+            width: "28em",
+            position: { my: "bottom", at: "center", of: ".gpii-prefsEditor-preferencesContainer" }
+        });
+    };
+
+    gpii.pcp.closeTryDifferentDialog = function (that, messageElement) {
+        console.log("gpii.pcp.closeTryDifferentDialog called");
+        messageElement.dialog("destroy");
+    };
+
+    gpii.pcp.triggerTryDifferent = function (that, socket) {
+        console.log("TRY DIFFERENT");
+        that.closeTryDifferentDialog();
+        socket.emitTryDifferent();
+    };
 
     gpii.pcp.handleNewMessage = function (that, messageReceived) {
         console.log("gpii.pcp.handleNewMessage called");
@@ -237,13 +309,13 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         if (that.messageQueue.length) {
             var messageToShow = that.messageQueue[0];
             messageLabel.text(messageToShow.message);
-        };
+        }
 
         if (messageToShow.type === "help") {
             that.events.onHelpMessage.fire(messageToShow.learnMore);
         } else {
             that.events.onTextMessage.fire();
-        };
+        }
 
         messageElement.dialog({
             autoOpen: true,
