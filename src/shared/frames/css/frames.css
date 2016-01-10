@@ -21,6 +21,9 @@ body {
 .gpii-prefsEditor-panelContainer {
     width: 43em;
 }
+#gpiic-pcp .gpii-prefsEditor-panelContainer {
+    width: 35.5em;
+}
 
 .gpii-prefsEditor-frameIcon {
     font-family: C4Aicons;
@@ -79,10 +82,13 @@ body {
     border: 1px solid #ced7d9;
     padding: 10px;
 }
+#gpiic-pcp .gpii-prefsEditor-preferences {
+    padding: 2px 0;
+}
 
 .gpii-prefsEditor-PCP-preferences {
     overflow-y: auto;
-    width: 40.9em;
+    width: 40.9em; /*CS: apparently can't be changed to auto or a lower em value*/
 }
 
 .gpii-prefsEditor-save, .gpii-prefsEditor-gotoPcp {
@@ -125,8 +131,8 @@ body {
     display: inline-block;
     padding: 1em;
     white-space: normal;
-    width: 55%;
-    font-style:italic;
+    width: 75%; /* CS: was 55% */
+    /*font-style:italic;*//*CS: italic is less readable*/
     vertical-align: middle;
     font-size: 1.2em;
     background-color: #CED7D9;
@@ -202,9 +208,11 @@ body {
 
 .gpii-prefsEditor-notificationConfirmButton {
     display: inline-block;
-    font-style: italic;
+    /*font-style: italic;*//*CS: italic is less readable and unusual for buttons*/
     font-weight: bold;
     cursor: pointer;
+    color: black;
+    background-color: #CED7D9;
 }
 
 .gpii-prefsEditor-notificationMessageTOKEN {
@@ -254,6 +262,9 @@ body {
 .gpii-prefsEditor-userStatusBar {
     display: inline-block;
     width: 99%;
+}
+#gpiic-pcp .gpii-prefsEditor-userStatusBar {
+    width: 100%; /*97%??*/
 }
 
 .gpii-pcp-statusMessage {

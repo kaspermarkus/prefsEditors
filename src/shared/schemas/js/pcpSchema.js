@@ -49,6 +49,50 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+
+    fluid.defaults("gpii.pcp.auxiliarySchema.windows", {
+        auxiliarySchema: {
+            // The preference-specific information:
+            "groups": {
+                "addContrast": {
+                    "container": ".gpii-prefsEditor-contrastPanel",
+                    "template": "%prefix/addContrastTemplate.html",
+                    "message": "%prefix/message.json",
+                    "type": "gpii.adjuster.addContrast",
+                    "panels": {
+                        "always": ["contrastEnabled"],
+                        "gpii.primarySchema.contrastEnabled": ["contrastTheme"]
+                    }
+                }
+            },
+            "contrastEnabled": {
+                "type": "gpii.primarySchema.contrastEnabled",
+                "panel": {
+                    "type": "gpii.adjuster.contrastEnabled",
+                    "container": ".gpiic-contrastEnabled",
+                    "template": "%prefix/onOffSwitchTemplate.html",
+                    "message": "%prefix/contrast.json"
+                }
+            },
+            "contrastTheme": {
+                "type": "gpii.primarySchema.contrast.theme",
+                "classes": {
+                    "black-white": "fl-theme-prefsEditor-bw gpii-prefsEditor-theme-bw fl-theme-bw",
+                    "white-black": "fl-theme-prefsEditor-wb gpii-prefsEditor-theme-wb fl-theme-wb",
+                    "black-yellow": "fl-theme-prefsEditor-by gpii-prefsEditor-theme-by fl-theme-by",
+                    "yellow-black": "fl-theme-prefsEditor-yb gpii-prefsEditor-theme-yb fl-theme-yb"
+                },
+                "panel": {
+                    "type": "gpii.adjuster.contrastThemeNoPreview",
+                    "container": ".gpiic-contrastTheme",
+                    "template": "%prefix/contrastThemeNoPreviewTemplate.html",
+                    "message": "%prefix/contrast.json",
+                    "classnameMap": {"theme": "@contrastTheme.classes"}
+                }
+            }
+        }
+    });
+
 // TODO KASPER
 // <<<<<<< HEAD
 //     fluid.defaults("gpii.pcp.auxiliarySchema.windows", {

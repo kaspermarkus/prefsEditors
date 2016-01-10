@@ -53,6 +53,11 @@ textarea:focus, input:focus {
     margin-right: 10%;
     font-family: 'Open Sans', sans-serif;
 }
+#gpiic-pcp .gpii-prefsEditor-category {
+    width: 80%;
+    margin-left: 4%;
+    margin-right: 10%;
+}
 
 .gpii-prefsEditor label::first-letter,
 .gpii-prefsEditor h1::first-letter,
@@ -96,6 +101,9 @@ h2 > label {
 
 .gpii-prefsEditor-headerImage:before {
     font-size: 90px !important;
+}
+#gpiic-pcp .gpii-prefsEditor-headerImage:before {
+    font-size: 30px !important;
 }
 
 .gpii-prefsEditor-headerImageTick {
@@ -151,6 +159,10 @@ input[type=checkbox]:checked + .gpii-prefsEditor-headerImage > .gpii-prefsEditor
     border-left: 0px;
     padding-right: 230px;
 }
+#gpiic-pcp .gpii-prefsEditor-headerTitle-withoutIcon {
+    width: 190px; /* CS: first increased to 262px to compensate for the smaller icon, then reduced to compensate for other changes*/
+    height: 30px;
+}
 
 .gpii-prefsEditor-headerTitle {
     font-family: 'Roboto Slab', serif;
@@ -159,6 +171,9 @@ input[type=checkbox]:checked + .gpii-prefsEditor-headerImage > .gpii-prefsEditor
     color:#566374;
     float: none;
     vertical-align: middle;
+}
+#gpiic-pcp .gpii-prefsEditor-headerTitle {
+    font-size: 1.2em !important;
 }
 
 .gpii-prefsEditor-headerClickableLabel {
@@ -1114,6 +1129,11 @@ input:checked + label > span > span > .gpii-iconCheckAdjusterCheckIcon:before {
     cursor: pointer;
     text-align: left !important;
 }
+#gpiic-pcp .gpii-contrastThemeLabel {
+    font-size: 1.2em !important;
+    height: 1.3em !important;
+    width: 90% !important;
+}
 
 .gpii-contrastThemeLabel > span {
     display: table-cell;
@@ -1122,6 +1142,9 @@ input:checked + label > span > span > .gpii-iconCheckAdjusterCheckIcon:before {
 
 .fl-prefsEditor .fl-choice label {
     line-height: 1.5em !important;
+}
+#gpiic-pcp .fl-prefsEditor .fl-choice label {
+    line-height: 1em !important;
 }
 
 .fl-prefsEditor .fl-choice .fl-indicator {
@@ -1228,6 +1251,12 @@ h4 {
     transition-duration: 0.2s;
     transition-property: padding-left, width, background-color, margin-left;
     font-size: 1.1em;
+    font-weight: 700;
+}
+#gpiic-pcp .fl-prefsEditor .fl-prefsEditor-onoff .fl-prefsEditor-switch {
+    height: 2.1em;
+    box-shadow: 1em 1.1em 0 0 rgba(250,250,250,0.53) inset;
+    font-size: 1em;
     font-weight: 700;
 }
 
@@ -1503,6 +1532,9 @@ input[type=checkbox] + label.gpii-checkbox-label {
 .fl-prefsEditor label {
     text-transform: none;
     font-size: 1.2em;
+}
+#gpiic-pcp .fl-prefsEditor label {
+    font-size: 1em;
 }
 
 /*

@@ -145,8 +145,8 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "enum": ["en", "el", "de", "es"]
         },
 
-        
-        //  Data for application specific terms
+
+        //  Data for application-specific terms
 
 
         // Windows
