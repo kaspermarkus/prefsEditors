@@ -81,7 +81,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
         "http://registry\\.gpii\\.net/common/showCrosshairs": "gpii_primarySchema_showCrosshairs",
 
 
-        // application specific ters transforamtions
+        // application-specific term transformations
 
 
         // Windows
