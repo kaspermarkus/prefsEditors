@@ -91,12 +91,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         that.socket.emit("message", finalPayload, fluid.log);
     };
 
-    gpii.pcp.emitTryDifferent = function (that) {
-        console.log("Emitting try different signal from PCP")
-        if (that.socket) {
-            that.socket.emit("tryDifferent", fluid.log);
-        }
-    };
+    // gpii.pcp.emitTryDifferent = function (that) {
+    //     console.log("Emitting try different signal from PCP")
+    //     if (that.socket) {
+    //         that.socket.emit("tryDifferent", fluid.log);
+    //     }
+    // };
 
     gpii.pcp.connectSocket = function (that, url) {
         console.log("Connecting to socket at "+url+" for component: "+ that.typeName +" with ID " +that.id);

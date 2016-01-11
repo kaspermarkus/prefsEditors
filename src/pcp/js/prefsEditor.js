@@ -256,8 +256,16 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     },
 
     gpii.pcp.showTryDifferentDialog = function (that, userToken, messageLabel, messageElement) {
-        messageLabel.html("<p><b>The system has been configured for the user with the userToken " + userToken +
-            ".</b></p><p>Press <i>'OK'</i> to continue or <i>'Try Different'</i> to get a different configuration of the system.</p>");
+        var msg = "";
+
+        if (userToken) {
+            msg += "<p><b>The system has been configured for the user with the userToken " + userToken +
+            ".</b></p>";
+        } else {
+            msg += "<p><b>A different configuration has been applied to the system.<p><b>";
+        }
+        msg += "<p>Press <i>'OK'</i> to continue or <i>'Try Different'</i> to get a different configuration of the system.</p>";
+        messageLabel.html(msg);
 
         messageElement.dialog({
             autoOpen: true,
@@ -279,7 +287,17 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         console.log("TRY DIFFERENT");
         that.closeTryDifferentDialog();
         $.ajax({
-            url: "http://localhost:8081/tryDifferent"
+            url: "http://localhost:8081/tryDifferent",
+            error: function (req, status, err) {
+                console.log("Try different failed -- " + status);
+                console.log(err);
+            },
+            success: function (dat, status) {
+                that.showTryDifferentDialog();
+                console.log("Try different succeeded");
+                console.log(JSON.stringify(dat));
+
+            }
         }).done(function() {
             console.log("submitted try different request")
         });
