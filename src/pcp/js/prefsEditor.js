@@ -285,6 +285,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     gpii.pcp.triggerTryDifferent = function (that, socket) {
         console.log("TRY DIFFERENT");
+        // clear any pending messages:
+        that.messageQueue = [];
+        that.closeMessageDialog();
+
+        // close dialog and do the try different
         that.closeTryDifferentDialog();
         $.ajax({
             url: "http://localhost:8081/tryDifferent",
@@ -355,6 +360,9 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
 
     gpii.pcp.closeMessageDialog = function (that, messageElement) {
         console.log("gpii.pcp.closeMessageDialog called");
+        if (!messageElement.dialog) {
+            return;
+        }
         messageElement.dialog("destroy");
 
         var lastMessage = that.messageQueue.shift();
