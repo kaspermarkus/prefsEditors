@@ -126,29 +126,14 @@
         var isReady = false;
         var messageQueue = [];
 
-        socket.on("login", function (body) {
-            console.log("User logged in: " + JSON.stringify(body, null, 2));
+        var newRender = function (body, isLogin) {
             if (body && body.settings) {
                 if (pcp) { // TODO  -- this probably needs fixing
                     console.log("EXISTING PCP FOUND - destroying");
                     pcp.destroy();
                 }
                 isReady = false;
-                pcp = gpii.pcp.starter(
-                {
-                    // members: {
-                    //     kasper: 1
-                    // }
-                    // members: {
-                        // pcpChannelSocket: socket
-                    // },
-                    // options: {
-                    //     members: {
-                    //         pcpChannelSocket2: socket
-                    //     },
-                        // pcpChannelSocket3: socket
-                    // }
-                }); // new starter in order to refresh member fields
+                pcp = gpii.pcp.starter();
                 document.getElementById("gpiic-pcp").innerHTML = ""; // TODO - this probably needs fixing
                 pcp.renderAdjusters(body);
             };
@@ -161,8 +146,16 @@
                 });
                 messageQueue = [];
                 // trigger login event:
-                pcp.triggerLoginEvent(body.userToken);
+                if (isLogin) {
+                    pcp.triggerLoginEvent(body.userToken);
+                }
             };
+        };
+
+        socket.on("login", function (body) {
+            console.log("User logged in: " + JSON.stringify(body, null, 2));
+
+            newRender(body, true);
         });
 
         socket.on("logout", function () {
@@ -181,6 +174,13 @@
                     pcp.showMessage(msg);
                 });
                 messageQueue = [];
+            }
+        });
+
+        socket.on("currentStatus", function (body) {
+            console.log("Getting current status: " + JSON.stringify(body, null, 2));
+            if (body.userToken !== undefined) {
+                newRender(body, false);
             }
         });
     </script>

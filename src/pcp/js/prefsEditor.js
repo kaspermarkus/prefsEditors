@@ -248,8 +248,11 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     });
 
     gpii.pcp.handleLoginEvent = function (that, token) {
+        // also called on initializing the PMT in general
         console.log("handling login event for user "+token);
-        that.showTryDifferentDialog(token);
+        if (token !== undefined) {
+            that.showTryDifferentDialog(token);
+        }
     },
 
     gpii.pcp.showTryDifferentDialog = function (that, userToken, messageLabel, messageElement) {
