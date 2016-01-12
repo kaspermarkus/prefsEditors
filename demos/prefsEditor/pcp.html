@@ -126,7 +126,15 @@
         var isReady = false;
         var messageQueue = [];
 
+        var showNoUserScreen = function () {
+            var html = "<div class='nouser'>No user logged in</div>";
+
+            document.getElementById("gpiic-pcp").innerHTML = html;
+        };
+
+        showNoUserScreen();
         var newRender = function (body, isLogin) {
+            document.getElementById("gpiic-pcp").innerHTML = ""
             if (body && body.settings) {
                 if (pcp) { // TODO  -- this probably needs fixing
                     console.log("EXISTING PCP FOUND - destroying");
@@ -164,6 +172,10 @@
 
         socket.on("logout", function () {
             console.log("User logged out..");
+            if (pcp) {
+                console.log("PCP Exists so notifying")
+                pcp.triggerLogoutEvent();
+            }
         });
 
         socket.on("message", function (message) {
@@ -183,6 +195,8 @@
             console.log("Getting current status: " + JSON.stringify(body, null, 2));
             if (body.userToken !== undefined) {
                 newRender(body, false);
+            } else {
+                showNoUserScreen();
             }
         });
     </script>
