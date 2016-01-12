@@ -97,6 +97,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 "onLogout.gpiiLogout": {
                     listener: "{gpiiSession}.logout"
                 },
+                "onLogout.logoutUIUpdate": {
+                    "funcName": "gpii.pcp.handleLogoutEvent",
+                    "args": [ "{that}" ]
+                },
                 "onLogout.disableApplyButton": {
                     "this": "{that}.dom.applyButton",
                     "method": "prop",
@@ -247,6 +251,12 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
+    gpii.pcp.handleLogoutEvent = function () {
+        // should probably do some destroying of the PCP here
+        var html = "<div class='nouser'>No user logged in</div>";
+        document.getElementById("gpiic-pcp").innerHTML = html;
+    },
+
     gpii.pcp.handleLoginEvent = function (that, token, multiUser) {
         // also called on initializing the PMT in general
         console.log("handling login event for user "+token);
@@ -254,6 +264,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             that.showTryDifferentDialog(token);
         }
     },
+
 
     gpii.pcp.showTryDifferentDialog = function (that, userToken, messageLabel, messageElement) {
         var msg = "";
