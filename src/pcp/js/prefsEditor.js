@@ -170,7 +170,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
                 // },
                 "onLogin.handleLoginEvent": {
                     "funcName": "gpii.pcp.handleLoginEvent",
-                    "args": ["{that}", "{arguments}.0"]
+                    "args": ["{that}", "{arguments}.0", "{arguments}.1"]
                 },
                 "onNewMessage.handleMessage": {
                     "funcName": "gpii.pcp.handleNewMessage",
@@ -247,10 +247,10 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         }
     });
 
-    gpii.pcp.handleLoginEvent = function (that, token) {
+    gpii.pcp.handleLoginEvent = function (that, token, multiUser) {
         // also called on initializing the PMT in general
         console.log("handling login event for user "+token);
-        if (token !== undefined) {
+        if (token !== undefined && !multiUser) {
             that.showTryDifferentDialog(token);
         }
     },

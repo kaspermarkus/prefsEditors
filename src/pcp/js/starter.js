@@ -83,7 +83,7 @@
             },
             triggerLoginEvent: {
                 "func": "{that}.prefsEditor.prefsEditorLoader.prefsEditor.events.onLogin.fire",
-                "args": ["{arguments}.0"],
+                "args": ["{arguments}.0", "{arguments}.1"],
                 "dynamic": true
             },
             renderAdjusters: {

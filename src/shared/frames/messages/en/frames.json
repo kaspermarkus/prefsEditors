@@ -1,7 +1,7 @@
 {
     "tryDifferentOKText": "OK",
     "tryDifferentTryText": "Try Different",
-    "messageButtonText": "Cancel",
+    "messageButtonText": "OK",
     "onSettingChangedMessage": {
         "type": "privateMessage",
         "message": "Preferences modified"

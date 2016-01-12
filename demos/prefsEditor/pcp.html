@@ -141,7 +141,9 @@
             gpii.pcp.onPrefsEditorReady = function () {
                 console.log("The prefs editor is now ready")
                 isReady = true;
-
+                if (body.pendingMsgs && body.pendingMsgs.length > 0) {
+                    messageQueue = messageQueue.concat(body.pendingMsgs);
+                }
                 fluid.each(messageQueue, function (message) {
                     pcp.showMessage(message);
                 });
@@ -149,7 +151,7 @@
 
                 // trigger login event:
                 if (isLogin) {
-                    pcp.triggerLoginEvent(body.userToken);
+                    pcp.triggerLoginEvent(body.userToken, body.multiUser);
                 }
             };
         };
