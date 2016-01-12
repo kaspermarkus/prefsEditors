@@ -86,6 +86,11 @@
                 "args": ["{arguments}.0", "{arguments}.1"],
                 "dynamic": true
             },
+            triggerLogoutEvent: {
+                "func": "{that}.prefsEditor.prefsEditorLoader.prefsEditor.events.onLogout.fire",
+                "args": ["{arguments}.0", "{arguments}.1"],
+                "dynamic": true
+            },
             renderAdjusters: {
                 "funcName": "gpii.pcp.getTermsFromPayload",
                 "args": ["{that}", "{arguments}.0"]
