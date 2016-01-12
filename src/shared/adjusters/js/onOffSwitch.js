@@ -8,7 +8,7 @@ Licensed under the New BSD license. You may not use this file except in
 compliance with this License.
 
 You may obtain a copy of the License at
-https://github.com/GPII/prefsEditors/LICENSE.txt
+https://github.com/GPII/prefsEditors/blob/master/%20LICENSE.txt
 */
 
 (function ($, fluid) {
@@ -42,17 +42,21 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             "onDomBind.bindFocusListener": {
                 "this": "{that}.dom.valueCheckbox",
                 "method": "change",
-                args: ["{that}.focus"]
+                "args": ["{that}.focus"]
             },
             "onDomBind.setOnText": {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
-                "args": ["data-checkboxStateOn", "{that}.msgLookup.onText"]
+                // TODO fix this lookup so the attribute gets a value
+                //"args": ["data-checkboxStateOn", "{that}.msgLookup.onText"] 
+                "args": ["data-checkboxStateOn", "ON"]
             },
             "onDomBind.setOffText": {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
-                "args": ["data-checkboxStateOff", "{that}.msgLookup.offText"]
+                // TODO fix this lookup so the attribute gets a value
+                //"args": ["data-checkboxStateOff", "{that}.msgLookup.offText"] 
+                "args": ["data-checkboxStateOff", "OFF"]
             }
         },
         invokers: {
@@ -63,7 +67,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
             focus: {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "trigger",
-                args: ["focus"]
+                "args": ["focus"]
             }
         }
     });

@@ -97,6 +97,9 @@ h2 > label {
 .gpii-prefsEditor-headerImage:before {
     font-size: 90px !important;
 }
+#gpiic-pcp .gpii-prefsEditor-headerImage:before {
+    font-size: 30px !important;
+}
 
 .gpii-prefsEditor-headerImageTick {
     font-size: 20px !important;
@@ -158,6 +161,10 @@ input[type=checkbox]:checked + .gpii-prefsEditor-headerImage > .gpii-prefsEditor
     border: 3px solid #566374;
     border-left: 0px;
     padding-right: 230px;
+}
+#gpiic-pcp .gpii-prefsEditor-headerTitle-withoutIcon {
+    width: 262px; /* CS: increased to 262px to compensate for the smaller icon*/
+    height: 30px;
 }
 
 .gpii-prefsEditor-headerTitle {
