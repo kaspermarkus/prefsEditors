@@ -298,7 +298,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
         console.log("TRY DIFFERENT");
         // clear any pending messages:
         that.messageQueue = [];
-        that.closeMessageDialog();
+        // that.closeMessageDialog();
 
         // close dialog and do the try different
         that.closeTryDifferentDialog();

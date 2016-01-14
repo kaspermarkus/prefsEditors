@@ -949,7 +949,7 @@ https://github.com/GPII/prefsEditors/LICENSE.txt
     };
 
     gpii.pmt.clickAccount = function () {
-        window.open("https://secureflowmanager.gpii.net/login","_blank");
+        window.open("https://flowmanager.gpii.net/login","_blank");
     };
 
     gpii.pmt.clickSaveAndApplyButton = function (that, session) {
