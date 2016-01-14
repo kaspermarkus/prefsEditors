@@ -231,7 +231,7 @@ body {
     border-radius: 4px;
     padding: 4px;
     text-decoration: none;
-
+    margin-bottom: 2px;
 }
 
 .gpii-prefsEditor-pmt-userLogoutLink {
@@ -401,3 +401,9 @@ label.gpii-preset-button-label {
     margin: 50px;
 }
 
+.gpii-prefsEditor-tryDifferent {
+    text-align: right;
+    font-size: 120%;
+    float: right;
+    margin-right: 20px;
+}
