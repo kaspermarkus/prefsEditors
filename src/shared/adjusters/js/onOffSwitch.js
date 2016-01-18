@@ -48,15 +48,15 @@ https://github.com/GPII/prefsEditors/blob/master/%20LICENSE.txt
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
                 // TODO fix this lookup so the attribute gets a value
-                //"args": ["data-checkboxStateOn", "{that}.msgLookup.onText"] 
-                "args": ["data-checkboxStateOn", "ON"]
+                "args": ["data-checkboxStateOn", "{that}.msgLookup.onText"] 
+                //"args": ["data-checkboxStateOn", "ON"]
             },
             "onDomBind.setOffText": {
                 "this": "{that}.dom.onOffSwitch",
                 "method": "attr",
                 // TODO fix this lookup so the attribute gets a value
-                //"args": ["data-checkboxStateOff", "{that}.msgLookup.offText"] 
-                "args": ["data-checkboxStateOff", "OFF"]
+                "args": ["data-checkboxStateOff", "{that}.msgLookup.offText"] 
+                //"args": ["data-checkboxStateOff", "OFF"]
             }
         },
         invokers: {
